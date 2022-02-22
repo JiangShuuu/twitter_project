@@ -1,17 +1,13 @@
 <template>
-  <div class="signInPage">
+  <div class="adminSignIn">
     <div class="content">
       <div class="title">
         <img src="../assets/logo.png" alt="" />
-        <span class="title">登入 Alphitter</span>
+        <span class="title">後台登入</span>
       </div>
       <LoginForm />
       <div class="link">
-        <router-link to="/signUp" class="link_signUp"
-          >註冊 Alphitter</router-link
-        >
-        <div class="link_circle"></div>
-        <router-link to="/adminSignIn" class="link_admin">後台登入</router-link>
+        <router-link to="/signIn" class="link_admin">前台登入</router-link>
       </div>
     </div>
   </div>
@@ -20,7 +16,7 @@
 <script>
 import LoginForm from "../components/LoginForm.vue";
 export default {
-  name: "SignIn",
+  name: "adminSignIn",
   components: {
     LoginForm,
   },
@@ -29,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";
-.signInPage {
+.adminSignIn {
   @include flexCenter;
   flex-direction: column;
   margin-top: 60px;
@@ -42,16 +38,6 @@ export default {
       font-weight: 700;
       margin-top: 20px;
     }
-
-    .btn {
-      background: $orange;
-      margin-top: 42px;
-      width: 100%;
-      border-radius: 50px;
-      color: white;
-      font-size: 18px;
-      font-weight: 700;
-    }
     .link {
       margin-top: 20px;
       @include flexCenter;
@@ -61,17 +47,6 @@ export default {
         font-weight: 700;
         text-decoration: underline;
         font-size: 18px;
-      }
-      span {
-        color: $link-blue;
-        margin: 0 0.25rem;
-      }
-      &_circle {
-        background-color: $link-blue;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        margin: 0 0.25rem;
       }
     }
   }

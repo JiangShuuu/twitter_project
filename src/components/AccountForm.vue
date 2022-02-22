@@ -89,8 +89,8 @@ export default {
   },
   methods: {
     state() {
-      if (this.$route.name === "SignUP") {
-        this.isSetting = !this.isSetting;
+      if (this.$route.path === "/signUp") {
+        this.isSetting = true;
       }
     },
   },
