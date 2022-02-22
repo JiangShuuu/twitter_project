@@ -19,7 +19,9 @@
       </form>
       <button type="button" class="btn">登入</button>
       <div class="link">
-        <a href="#" class="link_signUp">註冊 Alphitter</a>
+        <router-link to="/signUp" class="link_signUp"
+          >註冊 Alphitter</router-link
+        >
         <div class="link_circle"></div>
         <a href="#" class="link_admin">後台登入</a>
       </div>
