@@ -6,7 +6,6 @@
         <span class="title">建立你的帳號</span>
       </div>
       <AccountForm />
-      <button type="button" class="btn">註冊</button>
       <div class="link">
         <router-link to="/signIn" class="link_signUp">取消</router-link>
       </div>
@@ -36,15 +35,6 @@ export default {
       font-size: 23px;
       font-weight: 700;
       margin-top: 20px;
-    }
-    .btn {
-      background: $orange;
-      margin-top: 42px;
-      width: 100%;
-      border-radius: 50px;
-      color: white;
-      font-size: 18px;
-      font-weight: 700;
     }
     .link {
       margin-top: 20px;
