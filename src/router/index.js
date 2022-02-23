@@ -35,7 +35,7 @@ const routes = [
       {
         path: "self",
         name: "self",
-        component: () => import("../components/Tweets.vue"),
+        component: () => import("../components/TweetsList.vue"),
       },
       {
         path: "reply",

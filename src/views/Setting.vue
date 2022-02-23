@@ -1,13 +1,14 @@
 <template>
   <div class="signInPage">
-    <div class="content">
-      <div class="title">
-        <img src="../assets/logo.png" alt="" />
-        <span class="title">建立你的帳號</span>
-      </div>
-      <AccountForm />
-      <div class="link">
-        <router-link to="/signIn" class="link_signUp">取消</router-link>
+    <div class="wrapper">
+      <NavBar />
+      <div class="content">
+        <div class="content_title">
+          <span class="content_title_name">帳戶設定</span>
+        </div>
+        <div class="content_form">
+          <AccountForm />
+        </div>
       </div>
     </div>
   </div>
@@ -15,36 +16,40 @@
 
 <script>
 import AccountForm from "../components/AccountForm.vue";
+import NavBar from "../components/NavBar.vue";
 export default {
   name: "SignUp",
-  components: { AccountForm },
+  components: { AccountForm, NavBar },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";
 .signInPage {
-  @include flexCenter;
-  flex-direction: column;
-  margin-top: 60px;
+  max-width: 1440px;
+  max-height: 1200px;
+  margin: 0 auto;
+  .wrapper {
+    display: grid;
+    grid-template-columns: 378px 1022px;
+    grid-auto-rows: 1200px;
+  }
   .content {
-    width: 540px;
-    .title {
-      @include flexCenter;
-      flex-direction: column;
-      font-size: 23px;
-      font-weight: 700;
-      margin-top: 20px;
-    }
-    .link {
-      margin-top: 20px;
-      @include flexCenter;
-      a {
-        color: $link-blue;
+    border-left: 1px solid $light-gray;
+    &_title {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid $light-gray;
+      height: 55px;
+      padding-left: 15px;
+      &_name {
+        font-size: 19px;
         font-weight: 700;
-        text-decoration: underline;
-        font-size: 18px;
       }
+    }
+    &_form {
+      margin-right: 447px;
+      padding-left: 15px;
     }
   }
 }
