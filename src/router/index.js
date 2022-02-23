@@ -56,7 +56,7 @@ const routes = [
   },
   {
     path: "/main",
-    name: "Main",
+    name: "main",
     component: () => import("../views/Main.vue"),
   },
   {
