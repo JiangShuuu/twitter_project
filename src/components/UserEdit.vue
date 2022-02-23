@@ -29,7 +29,6 @@
             <div class="user_image_background">
               <img :src="user.background" alt="" />
             </div>
-            <div class="user_image_edit_background"></div>
             <div class="user_image_edit_icon">
               <li class="change_image">
                 <i class="fa-solid fa-camera"></i>
@@ -41,7 +40,6 @@
             <div class="user_image_avatar">
               <img :src="user.avatar" alt="" />
             </div>
-            <div class="user_image_edit_avatar_background"></div>
             <div class="user_image_edit_avatar_icon">
               <li class="change_image">
                 <i class="fa-solid fa-camera"></i>
@@ -101,10 +99,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";
+
 .modal-content {
   border: 1px solid white;
   border-radius: 10px;
   height: 675px;
+  width: 600px;
+  margin-left: -3.5rem;
 }
 .modal-header {
   height: 60px;
@@ -143,6 +144,8 @@ export default {
   &_background {
     height: 200px;
     overflow: hidden;
+    background: $mid-gray;
+    opacity: 75%;
     img {
       object-fit: cover;
       width: 100%;
@@ -158,8 +161,10 @@ export default {
     position: absolute;
     bottom: -35%;
     left: 15px;
+    background: $light-gray;
     img {
       object-fit: cover;
+      opacity: 75%;
       width: 100%;
       height: 100%;
     }
@@ -180,26 +185,6 @@ export default {
       font-size: 20px;
       cursor: pointer;
     }
-  }
-  &_edit_background {
-    width: 100%;
-    height: 200px;
-    background: #c4c4c4;
-    opacity: 45%;
-    position: absolute;
-    top: 0;
-  }
-  &_edit_avatar_background {
-    width: 140px;
-    height: 140px;
-    border: 4px solid white;
-    border-radius: 50%;
-    overflow: hidden;
-    position: absolute;
-    bottom: -35%;
-    left: 15px;
-    background: #c4c4c4;
-    opacity: 45%;
   }
   &_edit_avatar_icon {
     position: absolute;

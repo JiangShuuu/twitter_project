@@ -69,7 +69,6 @@ export default {
 @import "../assets/scss/All.scss";
 .user {
   width: 100%;
-  border: 1px solid;
   &_title {
     @include flexCenter;
     justify-content: start;

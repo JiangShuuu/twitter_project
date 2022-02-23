@@ -30,6 +30,24 @@ const routes = [
     path: "/users",
     name: "users",
     component: () => import("../views/Users.vue"),
+    redirect: "/users/self",
+    children: [
+      {
+        path: "self",
+        name: "self",
+        component: () => import("../components/Tweets.vue"),
+      },
+      {
+        path: "reply",
+        name: "reply",
+        component: () => import("../components/TweetsReplyList.vue"),
+      },
+      {
+        path: "like",
+        name: "like",
+        component: () => import("../components/TweetsLikeList.vue"),
+      },
+    ],
   },
   {
     path: "/adminSignIn",
