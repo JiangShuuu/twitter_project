@@ -110,19 +110,6 @@
         margin-left: 11px;
         font-size: 13px;
       }
-
-      // &_reply {
-      //   margin-right: 51px;
-      //   color: $mid-gray;
-      // }
-      // .num {
-      //   color: $mid-gray;
-      //   margin-left: 11px;
-      // }
-      // img {
-      //   width: 15px;
-      //   height: 15px;
-      // }
     }
   }
 }
