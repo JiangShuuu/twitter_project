@@ -109,7 +109,7 @@ export default {
 .modal-header {
   height: 60px;
   @include flexCenter;
-  justify-content: start;
+  justify-content: flex-start;
   position: relative;
   &_close {
     cursor: pointer;
