@@ -72,7 +72,7 @@ export default {
   border: 1px solid;
   &_title {
     @include flexCenter;
-    justify-content: start;
+    justify-content: flex-start;
     height: 55px;
     &_return {
       font-size: 19px;
