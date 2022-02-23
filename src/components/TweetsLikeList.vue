@@ -1,5 +1,5 @@
 <template>
-  <section class="tweets">
+  <section class="tweets_like_list">
     <div class="tweet">
       <div class="tweet_avatar">
         <div class="tweet_avatar_img">
