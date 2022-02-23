@@ -1,193 +1,190 @@
 <template>
-  <popular>
-    <div class="container">
-      <ul class="pop-list">
-        <h2 class="pop-title">Popular</h2>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">Pizza Hut</span>
-            <a class="pop-text__account" href="">@pizzahut</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn followed">正在跟隨</button>
-            <!-- <button type="button" class="btn follow">跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">McDonald's</span>
-            <a class="pop-text__account" href="">@McDonalds</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">Bank of America</span>
-            <a class="pop-text__account" href="">@BankofAmerica</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">L'Oréal</span>
-            <a class="pop-text__account" href="">@Loreal</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">Nintendo</span>
-            <a class="pop-text__account" href="">@Nintend</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">MasterCard</span>
-            <a class="pop-text__account" href="">MasterCard</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">Nike</span>
-            <a class="pop-text__account" href="">@Nike</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">Adidas</span>
-            <a class="pop-text__account" href="">@Adidas</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">New Balance</span>
-            <a class="pop-text__account" href="">@newBalance</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-        <li class="pop-item">
-          <div class="pop-avatar">
-            <a href="#"
-              ><img
-                class="pop-avatar__img"
-                src="../assets/image/Photo.png"
-                alt="avatar on screen"
-            /></a>
-          </div>
-          <div class="pop-text">
-            <span class="pop-text__name">NBA</span>
-            <a class="pop-text__account" href="">@nba</a>
-          </div>
-          <div class="pop-btn">
-            <button type="button" class="btn follow">跟隨</button>
-            <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-          </div>
-        </li>
-      </ul>
-    </div>
-  </popular>
+  <div class="container">
+    <ul class="pop-list">
+      <h2 class="pop-title">Popular</h2>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">Pizza Hut</span>
+          <a class="pop-text__account" href="">@pizzahut</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn followed">正在跟隨</button>
+          <!-- <button type="button" class="btn follow">跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">McDonald's</span>
+          <a class="pop-text__account" href="">@McDonalds</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">Bank of America</span>
+          <a class="pop-text__account" href="">@BankofAmerica</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">L'Oréal</span>
+          <a class="pop-text__account" href="">@Loreal</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">Nintendo</span>
+          <a class="pop-text__account" href="">@Nintend</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">MasterCard</span>
+          <a class="pop-text__account" href="">MasterCard</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">Nike</span>
+          <a class="pop-text__account" href="">@Nike</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">Adidas</span>
+          <a class="pop-text__account" href="">@Adidas</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">New Balance</span>
+          <a class="pop-text__account" href="">@newBalance</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+      <li class="pop-item">
+        <div class="pop-avatar">
+          <a href="#"
+            ><img
+              class="pop-avatar__img"
+              src="../assets/image/Photo.png"
+              alt="avatar on screen"
+          /></a>
+        </div>
+        <div class="pop-text">
+          <span class="pop-text__name">NBA</span>
+          <a class="pop-text__account" href="">@nba</a>
+        </div>
+        <div class="pop-btn">
+          <button type="button" class="btn follow">跟隨</button>
+          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
-
 
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";

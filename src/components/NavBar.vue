@@ -1,32 +1,30 @@
 <template>
-  <navbar>
-    <div class="container">
-      <h1>
-        <img class="logo" src="../assets/image/logo.png" alt="logo on screen" />
-      </h1>
-      <div class="grid">
-        <ul class="nav-list">
-          <li class="nav-item">
-            <a href="#"><i class="nav-item__icon fa-solid fa-house"></i>首頁</a>
-          </li>
-          <li class="nav-item">
-            <a href="#"
-              ><i class="nav-item__icon fa-solid fa-user"></i>個人資料</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href=""><i class="nav-item__icon fa-solid fa-gear"></i>設定</a>
-          </li>
-          <button class="btn">推文</button>
-        </ul>
-      </div>
-      <li class="nav-item nav-logout">
-        <a href=""
-          ><i class="nav-item__icon fa-solid fa-right-from-bracket"></i>登出</a
-        >
-      </li>
+  <div class="container">
+    <h1>
+      <img class="logo" src="../assets/image/logo.png" alt="logo on screen" />
+    </h1>
+    <div class="grid">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#"><i class="nav-item__icon fa-solid fa-house"></i>首頁</a>
+        </li>
+        <li class="nav-item">
+          <a href="#"
+            ><i class="nav-item__icon fa-solid fa-user"></i>個人資料</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href=""><i class="nav-item__icon fa-solid fa-gear"></i>設定</a>
+        </li>
+        <button class="btn">推文</button>
+      </ul>
     </div>
-  </navbar>
+    <li class="nav-item nav-logout">
+      <a href=""
+        ><i class="nav-item__icon fa-solid fa-right-from-bracket"></i>登出</a
+      >
+    </li>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -83,5 +81,4 @@
   position: absolute;
   bottom: 15px;
 }
-
 </style>
