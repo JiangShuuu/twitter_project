@@ -5,27 +5,27 @@
         <i class="fa-solid fa-arrow-left"></i>
       </a>
       <div class="user_title_area">
-        <span class="user_name">John Doe</span>
+        <span class="user_name">{{ user.name }}</span>
         <span class="user_tweet">25 推文</span>
       </div>
     </div>
     <div class="user_image">
       <div class="user_image_background">
-        <img
-          src="https://images.unsplash.com/photo-1551290470-554bf3a4fa80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-          alt=""
-        />
+        <img :src="user.background" alt="" />
       </div>
       <div class="user_image_avatar">
-        <img
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-          alt=""
-        />
+        <img :src="user.avatar" alt="" />
       </div>
     </div>
 
     <div class="user_edit">
-      <button class="user_edit_btn">編輯個人資料</button>
+      <button
+        class="user_edit_btn"
+        data-bs-toggle="modal"
+        data-bs-target="#personInfoModal"
+      >
+        編輯個人資料
+      </button>
     </div>
     <div class="user_detail">
       <span class="user_detail_name">John Doe</span>
@@ -38,8 +38,32 @@
         <span class="follower"><span class="num">59位</span> 跟隨者</span>
       </div>
     </div>
+    <!-- model -->
+    <UserEdit :initial-user="user" />
   </section>
 </template>
+
+<script>
+import UserEdit from "./UserEdit.vue";
+export default {
+  name: "UserCard",
+  components: {
+    UserEdit,
+  },
+  data() {
+    return {
+      user: {
+        name: "John Doe",
+        background:
+          "https://images.unsplash.com/photo-1551290470-554bf3a4fa80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
+        avatar:
+          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+        text: "",
+      },
+    };
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";
