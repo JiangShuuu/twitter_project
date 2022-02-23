@@ -41,7 +41,7 @@ export default {
     grid-auto-rows: 1200px;
   }
   &_content {
-    border: 1px solid;
+    border: 1px solid $light-gray;
     width: 600px;
   }
 }
