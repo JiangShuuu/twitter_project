@@ -3,7 +3,27 @@
     <h1>
       <img class="logo" src="../assets/image/logo.png" alt="logo on screen" />
     </h1>
-    <div class="grid">
+    <!-- adminNav -->
+    <div class="grid" v-if="isAdmin">
+      <ul class="nav-list">
+        <li
+          :class="['nav-item', { active: this.$route.name === 'tweet-list' }]"
+        >
+          <router-link to="/admin/tweetList"
+            ><i class="nav-item__icon fa-solid fa-house"></i
+            >推文清單</router-link
+          >
+        </li>
+        <li :class="['nav-item', { active: this.$route.name === 'user-list' }]">
+          <router-link to="/admin/userList"
+            ><i class="nav-item__icon fa-solid fa-user"></i
+            >使用者列表</router-link
+          >
+        </li>
+      </ul>
+    </div>
+    <!-- Nav -->
+    <div class="grid" v-else>
       <ul class="nav-list">
         <li class="nav-item">
           <a href="#"><i class="nav-item__icon fa-solid fa-house"></i>首頁</a>
@@ -19,6 +39,7 @@
         <button class="btn">推文</button>
       </ul>
     </div>
+
     <li class="nav-item nav-logout">
       <a href=""
         ><i class="nav-item__icon fa-solid fa-right-from-bracket"></i>登出</a
@@ -26,6 +47,27 @@
     </li>
   </div>
 </template>
+
+<script>
+export default {
+  name: "navBar",
+  data() {
+    return {
+      isAdmin: false,
+    };
+  },
+  mounted() {
+    this.confirmRouter();
+  },
+  methods: {
+    confirmRouter() {
+      this.$route.path.includes("admin")
+        ? (this.isAdmin = true)
+        : (this.isAdmin = false);
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";
@@ -77,6 +119,12 @@
     margin-right: 20px;
   }
 }
+.active {
+  a {
+    color: $orange;
+  }
+}
+
 .nav-logout {
   position: absolute;
   bottom: 15px;

@@ -73,6 +73,24 @@ const routes = [
     ],
   },
   {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/Admin.vue"),
+    redirect: "/admin/tweetList",
+    children: [
+      {
+        path: "tweetList",
+        name: "tweet-list",
+        component: () => import("../components/AdminTweetList.vue"),
+      },
+      {
+        path: "userList",
+        name: "user-list",
+        component: () => import("../components/AdminUserList.vue"),
+      },
+    ],
+  },
+  {
     path: "/adminSignIn",
     name: "admin-sign-in",
     component: () => import("../views/AdminSignIn.vue"),
