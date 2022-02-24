@@ -14,7 +14,11 @@
           required
         >
         </textarea>
-        <button class="btn tweets-create__btn">推文</button>
+        <button 
+        class="btn tweets-create__btn"
+        data-bs-toggle="modal"
+        data-bs-target="#createTweetsModal"
+        >推文</button>
       </div>
     </div>
     <div class="following-content">
@@ -36,7 +40,10 @@
           </p>
           <div class="following-icons">
             <div class="icons">
-              <i class="icon fa-regular fa-comment"></i>
+              <i class="icon fa-regular fa-comment"
+              data-bs-toggle="modal"
+              data-bs-target="#createReplyModal"
+              ></i>
               <span class="icons__reply-count">13</span>
             </div>
             <div class="icons">
@@ -227,11 +234,25 @@
         </div>
       </div>
     </div>
+    <!-- model -->
+    <CreateTweets
+    :initial-user="user"
+     />
+    <ReplyModal
+    :initial-user="user"
+     />
   </div>
 </template>
 <script>
+import CreateTweets from "../components/CreateTweet.vue"
+import ReplyModal from "../components/ReplyModal.vue"
+
 export default {
   name: "Tweets",
+  components: {
+    CreateTweets,
+    ReplyModal
+  },
   data() {
     return {
       user: {
@@ -332,6 +353,7 @@ export default {
         align-items: center;
         .icon {
           margin-right: 10px;
+          cursor: pointer;
         }
       }
     }
