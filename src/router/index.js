@@ -50,6 +50,29 @@ const routes = [
     ],
   },
   {
+    path: "/other",
+    name: "other",
+    component: () => import("../views/Other.vue"),
+    redirect: "/other/self/:id",
+    children: [
+      {
+        path: "self/:id",
+        name: "other-self",
+        component: () => import("../components/TweetsList.vue"),
+      },
+      {
+        path: "reply/:id",
+        name: "other-reply",
+        component: () => import("../components/TweetsReplyList.vue"),
+      },
+      {
+        path: "like/:id",
+        name: "other-like",
+        component: () => import("../components/TweetsLikeList.vue"),
+      },
+    ],
+  },
+  {
     path: "/adminSignIn",
     name: "admin-sign-in",
     component: () => import("../views/AdminSignIn.vue"),
