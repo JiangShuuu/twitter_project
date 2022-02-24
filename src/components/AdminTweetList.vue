@@ -152,6 +152,7 @@
     margin: 19.5px;
     cursor: pointer;
     .fa-xmark {
+      color: $mid-gray;
       font-size: 15px;
     }
   }
