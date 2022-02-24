@@ -46,6 +46,24 @@ const routes = [
         path: "like",
         name: "like",
         component: () => import("../components/TweetsLikeList.vue"),
+      }
+    ],
+  },
+  {
+    path: "/users",
+    name: "users",
+    component: () => import("../views/Followers.vue"),
+    redirect: "/users/following",
+    children: [
+      {
+        path: "following",
+        name: "following",
+        component: () => import("../components/Following.vue"),
+      },
+      {
+        path: "follows",
+        name: "follows",
+        component: () => import("../components/Follows.vue"),
       },
     ],
   },
