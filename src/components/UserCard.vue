@@ -1,9 +1,9 @@
 <template>
   <section class="user">
     <div class="user_title">
-      <a class="user_title_return">
+      <router-link to="/main" class="user_title_return">
         <i class="fa-solid fa-arrow-left"></i>
-      </a>
+      </router-link>
       <div class="user_title_area">
         <span class="user_name">{{ user.name }}</span>
         <span class="user_tweet">25 推文</span>
@@ -50,7 +50,9 @@
         >Lorem ipsum dolor sit amet consectetur, adipisicing elit.
       </span>
       <div class="user_detail_area">
-        <router-link to="/users/follows" class="follows"><span class="num">34個</span> 跟隨中</router-link>
+        <router-link to="/users/follows" class="follows"
+          ><span class="num">34個</span> 跟隨中</router-link
+        >
         <span class="follower"><span class="num">59位</span> 跟隨者</span>
       </div>
     </div>

@@ -38,6 +38,576 @@
         </div>
       </div>
     </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tweet">
+      <div class="tweet_avatar">
+        <div class="tweet_avatar_img">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="tweet_info">
+        <div class="tweet_info_title">
+          <div class="tweet_info_title_name">John Doe</div>
+          <div class="tweet_info_title_account">@heyjohn</div>
+          <div class="tweet_info_title_dot">‧</div>
+          <div class="tweet_info_title_date">3小時</div>
+        </div>
+        <div class="tweet_info_content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          expedita rem dolores obcaecati numquam doloremque deserunt quis sequi
+          amet soluta?
+        </div>
+        <div class="tweet_info_icon">
+          <ul class="tweet_info_icon_reply">
+            <li class="commemt_btn">
+              <img src="../assets/image/comment.png" alt="" />
+            </li>
+            <span class="num">13</span>
+          </ul>
+
+          <ul class="tweet_info_icon_like">
+            <li class="like_btn">
+              <img src="../assets/image/heart.png" alt="" />
+            </li>
+            <span class="num">76</span>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
