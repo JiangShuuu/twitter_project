@@ -50,7 +50,7 @@
         >Lorem ipsum dolor sit amet consectetur, adipisicing elit.
       </span>
       <div class="user_detail_area">
-        <span class="follows"><span class="num">34個</span> 跟隨中</span>
+        <router-link to="/users/follows" class="follows"><span class="num">34個</span> 跟隨中</router-link>
         <span class="follower"><span class="num">59位</span> 跟隨者</span>
       </div>
     </div>

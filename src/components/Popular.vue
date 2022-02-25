@@ -234,9 +234,11 @@
         text-align: right;
         .followed {
           @include btn-selected(90px, 35px);
+          padding-top: 4px;
         }
         .follow {
           @include btn-unselected(60px, 35px);
+          padding-top: 4px;
         }
       }
     }
