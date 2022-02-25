@@ -1,20 +1,25 @@
 <template>
   <section class="follows-tabs">
     <div class="user_title">
-      <a class="user_title_return">
+      <router-link to="/users" class="user_title_return">
         <i class="fa-solid fa-arrow-left"></i>
-      </a>
+      </router-link>
       <div class="user_title_area">
         <span class="user_name">{{ user.name }}</span>
         <span class="user_tweet">{{ user.tweetCount }}推文</span>
       </div>
     </div>
     <div class="tabs">
-      <router-link 
-      to="/users/follows" 
-      :class="['tabs__btn', { active: this.$route.name === 'follows' }]">跟隨者</router-link>
       <router-link
-      to="/users/following" :class="['tabs__btn', { active: this.$route.name === 'following' }]">正在跟隨</router-link>
+        to="/user/follows"
+        :class="['tabs__btn', { active: this.$route.name === 'follows' }]"
+        >跟隨者</router-link
+      >
+      <router-link
+        to="/user/following"
+        :class="['tabs__btn', { active: this.$route.name === 'following' }]"
+        >正在跟隨</router-link
+      >
     </div>
   </section>
 </template>
