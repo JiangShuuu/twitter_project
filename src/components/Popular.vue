@@ -16,8 +16,17 @@
           <a class="pop-text__account" href="">@pizzahut</a>
         </div>
         <div class="pop-btn">
-          <button type="button" class="btn followed">正在跟隨</button>
-          <!-- <button type="button" class="btn follow">跟隨</button> -->
+          <button
+            v-if="this.isFollowed"
+            @click="deleteLike"
+            type="button"
+            class="btn followed"
+          >
+            正在跟隨
+          </button>
+          <button v-else @click="addLike" type="button" class="btn follow">
+            跟隨
+          </button>
         </div>
       </li>
       <li class="pop-item">
@@ -178,14 +187,40 @@
           <a class="pop-text__account" href="">@nba</a>
         </div>
         <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
+          <button
+            v-if="this.isFollowed"
+            @click="deleteLike"
+            type="button"
+            class="btn followed"
+          >
+            正在跟隨
+          </button>
+          <button v-else @click="addLike" type="button" class="btn follow">
+            跟隨
+          </button>
         </div>
       </li>
     </ul>
   </div>
 </template>
-
+<script>
+export default {
+  name: "Popular",
+  data() {
+    return {
+      isFollowed: false,
+    };
+  },
+  methods: {
+    deleteLike() {
+      this.isFollowed = false;
+    },
+    addLike() {
+      this.isFollowed = true;
+    },
+  },
+};
+</script>
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";
 .container {
