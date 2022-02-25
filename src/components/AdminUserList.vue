@@ -281,6 +281,286 @@
           </div>
         </div>
       </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="user_image">
+          <div class="user_image_background">
+            <img :src="user.background" alt="" />
+          </div>
+          <div class="user_image_avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
+        </div>
+        <div class="user_detail">
+          <span class="user_detail_name">John Doe</span>
+          <span class="user_detail_account">@heyjohn</span>
+          <div class="user_detail_icon">
+            <li class="user_detail_icon_comment">
+              <i class="icon fa-regular fa-comment"></i>
+              <span class="num">1.5k</span>
+            </li>
+            <li class="user_detail_icon_heart">
+              <i class="icon fa-regular fa-heart"></i>
+              <span class="num">20k</span>
+            </li>
+          </div>
+          <div class="user_detail_area">
+            <span class="follows"><span class="num">34個</span> 跟隨中</span>
+            <span class="follower"><span class="num">59位</span> 跟隨者</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>

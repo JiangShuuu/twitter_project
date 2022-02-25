@@ -5,7 +5,7 @@
         <img src="../assets/logo.png" alt="" />
         <span class="title">登入 Alphitter</span>
       </div>
-      <LoginForm />
+      <LoginForm @login-submit="handleSubmit" />
       <div class="link">
         <router-link to="/signUp" class="link_signUp"
           >註冊 Alphitter</router-link
@@ -19,10 +19,51 @@
 
 <script>
 import LoginForm from "../components/LoginForm.vue";
+import { Toast } from "./../utils/helpers";
+const dummyUser = {
+  account: "root@example.com",
+  password: "12345678",
+};
+
 export default {
   name: "SignIn",
   components: {
     LoginForm,
+  },
+  data() {
+    return {
+      user: {
+        account: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    handleSubmit(formData) {
+      const { account, password } = formData;
+      this.user.account = account;
+      this.user.password = password;
+
+      if (this.user.account === dummyUser.account) {
+        if (this.user.password === dummyUser.password) {
+          Toast.fire({
+            icon: "success",
+            title: "登入成功",
+          });
+          this.$router.push("/main");
+        } else {
+          Toast.fire({
+            icon: "warning",
+            title: "輸入的帳號密碼有誤",
+          });
+        }
+      } else {
+        Toast.fire({
+          icon: "warning",
+          title: "輸入的帳號密碼有誤",
+        });
+      }
+    },
   },
 };
 </script>

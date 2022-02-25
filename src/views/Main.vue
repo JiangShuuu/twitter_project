@@ -2,7 +2,10 @@
   <main class="main">
     <div class="wrapper">
       <NavBar />
-      <Tweets />
+      <div class="tweets_content">
+        <MainCard />
+        <Tweets />
+      </div>
       <Popular />
     </div>
   </main>
@@ -10,7 +13,8 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import Popular from "../components/Popular.vue";
-import Tweets from "../components/Tweets.vue"
+import Tweets from "../components/Tweets.vue";
+import MainCard from "../components/MainTitle.vue";
 
 export default {
   name: "Main",
@@ -18,6 +22,7 @@ export default {
     NavBar,
     Popular,
     Tweets,
+    MainCard,
   },
 };
 </script>

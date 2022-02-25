@@ -1,13 +1,13 @@
 <template>
   <div class="loginForm">
-    <form class="form">
+    <form class="form" @submit.prevent.stop="loginSubmit">
       <div class="form-floating">
         <input
           type="account"
           class="form-control"
           id="account"
           placeholder="abc123"
-          v-model="account"
+          v-model="user.account"
           required
           autofocus
         />
@@ -19,7 +19,7 @@
           class="form-control"
           id="password"
           placeholder="12345678"
-          v-model="password"
+          v-model="user.password"
           required
           autofocus
         />
@@ -37,9 +37,16 @@ export default {
   name: "LoginForm",
   data() {
     return {
-      account: null,
-      password: null,
+      user: {
+        account: "",
+        password: "",
+      },
     };
+  },
+  methods: {
+    loginSubmit() {
+      this.$emit("login-submit", this.user);
+    },
   },
 };
 </script>
