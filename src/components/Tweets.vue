@@ -28,11 +28,17 @@
                   ></i>
                   <span class="icons__reply-count">13</span>
                 </div>
-                <div class="icons">
-                  <i v-if="isLiked"  
-                  class="icon fa-solid fa-heart"></i>
-                  <i v-else
-                  class="icon fa-regular fa-heart"></i>
+                <div class="icons_heart">
+                  <div v-if="this.isLiked" @click="isLiked = !isLiked">
+                    <li>
+                      <i class="icon fa-solid fa-heart"></i>
+                    </li>
+                  </div>
+                  <div v-else @click="isLiked = !isLiked">
+                    <li>
+                      <i class="icon fa-regular fa-heart"></i>
+                    </li>
+                  </div>
                   <span class="icons__like-count">76</span>
                 </div>
               </div>
@@ -463,9 +469,7 @@ export default {
     this.movefunction();
   },
   methods: {
-    fetchTweets() {
-
-    },
+    fetchTweets() {},
     movefunction() {
       new BetterScroll(".contents", {
         mouseWheel: true, //開啟滑鼠滾動
@@ -477,10 +481,11 @@ export default {
     },
     addLiked() {
       this.isLiked = true;
+      console.log("add");
     },
     deleteLiked() {
       this.isLiked = false;
-
+      console.log("delete");
     },
   },
 };
@@ -547,7 +552,14 @@ export default {
     }
   }
 }
+.icons_heart {
+  display: flex;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
 /* 愛心效果試做
+
 .icons {
   &__heart {
     position: relative;
