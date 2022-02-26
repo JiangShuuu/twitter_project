@@ -9,13 +9,27 @@
         />
         <div class="following-item">
           <div class="following-title">
-            <span class="following-title__name">Marvin McKinney</span>
-            <span class="following-title__account">@MariaReyes</span>
-            <!-- <button class="following-title__followed">正在跟隨</button> -->
-            <button class="following-title__follow">跟隨</button>
+            <span class="following-title__name">{{ user.name }}</span>
+            <span class="following-title__account">@{{ user.account }}</span>
+            <button
+              v-if="user.isFollowing"
+              @click.stop.prevent="deleteFollow()"
+              type="button"
+              class="following-title__followed"
+            >
+              正在跟隨
+            </button>
+            <button
+              v-else
+              @click.stop.prevent="addFollow()"
+              type="button"
+              class="following-title__follow"
+            >
+              跟隨
+            </button>
           </div>
           <p class="following-item__description">
-            Lorem Remmollitia assumenda itaque asperiores, deserunt necessitatibus.
+            {{ user.description }}
           </p>
         </div>
       </div>
@@ -24,7 +38,43 @@
 </template>
 
 <script>
-export default {};
+import { ToastWarning } from "./../utils/helpers";
+
+export default {
+  name: "Following",
+  props: {
+    initialUser: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      user: this.initialUser,
+    };
+  },
+  methods: {
+    addFollow() {
+      this.user.isFollowing = true;
+    },
+    deleteFollow() {
+      ToastWarning.fire({
+        title: "確定要取消追蹤嗎?",
+        // text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "是",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          ToastWarning.fire("OK!", "已經取消追蹤", "success");
+          this.user.isFollowing = false;
+        }
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -37,20 +87,22 @@ export default {};
 
 .following-content {
   border-top: 1px solid $dividerColor;
-  &:last-child {
-    border-bottom: none;
-  }
   .following-list {
+    border-bottom: 1px solid $dividerColor;
     padding: 5px 0px 0px 15px;
     height: 105px;
     display: flex;
     align-items: flex-start;
+    &:last-child {
+      border-bottom: none;
+    }
     &__avatar {
       margin-top: 5px;
       margin-right: 10px;
     }
     .following-title {
       position: relative;
+      width: 522px;
       display: flex;
       flex-direction: column;
       &__name,
@@ -87,7 +139,6 @@ export default {};
         font-weight: 500;
         background: white;
       }
-
     }
   }
 }

@@ -7,6 +7,13 @@ export const Toast = Swal.mixin({
   showConfirmButton: false,
   timer: 3000,
 });
+
+export const ToastWarning = Swal.mixin({
+  toast: true,
+  position: "center",
+  showConfirmButton: true,
+  timer: 3000,
+});
 // axios
 const baseURL = "https://protected-springs-71103.herokuapp.com/";
 
