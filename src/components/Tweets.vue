@@ -22,14 +22,17 @@
               <div class="following-icons">
                 <div class="icons">
                   <i
-                    class="icon fa-regular fa-comment"
+                    class="fa-regular fa-comment"
                     data-bs-toggle="modal"
                     data-bs-target="#createReplyModal"
                   ></i>
                   <span class="icons__reply-count">13</span>
                 </div>
                 <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
+                  <i v-if="isLiked"  
+                  class="icon fa-solid fa-heart"></i>
+                  <i v-else
+                  class="icon fa-regular fa-heart"></i>
                   <span class="icons__like-count">76</span>
                 </div>
               </div>
@@ -453,12 +456,16 @@ export default {
       user: {
         avatar: "https://randomuser.me/api/portraits/men/93.jpg",
       },
+      isLiked: false,
     };
   },
   mounted() {
     this.movefunction();
   },
   methods: {
+    fetchTweets() {
+
+    },
     movefunction() {
       new BetterScroll(".contents", {
         mouseWheel: true, //開啟滑鼠滾動
@@ -467,6 +474,13 @@ export default {
         scrollX: true, //X軸滾動開啟
         click: true,
       });
+    },
+    addLiked() {
+      this.isLiked = true;
+    },
+    deleteLiked() {
+      this.isLiked = false;
+
     },
   },
 };
@@ -525,7 +539,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .icon {
+        .icons {
           margin-right: 10px;
           cursor: pointer;
         }
@@ -533,4 +547,20 @@ export default {
     }
   }
 }
+/* 愛心效果試做
+.icons {
+  &__heart {
+    position: relative;
+    color: #aab8c2;
+    cursor: pointer;
+    &--checkbox {
+      position: absolute;
+      left: -100vw;
+      
+    }
+    &--checkbox:checked + .icons__heart {
+      color: #e2264d;
+    }
+  }
+} */
 </style>
