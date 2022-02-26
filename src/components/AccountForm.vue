@@ -1,86 +1,127 @@
 <template>
   <div class="accountForm">
-    <form class="form">
-      <div class="form-floating">
-        <input
-          type="account"
-          class="form-control"
-          id="account"
-          placeholder="abc123"
-          v-model="account"
-          required
-          autofocus
-        />
-        <label for="account">帳號</label>
-      </div>
-      <div class="form-floating">
-        <input
-          type="name"
-          class="form-control"
-          id="name"
-          placeholder="林xx"
-          v-model="name"
-          required
-          autofocus
-        />
-        <label for="account">名稱</label>
-      </div>
-      <div class="form-floating">
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="name@example.com"
-          v-model="email"
-          required
-          autofocus
-        />
-        <label for="email">Email</label>
-      </div>
-      <div class="form-floating">
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="12345678"
-          v-model="password"
-          required
-          autofocus
-        />
-        <label for="password">密碼</label>
-      </div>
-      <div class="form-floating">
-        <input
-          type="password"
-          class="form-control"
-          id="checkpassword"
-          placeholder="12345678"
-          v-model="checkPassword"
-          required
-          autofocus
-        />
-        <label for="checkpassword">密碼確認</label>
-      </div>
-      <div class="button_signUp" v-if="isSetting">
-        <button type="submit" class="btn">註冊</button>
-      </div>
-      <div class="button_save" v-else>
-        <button type="submit" class="btn saveBtn">儲存</button>
-      </div>
-    </form>
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form class="form" @submit.prevent="handleSubmit(signUpSubmit)">
+        <ValidationProvider
+          name="account"
+          rules="create_account|alpha_num"
+          v-slot="{ errors }"
+        >
+          <div class="form-floating">
+            <input
+              type="account"
+              class="form-control"
+              id="account"
+              placeholder="abc123"
+              v-model="user.account"
+              autofocus
+            />
+            <label for="account">帳號</label>
+            <span class="error_message">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <ValidationProvider
+          name="Name"
+          rules="create_name|alpha_num"
+          v-slot="{ errors }"
+        >
+          <div class="form-floating">
+            <input
+              type="name"
+              class="form-control"
+              id="name"
+              placeholder=""
+              v-model="user.name"
+              autofocus
+            />
+            <label for="account">名稱</label>
+            <span class="error_message">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <ValidationProvider
+          name="email"
+          rules="create_email|email"
+          v-slot="{ errors }"
+        >
+          <div class="form-floating">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="name@example.com"
+              v-model="user.email"
+              autofocus
+            />
+            <label for="email">Email</label>
+            <span class="error_message">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <ValidationProvider
+          name="password"
+          rules="create_password|min_length:6"
+          v-slot="{ errors }"
+          vid="confirmation"
+        >
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="12345678"
+              v-model="user.password"
+              autofocus
+            />
+            <label for="password">密碼</label>
+            <span class="error_message">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <ValidationProvider
+          rules="confirmed:confirmation|confirmed_password"
+          v-slot="{ errors }"
+        >
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="checkpassword"
+              placeholder="12345678"
+              v-model="user.checkPassword"
+              autofocus
+            />
+            <label for="checkpassword">密碼確認</label>
+            <span class="error_message">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <div class="button_save" v-if="isSetting">
+          <button type="submit" class="btn saveBtn">儲存</button>
+        </div>
+        <div class="button_signUp" v-else>
+          <button type="submit" class="btn">註冊</button>
+        </div>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 
 <script>
+import { Toast } from "./../utils/helpers";
 export default {
   name: "AccountForm",
+  props: {
+    initialUser: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
-      account: null,
-      name: null,
-      email: null,
-      password: null,
-      checkPassword: null,
+      user: {
+        account: "",
+        name: "",
+        email: "",
+        password: "",
+        checkPassword: "",
+      },
       isSetting: false,
     };
   },
@@ -89,9 +130,21 @@ export default {
   },
   methods: {
     state() {
-      if (this.$route.path === "/signUp") {
+      if (this.$route.path === "/setting") {
         this.isSetting = true;
+        this.user = {
+          ...this.initialUser,
+        };
       }
+    },
+    signUpSubmit() {
+      if (this.isSetting) {
+        Toast.fire({
+          icon: "success",
+          title: "修改成功!",
+        });
+      }
+      console.log(this.user.account);
     },
   },
 };
@@ -137,5 +190,9 @@ export default {
       font-weight: 700;
     }
   }
+}
+.error_message {
+  font-size: 15px;
+  color: red;
 }
 </style>

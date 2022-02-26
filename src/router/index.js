@@ -146,7 +146,7 @@ router.beforeEach(async (to, from, next) => {
     isAuthenticated = await store.dispatch("fetchCurrentUser");
   }
 
-  const pathsWithoutAuthentication = ["sign-in", "sign-up"];
+  const pathsWithoutAuthentication = ["sign-in", "sign-up", "admin-sign-in"];
 
   // 若 token 無效，則轉址到登入頁
   if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {

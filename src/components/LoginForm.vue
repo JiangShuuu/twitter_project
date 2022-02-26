@@ -2,7 +2,7 @@
   <div class="loginForm">
     <ValidationObserver v-slot="{ handleSubmit }">
       <form class="form" @submit.prevent="handleSubmit(loginSubmit)">
-        <ValidationProvider name="Name" rules="required" v-slot="{ errors }">
+        <ValidationProvider name="Name" rules="account" v-slot="{ errors }">
           <div class="form-floating">
             <input
               type="account"
@@ -13,12 +13,12 @@
               autofocus
             />
             <label for="account">帳號</label>
-            <span>{{ errors[0] }}</span>
+            <span class="error_message">{{ errors[0] }}</span>
           </div>
         </ValidationProvider>
         <ValidationProvider
           name="password"
-          rules="required"
+          rules="password"
           v-slot="{ errors }"
         >
           <div class="form-floating">
@@ -31,7 +31,7 @@
               autofocus
             />
             <label for="password">密碼</label>
-            <span>{{ errors[0] }}</span>
+            <span class="error_message">{{ errors[0] }}</span>
           </div>
         </ValidationProvider>
         <div class="button_LoginIn">
@@ -89,5 +89,9 @@ export default {
     font-size: 18px;
     font-weight: 700;
   }
+}
+.error_message {
+  font-size: 15px;
+  color: red;
 }
 </style>
