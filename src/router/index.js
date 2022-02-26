@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import NotFound from "../views/NotFound.vue";
 import signIn from "../views/SignIn.vue";
+import store from "./../store";
 
 Vue.use(VueRouter);
 
@@ -132,6 +133,34 @@ const routes = [
 
 const router = new VueRouter({
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem("token");
+  const tokenInStore = store.state.token;
+
+  let isAuthenticated = store.state.isAuthenticated;
+
+  // 有 token 的情況下，才向後端驗證
+  if (token && token !== tokenInStore) {
+    isAuthenticated = await store.dispatch("fetchCurrentUser");
+  }
+
+  const pathsWithoutAuthentication = ["sign-in", "sign-up"];
+
+  // 若 token 無效，則轉址到登入頁
+  if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {
+    next("/signIn");
+    return;
+  }
+
+  // 若 token 有效，則轉址到首頁
+  if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
+    next("/main");
+    return;
+  }
+
+  next();
 });
 
 export default router;
