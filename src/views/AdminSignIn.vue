@@ -43,7 +43,7 @@ export default {
         localStorage.setItem("token", data.token);
 
         // 透過 setCurrentUser 把使用者資料存到 vuex 的 state 中
-        // this.$store.commit("setCurrentUser", data.user);
+        this.$store.commit("setCurrentUser", data.user);
 
         Toast.fire({
           icon: "success",
