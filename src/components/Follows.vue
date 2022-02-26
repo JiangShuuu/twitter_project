@@ -9,14 +9,27 @@
         />
         <div class="follows-item">
           <div class="follows-title">
-            <span class="follows-title__name">Laure</span>
-            <span class="follows-title__account">@LaureBill</span>
-            <!-- <button class="follows-title__followed">正在跟隨</button> -->
-            <button class="follows-title__follow">跟隨</button>
+            <span class="follows-title__name">{{ user.name }}</span>
+            <span class="follows-title__account">@{{ user.account }}</span>
+            <button
+              v-if="user.isFollowed"
+              @click.stop.prevent="deleteFollow()"
+              type="button"
+              class="follows-title__followed"
+            >
+              正在跟隨
+            </button>
+            <button
+              v-else
+              @click.stop.prevent="addFollow()"
+              type="button"
+              class="follows-title__follow"
+            >
+              跟隨
+            </button>
           </div>
           <p class="follows-item__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-            mollitia assumenda itaque asperiores, deserunt necessitatibus.
+            {{ user.description }}
           </p>
         </div>
       </div>
@@ -25,7 +38,43 @@
 </template>
 
 <script>
-export default {};
+import { ToastWarning } from "./../utils/helpers";
+
+export default {
+  name: "Following",
+  props: {
+    initialUser: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      user: this.initialUser,
+    };
+  },
+  methods: {
+    addFollow() {
+      this.user.isFollowed = true;
+    },
+    deleteFollow() {
+      ToastWarning.fire({
+        title: "確定要取消追蹤嗎?",
+        // text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "是",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          ToastWarning.fire("OK!", "已經取消追蹤", "success");
+          this.user.isFollowed = false;
+        }
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -52,6 +101,7 @@ export default {};
     }
     .follows-title {
       position: relative;
+      width: 522px;
       display: flex;
       flex-direction: column;
       &__name,
@@ -88,7 +138,6 @@ export default {};
         font-weight: 500;
         background: white;
       }
-
     }
   }
 }
