@@ -16,10 +16,11 @@
 <script>
 import LoginForm from "../components/LoginForm.vue";
 import { Toast } from "./../utils/helpers";
-const dummyUser = {
-  account: "admin@example.com",
-  password: "12345678",
-};
+import authorizationAPI from "./../apis/authorization.js";
+// const dummyUser = {
+//   account: "admin@example.com",
+//   password: "12345678",
+// };
 export default {
   name: "adminSignIn",
   components: {
@@ -34,25 +35,44 @@ export default {
     };
   },
   methods: {
-    handleSubmit(formData) {
-      const { account, password } = formData;
-      this.user.account = account;
-      this.user.password = password;
+    async handleSubmit(formData) {
+      try {
+        const { account, password } = formData;
+        this.user.account = account;
+        this.user.password = password;
 
-      if (this.user.account === dummyUser.account) {
-        if (this.user.password === dummyUser.password) {
-          Toast.fire({
-            icon: "success",
-            title: "登入成功",
-          });
-          this.$router.push("/admin");
-        } else {
-          Toast.fire({
-            icon: "warning",
-            title: "輸入的帳號密碼有誤",
-          });
+        const response = await authorizationAPI.signIn({
+          account: "root",
+          password: "12345678",
+        });
+
+        const { data } = response;
+        console.log(data);
+
+        if (data.status !== "success") {
+          throw new Error(data.message);
         }
-      } else {
+        // if (this.user.account === dummyUser.account) {
+        //   if (this.user.password === dummyUser.password) {
+        //     Toast.fire({
+        //       icon: "success",
+        //       title: "登入成功",
+        //     });
+        //     this.$router.push("/admin");
+        //   } else {
+        //     Toast.fire({
+        //       icon: "warning",
+        //       title: "輸入的帳號密碼有誤",
+        //     });
+        //   }
+        // } else {
+        //   Toast.fire({
+        //     icon: "warning",
+        //     title: "輸入的帳號密碼有誤",
+        //   });
+        // }
+      } catch (error) {
+        console.log(error);
         Toast.fire({
           icon: "warning",
           title: "輸入的帳號密碼有誤",

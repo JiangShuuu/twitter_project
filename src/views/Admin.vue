@@ -16,26 +16,11 @@
 
 <script>
 import NavBar from "../components/NavBar.vue";
-import BetterScroll from "better-scroll";
 
 export default {
   name: "Main",
   components: {
     NavBar,
-  },
-  mounted() {
-    this.movefunction();
-  },
-  methods: {
-    movefunction() {
-      new BetterScroll(".content_form", {
-        mouseWheel: true, //開啟滑鼠滾動
-        disableMouse: false, //關閉滑鼠拖動
-        disableTouch: false, //關閉手指觸摸
-        scrollX: true, //X軸滾動開啟
-        click: true,
-      });
-    },
   },
 };
 </script>
