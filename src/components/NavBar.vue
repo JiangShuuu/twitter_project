@@ -25,27 +25,27 @@
     <!-- Nav -->
     <div class="grid" v-else>
       <ul class="nav-list">
-        <li 
-        :class="['nav-item', { active: this.$route.name === 'main' }]"
-        >
-          <router-link to="/main"><i class="nav-item__icon fa-solid fa-house"
-        ></i>首頁</router-link>
-        </li>
-        <li 
-        :class="['nav-item', { active: this.$route.name === 'self' }]">
-          <router-link to="/users/self"
-            ><i class="nav-item__icon fa-solid fa-user"></i>個人資料</router-link
+        <li :class="['nav-item', { active: this.$route.name === 'main' }]">
+          <router-link to="/main"
+            ><i class="nav-item__icon fa-solid fa-house"></i>首頁</router-link
           >
         </li>
-        <li 
-        :class="['nav-item', { active: this.$route.name === 'setting' }]">
-          <router-link to="/setting"><i class="nav-item__icon fa-solid fa-gear"></i>設定</router-link>
+        <li :class="['nav-item', { active: this.$route.name === 'self' }]">
+          <router-link to="/users/self"
+            ><i class="nav-item__icon fa-solid fa-user"></i
+            >個人資料</router-link
+          >
+        </li>
+        <li :class="['nav-item', { active: this.$route.name === 'setting' }]">
+          <router-link to="/setting"
+            ><i class="nav-item__icon fa-solid fa-gear"></i>設定</router-link
+          >
         </li>
         <button class="btn">推文</button>
       </ul>
     </div>
 
-    <li class="nav-item nav-logout">
+    <li class="nav-item nav-logout" @click="logout">
       <a href=""
         ><i class="nav-item__icon fa-solid fa-right-from-bracket"></i>登出</a
       >
@@ -69,6 +69,10 @@ export default {
       this.$route.path.includes("admin")
         ? (this.isAdmin = true)
         : (this.isAdmin = false);
+    },
+    logout() {
+      this.$store.commit("revokeAuthenication");
+      this.$router.push("/signin");
     },
   },
 };
