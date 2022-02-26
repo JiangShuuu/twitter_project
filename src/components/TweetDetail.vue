@@ -20,7 +20,6 @@
         <p class="following-item__description">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem mollitia
           assumenda itaque asperiores, deserunt necessitatibus doloremque libero
-
         </p>
         <span class="following-item__time">上午 10:05</span>
         <span class="following-item__icon">&#8226;</span>
@@ -38,8 +37,21 @@
       </div>
     </div>
     <div class="reply-icon">
-      <i class="reply-icon__comment fa-regular fa-comment"></i>
-      <i class="reply-icon__heart fa-regular fa-heart"></i>
+      <i
+        class="reply-icon__comment fa-regular fa-comment"
+        data-bs-toggle="modal"
+        data-bs-target="#createReplyModal"
+      ></i>
+      <div v-if="this.isLiked" @click="isLiked = !isLiked">
+        <li>
+          <i class="reply-icon__heart fa-solid fa-heart"></i>
+        </li>
+      </div>
+      <div v-else @click="isLiked = !isLiked">
+        <li>
+          <i class="icon fa-regular fa-heart"></i>
+        </li>
+      </div>
     </div>
     <div class="reply">
       <div class="reply-list">
@@ -61,11 +73,37 @@
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <ReplyModal :initial-user="user" />
   </div>
 </template>
 
 <script>
-export default {};
+import ReplyModal from "../components/ReplyModal.vue";
+export default {
+  name: "TweetDetail",
+  components: {
+    ReplyModal,
+  },
+  data() {
+    return {
+      user: {
+        avatar: "https://randomuser.me/api/portraits/men/93.jpg",
+      },
+      isLiked: false,
+    };
+  },
+  methods: {
+    addLiked() {
+      this.isLiked = true;
+      console.log("add");
+    },
+    deleteLiked() {
+      this.isLiked = false;
+      console.log("delete");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -106,7 +144,7 @@ export default {};
       color: $black;
     }
     &__account {
-      color: $mid-gray ;
+      color: $mid-gray;
     }
   }
 }
@@ -123,9 +161,7 @@ export default {};
   &__date {
     font-size: 15px;
     color: $mid-gray;
-    
   }
-
 }
 
 .comments {
@@ -134,7 +170,7 @@ export default {};
   margin: 10px 20px;
   display: flex;
   gap: 20px;
-  font-size: 19px; 
+  font-size: 19px;
   padding: 21px 0;
   .comments-list__num,
   .likes__num {
@@ -145,12 +181,14 @@ export default {};
   .like__title {
     color: $mid-gray;
   }
-   
 }
 .reply-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
   border-bottom: 1px solid $dividerColor;
-  padding: 4px 0 10px 20px;
-  font-size: 30px;
+  padding: 0 0 9px 22px;
+  font-size: 25px;
   color: $mid-gray;
   &__comment {
     margin-right: 150px;
