@@ -25,16 +25,21 @@
     <!-- Nav -->
     <div class="grid" v-else>
       <ul class="nav-list">
-        <li class="nav-item">
-          <a href="#"><i class="nav-item__icon fa-solid fa-house"></i>首頁</a>
+        <li 
+        :class="['nav-item', { active: this.$route.name === 'main' }]"
+        >
+          <router-link to="/main"><i class="nav-item__icon fa-solid fa-house"
+        ></i>首頁</router-link>
         </li>
-        <li class="nav-item">
-          <a href="#"
-            ><i class="nav-item__icon fa-solid fa-user"></i>個人資料</a
+        <li 
+        :class="['nav-item', { active: this.$route.name === 'self' }]">
+          <router-link to="/users/self"
+            ><i class="nav-item__icon fa-solid fa-user"></i>個人資料</router-link
           >
         </li>
-        <li class="nav-item">
-          <a href=""><i class="nav-item__icon fa-solid fa-gear"></i>設定</a>
+        <li 
+        :class="['nav-item', { active: this.$route.name === 'setting' }]">
+          <router-link to="/setting"><i class="nav-item__icon fa-solid fa-gear"></i>設定</router-link>
         </li>
         <button class="btn">推文</button>
       </ul>
