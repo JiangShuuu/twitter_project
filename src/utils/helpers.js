@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import axios from 'axios'
+import axios from "axios";
 
 export const Toast = Swal.mixin({
   toast: true,
@@ -8,23 +8,23 @@ export const Toast = Swal.mixin({
   timer: 3000,
 });
 // axios
-const baseURL = 'https://protected-springs-71103.herokuapp.com/'
+const baseURL = "https://protected-springs-71103.herokuapp.com/";
 
 const axiosInstance = axios.create({
-  baseURL
-})
+  baseURL,
+});
 
 axiosInstance.interceptors.request.use(
-  config => {
-    const token = localStorage.getItem('token')
+  (config) => {
+    const token = localStorage.getItem("token");
 
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
 
-    return config
+    return config;
   },
-  err => Promise.reject(err)
-)
+  (err) => Promise.reject(err)
+);
 
-export const apiHelper = axiosInstance
+export const apiHelper = axiosInstance;
