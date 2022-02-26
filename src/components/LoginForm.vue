@@ -1,34 +1,44 @@
 <template>
   <div class="loginForm">
-    <form class="form" @submit.prevent.stop="loginSubmit">
-      <div class="form-floating">
-        <input
-          type="account"
-          class="form-control"
-          id="account"
-          placeholder="abc123"
-          v-model="user.account"
-          required
-          autofocus
-        />
-        <label for="account">帳號</label>
-      </div>
-      <div class="form-floating">
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="12345678"
-          v-model="user.password"
-          required
-          autofocus
-        />
-        <label for="password">密碼</label>
-      </div>
-      <div class="button_LoginIn">
-        <button type="submit" class="btn">登入</button>
-      </div>
-    </form>
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form class="form" @submit.prevent="handleSubmit(loginSubmit)">
+        <ValidationProvider name="Name" rules="account" v-slot="{ errors }">
+          <div class="form-floating">
+            <input
+              type="account"
+              class="form-control"
+              id="account"
+              placeholder="abc123"
+              v-model="user.account"
+              autofocus
+            />
+            <label for="account">帳號</label>
+            <span class="error_message">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <ValidationProvider
+          name="password"
+          rules="password"
+          v-slot="{ errors }"
+        >
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="12345678"
+              v-model="user.password"
+              autofocus
+            />
+            <label for="password">密碼</label>
+            <span class="error_message">{{ errors[0] }}</span>
+          </div>
+        </ValidationProvider>
+        <div class="button_LoginIn">
+          <button type="submit" class="btn">登入</button>
+        </div>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -79,5 +89,9 @@ export default {
     font-size: 18px;
     font-weight: 700;
   }
+}
+.error_message {
+  font-size: 15px;
+  color: red;
 }
 </style>

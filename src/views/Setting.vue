@@ -7,7 +7,7 @@
           <span class="content_title_name">帳戶設定</span>
         </div>
         <div class="content_form">
-          <AccountForm />
+          <AccountForm :initial-user="user" />
         </div>
       </div>
     </div>
@@ -17,9 +17,33 @@
 <script>
 import AccountForm from "../components/AccountForm.vue";
 import NavBar from "../components/NavBar.vue";
+
+const dummyData = {
+  data: {
+    account: "johnAccount",
+    name: "john",
+    email: "globe@gmail.com",
+    password: "12345678",
+    checkPassword: "",
+  },
+};
+
 export default {
-  name: "SignUp",
+  name: "Setting",
   components: { AccountForm, NavBar },
+  data() {
+    return {
+      user: {},
+    };
+  },
+  mounted() {
+    this.fetchUserInfo();
+  },
+  methods: {
+    fetchUserInfo() {
+      this.user = dummyData.data;
+    },
+  },
 };
 </script>
 
