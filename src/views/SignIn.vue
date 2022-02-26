@@ -20,10 +20,7 @@
 <script>
 import LoginForm from "../components/LoginForm.vue";
 import { Toast } from "./../utils/helpers";
-const dummyUser = {
-  account: "root@example.com",
-  password: "12345678",
-};
+import authorizationAPI from "./../apis/authorization.js";
 
 export default {
   name: "SignIn",
@@ -31,33 +28,34 @@ export default {
     LoginForm,
   },
   data() {
-    return {
-      user: {
-        account: "",
-        password: "",
-      },
-    };
+    return {};
   },
   methods: {
-    handleSubmit(formData) {
-      const { account, password } = formData;
-      this.user.account = account;
-      this.user.password = password;
+    async handleSubmit(formData) {
+      try {
+        const { account, password } = formData;
 
-      if (this.user.account === dummyUser.account) {
-        if (this.user.password === dummyUser.password) {
-          Toast.fire({
-            icon: "success",
-            title: "登入成功",
-          });
-          this.$router.push("/main");
-        } else {
-          Toast.fire({
-            icon: "warning",
-            title: "輸入的帳號密碼有誤",
-          });
+        const response = await authorizationAPI.userSignIn({
+          account: account,
+          password: password,
+        });
+
+        const { data } = response;
+        if (data.status !== "success") {
+          throw new Error(data.message);
         }
-      } else {
+        localStorage.setItem("token", data.token);
+
+        // 透過 setCurrentUser 把使用者資料存到 vuex 的 state 中
+        this.$store.commit("setCurrentUser", data.data);
+
+        Toast.fire({
+          icon: "success",
+          title: "登入成功",
+        });
+        this.$router.push("/main");
+      } catch (error) {
+        console.log(error);
         Toast.fire({
           icon: "warning",
           title: "輸入的帳號密碼有誤",
