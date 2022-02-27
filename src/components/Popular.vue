@@ -2,200 +2,34 @@
   <div class="container">
     <ul class="pop-list">
       <h2 class="pop-title">Popular</h2>
-      <li class="pop-item">
+      <li v-for="user in data" :key="user.id" class="pop-item">
         <div class="pop-avatar">
           <a href="#"
             ><img
               class="pop-avatar__img"
-              src="../assets/image/Photo.png"
+              :src="user.avatar"
               alt="avatar on screen"
           /></a>
         </div>
         <div class="pop-text">
-          <span class="pop-text__name">Pizza Hut</span>
-          <a class="pop-text__account" href="">@pizzahut</a>
+          <span class="pop-text__name">{{ user.name }}</span>
+          <a class="pop-text__account" href="">{{ user.account }}</a>
         </div>
         <div class="pop-btn">
           <button
-            v-if="this.isFollowed"
-            @click="deleteLike"
+            v-if="user.isFollowed"
+            @click.stop.prevent="deleteLike(user.id)"
             type="button"
             class="btn followed"
           >
             正在跟隨
           </button>
-          <button v-else @click="addLike" type="button" class="btn follow">
-            跟隨
-          </button>
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">McDonald's</span>
-          <a class="pop-text__account" href="">@McDonalds</a>
-        </div>
-        <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">Bank of America</span>
-          <a class="pop-text__account" href="">@BankofAmerica</a>
-        </div>
-        <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">L'Oréal</span>
-          <a class="pop-text__account" href="">@Loreal</a>
-        </div>
-        <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">Nintendo</span>
-          <a class="pop-text__account" href="">@Nintend</a>
-        </div>
-        <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">MasterCard</span>
-          <a class="pop-text__account" href="">MasterCard</a>
-        </div>
-        <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">Nike</span>
-          <a class="pop-text__account" href="">@Nike</a>
-        </div>
-        <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">Adidas</span>
-          <a class="pop-text__account" href="">@Adidas</a>
-        </div>
-        <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">New Balance</span>
-          <a class="pop-text__account" href="">@newBalance</a>
-        </div>
-        <div class="pop-btn">
-          <button type="button" class="btn follow">跟隨</button>
-          <!-- <button type="button" class="btn followed">正在跟隨</button> -->
-        </div>
-      </li>
-      <li class="pop-item">
-        <div class="pop-avatar">
-          <a href="#"
-            ><img
-              class="pop-avatar__img"
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-          /></a>
-        </div>
-        <div class="pop-text">
-          <span class="pop-text__name">NBA</span>
-          <a class="pop-text__account" href="">@nba</a>
-        </div>
-        <div class="pop-btn">
           <button
-            v-if="this.isFollowed"
-            @click="deleteLike"
+            v-else
+            @click.stop.prevent="addLike(user.id)"
             type="button"
-            class="btn followed"
+            class="btn follow"
           >
-            正在跟隨
-          </button>
-          <button v-else @click="addLike" type="button" class="btn follow">
             跟隨
           </button>
         </div>
@@ -204,19 +38,58 @@
   </div>
 </template>
 <script>
+import usersAPI from "./../apis/users";
+import { Toast } from "./../utils/helpers";
+
 export default {
   name: "Popular",
   data() {
     return {
-      isFollowed: false,
+      data: [],
     };
   },
+  created() {
+    this.fetchUsersTop();
+  },
   methods: {
-    deleteLike() {
-      this.isFollowed = false;
+    async fetchUsersTop() {
+      try {
+        const response = await usersAPI.getUsersTop();
+        const { data } = response.data;
+        console.log("data", data);
+        this.data = data;
+        console.log("thisData:", this.data);
+      } catch (error) {
+        console.log("error", error);
+        Toast.fire({
+          icon: "warning",
+          title: "無法取得人氣追蹤者的資料,請稍後再試",
+        });
+      }
     },
-    addLike() {
-      this.isFollowed = true;
+    deleteLike(userId) {
+      this.data = this.data.map(user => {
+        if (user.id !== userId) {
+          return user
+        } else {
+          return {
+            ...user,
+            isFollowed: false
+          }
+        }
+      });
+    },
+    addLike(userId) {
+      this.data = this.data.map(user => {
+        if (user.id !== userId) {
+          return user
+        } else {
+          return {
+            ...user,
+            isFollowed: true
+          }
+        }
+      });
     },
   },
 };
@@ -247,6 +120,7 @@ export default {
       @include flexCenter;
       .pop-avatar__img {
         width: 50px;
+        border-radius: 50px;
       }
       .pop-text {
         @include flexCenter;
