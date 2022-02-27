@@ -30,7 +30,7 @@
               type="name"
               class="form-control"
               id="name"
-              placeholder=""
+              placeholder="john"
               v-model="user.name"
               autofocus
             />
@@ -105,6 +105,8 @@
 
 <script>
 import { Toast } from "./../utils/helpers";
+import usersAPI from "./../apis/users.js";
+
 export default {
   name: "AccountForm",
   props: {
@@ -116,6 +118,7 @@ export default {
   data() {
     return {
       user: {
+        id: "",
         account: "",
         name: "",
         email: "",
@@ -125,8 +128,13 @@ export default {
       isSetting: false,
     };
   },
-  created() {
+  mounted() {
     this.state();
+  },
+  watch: {
+    initialUser: function () {
+      this.state();
+    },
   },
   methods: {
     state() {
@@ -137,14 +145,28 @@ export default {
         };
       }
     },
-    signUpSubmit() {
-      if (this.isSetting) {
+    async signUpSubmit() {
+      try {
+        if (this.isSetting) {
+          const response = await usersAPI.settingUserAccount(this.user.id, {
+            account: this.user.account,
+            name: this.user.name,
+            email: this.user.email,
+            password: this.user.password,
+            checkPassword: this.user.checkPassword,
+          });
+          Toast.fire({
+            icon: "success",
+            title: response.data.message,
+          });
+        }
+      } catch (error) {
+        console.log(error);
         Toast.fire({
-          icon: "success",
-          title: "修改成功!",
+          icon: "warning",
+          title: error.message,
         });
       }
-      console.log(this.user.account);
     },
   },
 };

@@ -28,23 +28,23 @@ const routes = [
     component: () => import("../views/Setting.vue"),
   },
   {
-    path: "/users",
+    path: "/users/:id",
     name: "users",
     component: () => import("../views/Users.vue"),
-    redirect: "/users/self",
+    redirect: "/users/:id/self",
     children: [
       {
-        path: "self",
+        path: "/users/:id/self",
         name: "self",
         component: () => import("../components/TweetsList.vue"),
       },
       {
-        path: "reply",
+        path: "/users/:id/reply",
         name: "reply",
         component: () => import("../components/TweetsReplyList.vue"),
       },
       {
-        path: "like",
+        path: "/users/:id/reply",
         name: "like",
         component: () => import("../components/TweetsLikeList.vue"),
       },

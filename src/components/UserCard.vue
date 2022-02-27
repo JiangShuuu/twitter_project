@@ -6,12 +6,12 @@
       </router-link>
       <div class="user_title_area">
         <span class="user_name">{{ user.name }}</span>
-        <span class="user_tweet">25 推文</span>
+        <span class="user_tweet">{{ user.tweetCount }} 推文</span>
       </div>
     </div>
     <div class="user_image">
       <div class="user_image_background">
-        <img :src="user.background" alt="" />
+        <img :src="user.cover" alt="" />
       </div>
       <div class="user_image_avatar">
         <img :src="user.avatar" alt="" />
@@ -44,16 +44,17 @@
       </button>
     </div>
     <div class="user_detail">
-      <span class="user_detail_name">John Doe</span>
-      <span class="user_detail_account">@heyjohn</span>
-      <span class="user_detail_test"
-        >Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-      </span>
+      <span class="user_detail_name">{{ user.name }}</span>
+      <span class="user_detail_account">@{{ user.account }}</span>
+      <span class="user_detail_test">{{ user.introduction }} </span>
       <div class="user_detail_area">
         <router-link to="/users/follows" class="follows"
-          ><span class="num">34個</span> 跟隨中</router-link
+          ><span class="num">{{ user.followingCount }}個</span>
+          跟隨中</router-link
         >
-        <span class="follower"><span class="num">59位</span> 跟隨者</span>
+        <span class="follower"
+          ><span class="num">{{ user.followerCount }}位</span> 跟隨者</span
+        >
       </div>
     </div>
     <!-- model -->
@@ -63,6 +64,9 @@
 
 <script>
 import UserEdit from "./UserEdit.vue";
+import userAPI from "./../apis/users.js";
+import { Toast } from "./../utils/helpers.js";
+
 export default {
   name: "UserCard",
   components: {
@@ -72,20 +76,58 @@ export default {
     return {
       user: {
         id: "1",
+        account: "",
         name: "John Doe",
-        background:
-          "https://images.unsplash.com/photo-1551290470-554bf3a4fa80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
-        avatar:
-          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-        text: "",
+        avatar: "",
+        cover: "",
+        introduction: "",
+        followerCount: "",
+        followingCount: "",
+        tweetCount: "",
       },
       isUsers: true,
     };
   },
   mounted() {
     this.confirmRouter();
+    this.fetchUserInfo();
   },
   methods: {
+    async fetchUserInfo() {
+      try {
+        const pramsId = this.$route.params.id;
+        const response = await userAPI.getUserInfo(pramsId);
+        const {
+          id,
+          account,
+          name,
+          avatar,
+          cover,
+          introduction,
+          followerCount,
+          followingCount,
+          tweetCount,
+        } = response.data;
+
+        this.user = {
+          id,
+          account,
+          name,
+          avatar,
+          cover,
+          introduction,
+          followerCount,
+          followingCount,
+          tweetCount,
+        };
+      } catch (error) {
+        console.error(error.massage);
+        Toast.fire({
+          icon: "warning",
+          title: "無法取得使用者資料,請稍後再試!",
+        });
+      }
+    },
     confirmRouter() {
       if (this.$route.path.includes("other")) {
         this.isUsers = false;
@@ -129,6 +171,7 @@ export default {
     position: relative;
     &_background {
       height: 200px;
+      background: $mid-gray;
       overflow: hidden;
       img {
         object-fit: cover;
@@ -145,6 +188,7 @@ export default {
       position: absolute;
       bottom: -35%;
       left: 15px;
+      background: $mid-gray;
       img {
         object-fit: cover;
         width: 100%;

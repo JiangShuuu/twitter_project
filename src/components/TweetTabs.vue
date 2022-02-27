@@ -2,17 +2,17 @@
   <section class="tweet_tabs">
     <template v-if="isUsers">
       <router-link
-        to="/users/self"
+        :to="{ name: 'self', params: { id: currentUser.id } }"
         :class="['tweet_tabs_btn', { active: this.$route.name === 'self' }]"
         >推文</router-link
       >
       <router-link
-        to="/users/reply"
+        :to="{ name: 'reply', params: { id: currentUser.id } }"
         :class="['tweet_tabs_btn', { active: this.$route.name === 'reply' }]"
         >推文與回覆</router-link
       >
       <router-link
-        to="/users/like"
+        :to="{ name: 'like', params: { id: currentUser.id } }"
         :class="['tweet_tabs_btn', { active: this.$route.name === 'like' }]"
       >
         喜歡的內容
@@ -49,8 +49,12 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "tweetTabs",
+  computed: {
+    ...mapState(["currentUser"]),
+  },
   data() {
     return {
       isUsers: true,

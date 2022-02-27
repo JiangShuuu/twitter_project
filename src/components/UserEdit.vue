@@ -71,7 +71,7 @@
                 autofocus
               />
               <label for="password">自我介紹</label>
-              <span>{{ user.text.length }}/160</span>
+              <span>{{ user.introduction.length }}/160</span>
             </div>
           </form>
         </div>
