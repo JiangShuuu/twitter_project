@@ -56,7 +56,7 @@ export default {
     async fetchReplyTweets() {
       try {
         const pramsId = this.$route.params.id;
-        const response = await userAPI.getReplyTweets(pramsId);
+        const response = await userAPI.getUserReply(pramsId);
         this.replyTweets = response.data;
         await this.movefunction(100);
       } catch (error) {

@@ -22,9 +22,13 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
   },
-
-  getReplyTweets(id) {
+  getUserReply(id) {
     return apiHelper.get(`api/users/${id}/replied_tweets`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+  getUserLikes(id) {
+    return apiHelper.get(`api/users/${id}/likes`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
   },
