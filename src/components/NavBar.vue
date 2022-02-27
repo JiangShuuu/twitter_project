@@ -30,8 +30,8 @@
             ><i class="nav-item__icon fa-solid fa-house"></i>首頁</router-link
           >
         </li>
-        <li :class="['nav-item', { active: this.$route.name === 'self' }]">
-          <router-link to="/users/self"
+        <li :class="['nav-item', { active: isUsers }]">
+          <router-link :to="{ name: 'users', params: { id: currentUser.id } }"
             ><i class="nav-item__icon fa-solid fa-user"></i
             >個人資料</router-link
           >
@@ -54,11 +54,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "navBar",
+  computed: {
+    ...mapState(["currentUser"]),
+  },
   data() {
     return {
       isAdmin: false,
+      isUsers: false,
     };
   },
   mounted() {
@@ -69,6 +74,9 @@ export default {
       this.$route.path.includes("admin")
         ? (this.isAdmin = true)
         : (this.isAdmin = false);
+      this.$route.path.includes("users")
+        ? (this.isUsers = true)
+        : (this.isUsers = false);
     },
     logout() {
       this.$store.commit("revokeAuthenication");
