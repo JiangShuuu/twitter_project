@@ -36,5 +36,15 @@ export default {
     return apiHelper.get("api/users/top", {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
+  },
+  addFollow({ userId }) {
+    return apiHelper.post("api/followships", { userId },{
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+  deleteFollow({ userId }) {
+    return apiHelper.delete(`api/followships/${ userId }`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
   }
 };
