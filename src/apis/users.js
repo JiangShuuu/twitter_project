@@ -12,4 +12,9 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
   },
+  getUserInfo(id) {
+    return apiHelper.get(`api/users/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
 };
