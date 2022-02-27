@@ -5,9 +5,7 @@
       <div class="users_content">
         <UserCard />
         <TweetTabs />
-        <div class="users_content_tweets">
-          <router-view />
-        </div>
+        <router-view />
       </div>
       <Popular />
     </div>
@@ -19,7 +17,7 @@ import NavBar from "../components/NavBar.vue";
 import Popular from "../components/Popular.vue";
 import UserCard from "../components/UserCard.vue";
 import TweetTabs from "../components/TweetTabs.vue";
-import BetterScroll from "better-scroll";
+// import BetterScroll from "better-scroll";
 
 export default {
   name: "Users",
@@ -29,28 +27,28 @@ export default {
     NavBar,
     Popular,
   },
-  beforeRouteUpdate(to, from, next) {
-    // 路由改變時重新抓取資料
+  // beforeRouteUpdate(to, from, next) {
+  //   // 路由改變時重新抓取資料
 
-    setTimeout(() => {
-      this.movefunction();
-    }, 500);
-    next();
-  },
-  mounted() {
-    this.movefunction();
-  },
-  methods: {
-    movefunction() {
-      new BetterScroll(".users_content_tweets", {
-        mouseWheel: true, //開啟滑鼠滾動
-        disableMouse: false, //關閉滑鼠拖動
-        disableTouch: false, //關閉手指觸摸
-        scrollX: true, //X軸滾動開啟
-        click: true,
-      });
-    },
-  },
+  //   setTimeout(() => {
+  //     this.movefunction();
+  //   }, 500);
+  //   next();
+  // },
+  // mounted() {
+  //   this.movefunction();
+  // },
+  // methods: {
+  //   movefunction() {
+  //     new BetterScroll(".users_content_tweets", {
+  //       mouseWheel: true, //開啟滑鼠滾動
+  //       disableMouse: false, //關閉滑鼠拖動
+  //       disableTouch: false, //關閉手指觸摸
+  //       scrollX: true, //X軸滾動開啟
+  //       click: true,
+  //     });
+  //   },
+  // },
 };
 </script>
 
@@ -70,11 +68,11 @@ export default {
     border: 1px solid $light-gray;
     width: 600px;
     height: 100%;
-    &_tweets {
-      width: 100%;
-      height: 55.6%;
-      overflow: hidden;
-    }
+    // &_tweets {
+    //   width: 100%;
+    //   height: 55.6%;
+    //   overflow: hidden;
+    // }
   }
 }
 </style>

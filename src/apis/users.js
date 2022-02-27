@@ -17,4 +17,15 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
   },
+  getUserTweet(id) {
+    return apiHelper.get(`api/users/${id}/tweets`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+
+  getReplyTweets(id) {
+    return apiHelper.get(`api/users/${id}/replied_tweets`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
 };
