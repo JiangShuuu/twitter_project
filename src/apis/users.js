@@ -7,4 +7,9 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
   },
+  getUsersTop() {
+    return apiHelper.get("api/users/top", {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  }
 };
