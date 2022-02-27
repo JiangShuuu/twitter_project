@@ -3,7 +3,7 @@
     <h2 class="tweets-title">首頁</h2>
     <div class="tweets-create">
       <img
-        :src="user.avatar"
+        :src="currentUser.avatar"
         alt="avatar on screen"
         class="tweets-create__avatar"
       />
@@ -29,15 +29,37 @@
 </template>
 
 <script>
+import store from "./../store";
+
 export default {
   name: "mainCard",
   components: {},
   data() {
     return {
-      user: {
-        avatar: "https://randomuser.me/api/portraits/men/93.jpg",
+      currentUser: {
+        id: "",
+        avatar: "",
+        name: "",
       },
+      isUsers: true,
     };
+  },
+  mounted() {
+    this.confirmRouter();
+    this.fetchUserInfo();
+  },
+  methods: {
+    fetchUserInfo() {
+      const { account, avatar,  id } = store.state.currentUser;
+      this.currentUser = { account,avatar, id };
+    },
+    confirmRouter() {
+      if (this.$route.path.includes("other")) {
+        this.isUsers = false;
+      } else if (this.$route.name.includes("users")) {
+        this.isUsers = true;
+      }
+    },
   },
 };
 </script>
