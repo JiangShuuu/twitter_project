@@ -5,16 +5,16 @@
         <i class="fa-solid fa-arrow-left"></i>
       </router-link>
       <div class="user_title_area">
-        <span class="user_name">{{ userInfo.name }}</span>
-        <span class="user_tweet">{{ userInfo.tweetCount }} 推文</span>
+        <span class="user_name">{{ userProfile.name }}</span>
+        <span class="user_tweet">{{ userProfile.tweetCount }} 推文</span>
       </div>
     </div>
     <div class="user_image">
       <div class="user_image_background">
-        <img :src="userInfo.cover" alt="" />
+        <img :src="userProfile.cover" alt="" />
       </div>
       <div class="user_image_avatar">
-        <img :src="userInfo.avatar" alt="" />
+        <img :src="userProfile.avatar" alt="" />
       </div>
     </div>
 
@@ -44,16 +44,17 @@
       </button>
     </div>
     <div class="user_detail">
-      <span class="user_detail_name">{{ userInfo.name }}</span>
-      <span class="user_detail_account">@{{ userInfo.account }}</span>
-      <span class="user_detail_test">{{ userInfo.introduction }} </span>
+      <span class="user_detail_name">{{ userProfile.name }}</span>
+      <span class="user_detail_account">@{{ userProfile.account }}</span>
+      <span class="user_detail_test">{{ userProfile.introduction }} </span>
       <div class="user_detail_area">
         <router-link to="/users/follows" class="follows"
-          ><span class="num">{{ userInfo.followingCount }}個</span>
+          ><span class="num">{{ userProfile.followingCount }}個</span>
           跟隨中</router-link
         >
         <span class="follower"
-          ><span class="num">{{ userInfo.followerCount }}位</span> 跟隨者</span
+          ><span class="num">{{ userProfile.followerCount }}位</span>
+          跟隨者</span
         >
       </div>
     </div>
@@ -61,25 +62,18 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "UserCard",
   components: {},
-  props: {
-    initialUser: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapState(["userProfile"]),
   },
   data() {
     return {
-      userInfo: this.initialUser,
+      userInfo: {},
       isUsers: true,
     };
-  },
-  watch: {
-    initialUser: function (newValue) {
-      this.userInfo = newValue;
-    },
   },
   mounted() {
     this.confirmRouter();

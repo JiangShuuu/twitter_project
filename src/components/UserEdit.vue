@@ -132,14 +132,14 @@ export default {
   methods: {
     fetchUserData() {
       this.userdetail = {
-        ...this.initialUser,
+        ...store.state.userProfile,
       };
     },
     cancelChange() {
       this.fetchUserData();
     },
     deleteImage() {
-      this.userdetail.cover = " ";
+      this.userdetail.cover = "";
     },
     changeCover(e) {
       const { files } = e.target;
@@ -156,14 +156,20 @@ export default {
     async userProfilesEdit(e) {
       try {
         const pramsId = this.$route.params.id;
+
         const form = e.target;
         const formData = new FormData(form);
+
+        // 若背景的圖片為空值，則formData新增cover, -1，來取預設背景
+        if (this.userdetail.cover.length === 0) {
+          formData.append("cover", "-1");
+        }
 
         const { data } = await usersAPI.editUserInfo(pramsId, formData);
         if (data.status !== "success") {
           throw new Error(data.message);
         }
-        await store.dispatch("fetchCurrentUser");
+        await store.dispatch("fetchUserInfo", { payload: 24 });
         this.$emit("update-user");
         Toast.fire({
           icon: "success",

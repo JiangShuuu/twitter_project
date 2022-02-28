@@ -91,7 +91,7 @@ export default {
 
 .tweets_reply_list {
   width: 100%;
-  height: 55.5%;
+  height: 51%;
   overflow: hidden;
 }
 

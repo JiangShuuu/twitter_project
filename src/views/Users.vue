@@ -3,7 +3,7 @@
     <div class="users_main">
       <NavBar />
       <div class="users_content">
-        <UserCard :initial-user="user" />
+        <UserCard @get-info="fetchUserInfo" />
         <!-- model -->
         <UserEdit :initial-user="user" @update-user="fetchUserInfo" />
         <TweetTabs />
@@ -19,9 +19,10 @@ import NavBar from "../components/NavBar.vue";
 import Popular from "../components/Popular.vue";
 import UserCard from "../components/UserCard.vue";
 import TweetTabs from "../components/TweetTabs.vue";
-import userAPI from "./../apis/users.js";
+// import userAPI from "./../apis/users.js";
 import UserEdit from "../components/UserEdit.vue";
-import { Toast } from "./../utils/helpers.js";
+// import { Toast } from "./../utils/helpers.js";
+import store from "./../store";
 
 export default {
   name: "Users",
@@ -52,40 +53,47 @@ export default {
   },
   methods: {
     async fetchUserInfo() {
-      try {
-        const pramsId = this.$route.params.id;
-        const response = await userAPI.getUserInfo(pramsId);
-        const {
-          id,
-          account,
-          name,
-          avatar,
-          cover,
-          introduction,
-          followerCount,
-          followingCount,
-          tweetCount,
-        } = response.data;
-
-        this.user = {
-          id,
-          account,
-          name,
-          avatar,
-          cover,
-          introduction,
-          followerCount,
-          followingCount,
-          tweetCount,
-        };
-      } catch (error) {
-        console.error(error.massage);
-        Toast.fire({
-          icon: "warning",
-          title: "無法取得使用者資料,請稍後再試!",
-        });
-      }
+      const pramsId = this.$route.params.id;
+      await this.$store.dispatch("fetchUserInfo", { payload: pramsId });
+      const data = store.state.userProfile;
+      this.user = data;
     },
+    // async fetchUserInfo() {
+    //   try {
+    //     const pramsId = this.$route.params.id;
+    //     const response = await userAPI.getUserInfo(pramsId);
+    //     const {
+    //       id,
+    //       account,
+    //       name,
+    //       avatar,
+    //       cover,
+    //       introduction,
+    //       followerCount,
+    //       followingCount,
+    //       tweetCount,
+    //     } = response.data;
+
+    //     this.user = {
+    //       id,
+    //       account,
+    //       name,
+    //       avatar,
+    //       cover,
+    //       introduction,
+    //       followerCount,
+    //       followingCount,
+    //       tweetCount,
+    //     };
+    //     // await store.dispatch("fetchUserInfo", { payload: 54 });
+    //   } catch (error) {
+    //     console.error(error.massage);
+    //     Toast.fire({
+    //       icon: "warning",
+    //       title: "無法取得使用者資料,請稍後再試!",
+    //     });
+    //   }
+    // },
   },
 };
 </script>

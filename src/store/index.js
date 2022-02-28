@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     currentUser: {},
+    userProfile: {},
     isAuthenticated: false,
     token: "",
   },
@@ -26,6 +27,13 @@ export default new Vuex.Store({
       state.isAuthenticated = false;
       state.token = "";
       localStorage.removeItem("token");
+    },
+    getUserProfile(state, userProfile) {
+      state.userProfile = {
+        ...state.userProfile,
+        // 透過API取得的 userProfile
+        ...userProfile,
+      };
     },
   },
   // 透過 API 請求資料
@@ -49,6 +57,25 @@ export default new Vuex.Store({
         });
         commit("revokeAuthenication");
         return false;
+      }
+    },
+    async fetchUserInfo({ commit }, payload) {
+      try {
+        // const { pramsId } = payload;
+        // console.log(pramsId);
+        // console.log(payload);
+        const { payload: id } = payload;
+        console.log(id);
+
+        const { data } = await usersAPI.getUserInfo(id);
+        console.log(data);
+        commit("getUserProfile", data);
+      } catch (error) {
+        console.error(error.message);
+        Toast.fire({
+          icon: "warning",
+          title: "驗證!!失敗,請重新登入",
+        });
       }
     },
   },
