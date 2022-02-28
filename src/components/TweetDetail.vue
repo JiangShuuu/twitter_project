@@ -1,7 +1,9 @@
 <template>
   <div class="main-content">
     <div class="tweets-header">
-      <i class="fa-solid fa-arrow-left"></i>
+      <router-link to="/main" class="tweets-return">
+        <i class="fa-solid fa-arrow-left"></i>
+      </router-link>
       <h2 class="tweets-title">推文</h2>
     </div>
     <div class="following-content">
@@ -74,12 +76,13 @@
       </div>
     </div>
     <!-- Modal -->
-    <ReplyModal :initial-user="user" />
+    <ReplyModal />
   </div>
 </template>
 
 <script>
 import ReplyModal from "../components/ReplyModal.vue";
+import tweetsAPI from "../apis/tweets";
 export default {
   name: "TweetDetail",
   components: {
@@ -87,13 +90,25 @@ export default {
   },
   data() {
     return {
-      user: {
-        avatar: "https://randomuser.me/api/portraits/men/93.jpg",
-      },
+      tweetDetail: {},
       isLiked: false,
     };
   },
+  mounted() {
+    this.fetchTweetsDetail();
+  },
   methods: {
+    async fetchTweetsDetail() {
+      try{
+        const id = this.$route.params.id;
+        const response = await tweetsAPI.getTweetDetail(id);
+        this.tweetDetail = response.data;
+        console.log(response.data);
+        
+      }catch (error) {
+        console.log(error);
+      }
+    },
     addLiked() {
       this.isLiked = true;
       console.log("add");
@@ -116,6 +131,9 @@ export default {
     padding-left: 15px;
     padding-top: 17px;
     display: flex;
+    .tweets-return {
+      color: $black;
+    }
     .fa-arrow-left {
       font-size: 18px;
     }

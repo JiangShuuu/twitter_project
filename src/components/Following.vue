@@ -39,21 +39,28 @@
 
 <script>
 import { ToastWarning } from "./../utils/helpers";
+import usersAPI from "./../apis/users";
 
 export default {
   name: "Following",
-  props: {
-    initialUser: {
-      type: Array,
-      required: true,
-    },
-  },
   data() {
     return {
-      user: this.initialUser,
+      user: [],
     };
   },
+  mounted() {
+    this.fetchFollow();
+  },
   methods: {
+    async fetchFollow() {
+      try{
+        const id = this.$route.params.id;
+        const response = await usersAPI.getUserFollow({ id })
+        this.user = response.data;
+      }catch (error) {
+        console.error(error)
+      }
+    },
     addFollow() {
       this.user.isFollowing = true;
     },
