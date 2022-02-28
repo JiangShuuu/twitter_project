@@ -17,10 +17,12 @@
             >@{{ tweet.TweetAuthor.account }}</span
           >
           <span class="following-item__icon">&#8226;</span>
-          <span class="following-item__date">{{ tweet.createdAt }}</span>
-          <p class="following-item__description">
+          <span class="following-item__date">{{ tweet.createdAt | fromNow }}</span>
+          <router-link class="following-item__description"
+          :to="{ name: 'reply-list', params: { id: tweet.id } }"
+          >
             {{ tweet.description }}
-          </p>
+          </router-link>
           <div class="following-icons">
             <div class="icons">
               <i
@@ -31,12 +33,12 @@
               <span class="icons__reply-count">{{ tweet.replyCount }}</span>
             </div>
             <div class="icons_heart">
-              <div v-if="tweet.isLiked" @click="addLiked(tweet.id)">
+              <div v-if="tweet.isLiked" @click="unLiked()">
                 <li>
                   <i class="icon fa-solid fa-heart"></i>
                 </li>
               </div>
-              <div v-else @click="addLiked(tweet.id)">
+              <div v-else @click="addLiked()">
                 <li>
                   <i class="icon fa-regular fa-heart"></i>
                 </li>
@@ -47,24 +49,32 @@
         </div>
       </div>
     </div>
+    <ReplyModal />
   </div>
 </template>
 
 <script>
 // import store from "./../store";
 import tweetsAPI from "./../apis/tweets";
+import ReplyModal from "./../components/ReplyModal.vue";
+import { fromNowFilter } from "./../utils/mixins";
 
 export default {
   name: "Tweets",
+  mixins: [fromNowFilter],
+  components: {
+    ReplyModal,
+  },
   props: {
     initialTweet: {
       type: Array,
       required: true,
     },
   },
-  data(){
+  data() {
     return {
-      tweets: this.initialTweet
+      tweet: this.initialTweet,
+      isLiked: false,
     }
   },
   methods: {
@@ -72,24 +82,22 @@ export default {
     //   const { account, avatar, id } = store.state.currentUser;
     //   this.currentUser = { account, avatar, id };
     // },
-    async addLiked(tweetId) {
+    async addLiked() {
       try {
-        console.log("add");
-        const { data } = await tweetsAPI.likeTweets({ tweetId });
-
-        console.log(data)
+        // console.log("addLiked:", tweetId);
+        // const { data } = await tweetsAPI.likeTweets({ tweetId });
+        // console.log(data);
         this.isLiked = true;
-      }catch (error) {
+
+      } catch (error) {
         console.log(error);
-        
       }
-      
-      
-      
     },
-    deleteLiked() {
+    async unLiked(tweetId) {
+      console.log("delike", tweetId);
+      const { data } = await tweetsAPI.likeTweets({ tweetId });
+      console.log(data);
       this.isLiked = false;
-      console.log("delete");
     },
   },
 };
@@ -134,6 +142,7 @@ export default {
       &__description {
         height: 65px;
         margin-top: 5px;
+        display: flex;
       }
       &__name {
         font-weight: 700;
