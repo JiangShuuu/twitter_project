@@ -83,18 +83,23 @@ export default {
     };
   },
   mounted() {
-    this.movefunction();
-    this.fetchTweets();
+    this.fetchTweets(()=>{
+      this.$nextTick(()=>{
+        this.movefunction()
+      })
+    });
   },
   methods: {
     fetchUserInfo() {
       const { account, avatar, id } = store.state.currentUser;
       this.currentUser = { account, avatar, id };
     },
-    async fetchTweets() {
+    async fetchTweets(callback) {
       try {
         const { data } = await tweetsAPI.getTweets();
         this.tweets = data;
+        // 數據更新後，通知組件
+        callback()
       } catch (error) {
         console.log(error);
         Toast.fire({
