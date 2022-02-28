@@ -2,9 +2,9 @@
   <div class="container">
     <ul class="pop-list">
       <h2 class="pop-title">Popular</h2>
-      <li v-for="user in data" :key="user.id" class="pop-item">
+      <li v-for="user in users" :key="user.id" class="pop-item">
         <div class="pop-avatar">
-          <router-link :to="{ name: 'other', params: { id: user.id }}"
+          <router-link :to="{ name: 'other', params: { id: user.id } }"
             ><img
               class="pop-avatar__img"
               :src="user.avatar"
@@ -13,7 +13,11 @@
         </div>
         <div class="pop-text">
           <span class="pop-text__name">{{ user.name }}</span>
-          <router-link class="pop-text__account" :to="{ name: 'other', params: { id: user.id }}">{{ user.account }}</router-link>
+          <router-link
+            class="pop-text__account"
+            :to="{ name: 'other', params: { id: user.id } }"
+            >{{ user.account }}</router-link
+          >
         </div>
         <div class="pop-btn">
           <button
@@ -45,7 +49,7 @@ export default {
   name: "Popular",
   data() {
     return {
-      data: [],
+      users: [],
     };
   },
   created() {
@@ -56,7 +60,7 @@ export default {
       try {
         const response = await usersAPI.getUsersTop();
         const { data } = response.data;
-        this.data = data;
+        this.users = data;
       } catch (error) {
         Toast.fire({
           icon: "warning",
@@ -64,35 +68,42 @@ export default {
         });
       }
     },
+
     async deleteFollow(userId) {
       try {
-        const response = await usersAPI.addFollow({ userId })
-        console.log(response)
-      }catch (error) {
-        this.data = this.data.map(user => {
-        if (user.id !== userId) {
-          return user
-        } else {
-          return {
-            ...user,
-            isFollowed: false
+        const { data } = await usersAPI.deleteFollow({ userId });
+        console.log(data);
+        this.users = this.users.map((user) => {
+          if (user.id !== userId) {
+            return user;
+          } else {
+            return {
+              ...user,
+              isFollowed: false,
+            };
           }
-        }
-      });
+        });
+      } catch (error) {
+        console.log(error);
       }
-
     },
-    addFollow(userId) {
-      this.data = this.data.map(user => {
-        if (user.id !== userId) {
-          return user
-        } else {
-          return {
-            ...user,
-            isFollowed: true
+    async addFollow(id) {
+      try {
+        const { data } = await usersAPI.addFollow({ id });
+        console.log(data);
+        this.users = this.users.map((user) => {
+          if (user.id !== id) {
+            return user;
+          } else {
+            return {
+              ...user,
+              isFollowed: true,
+            };
           }
-        }
-      });
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
