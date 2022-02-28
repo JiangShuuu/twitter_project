@@ -6,6 +6,15 @@ import store from "./../store";
 
 Vue.use(VueRouter);
 
+const authorizeIsAdmin = (to, from, next) => {
+  const currentUser = store.state.currentUser;
+  if (currentUser && currentUser.role !== "admin") {
+    next("/not-found");
+    return;
+  }
+  next();
+};
+
 const routes = [
   {
     path: "/",
@@ -95,6 +104,7 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: () => import("../views/Admin.vue"),
+    beforeEnter: authorizeIsAdmin,
     redirect: "/admin/tweetList",
     children: [
       {
