@@ -3,7 +3,9 @@
     <div class="users_main">
       <NavBar />
       <div class="users_content">
-        <UserCard />
+        <UserCard :initial-user="user" />
+        <!-- model -->
+        <UserEdit :initial-user="user" />
         <TweetTabs />
         <router-view />
       </div>
@@ -17,7 +19,9 @@ import NavBar from "../components/NavBar.vue";
 import Popular from "../components/Popular.vue";
 import UserCard from "../components/UserCard.vue";
 import TweetTabs from "../components/TweetTabs.vue";
-// import BetterScroll from "better-scroll";
+import userAPI from "./../apis/users.js";
+import UserEdit from "../components/UserEdit.vue";
+import { Toast } from "./../utils/helpers.js";
 
 export default {
   name: "Users",
@@ -26,29 +30,63 @@ export default {
     TweetTabs,
     NavBar,
     Popular,
+    UserEdit,
   },
-  // beforeRouteUpdate(to, from, next) {
-  //   // 路由改變時重新抓取資料
+  data() {
+    return {
+      user: {
+        id: "1",
+        account: "",
+        name: "John Doe",
+        avatar: "",
+        cover: "",
+        introduction: "",
+        followerCount: "",
+        followingCount: "",
+        tweetCount: "",
+      },
+    };
+  },
+  mounted() {
+    this.fetchUserInfo();
+  },
+  methods: {
+    async fetchUserInfo() {
+      try {
+        const pramsId = this.$route.params.id;
+        const response = await userAPI.getUserInfo(pramsId);
+        const {
+          id,
+          account,
+          name,
+          avatar,
+          cover,
+          introduction,
+          followerCount,
+          followingCount,
+          tweetCount,
+        } = response.data;
 
-  //   setTimeout(() => {
-  //     this.movefunction();
-  //   }, 500);
-  //   next();
-  // },
-  // mounted() {
-  //   this.movefunction();
-  // },
-  // methods: {
-  //   movefunction() {
-  //     new BetterScroll(".users_content_tweets", {
-  //       mouseWheel: true, //開啟滑鼠滾動
-  //       disableMouse: false, //關閉滑鼠拖動
-  //       disableTouch: false, //關閉手指觸摸
-  //       scrollX: true, //X軸滾動開啟
-  //       click: true,
-  //     });
-  //   },
-  // },
+        this.user = {
+          id,
+          account,
+          name,
+          avatar,
+          cover,
+          introduction,
+          followerCount,
+          followingCount,
+          tweetCount,
+        };
+      } catch (error) {
+        console.error(error.massage);
+        Toast.fire({
+          icon: "warning",
+          title: "無法取得使用者資料,請稍後再試!",
+        });
+      }
+    },
+  },
 };
 </script>
 
@@ -68,11 +106,6 @@ export default {
     border: 1px solid $light-gray;
     width: 600px;
     height: 100%;
-    // &_tweets {
-    //   width: 100%;
-    //   height: 55.6%;
-    //   overflow: hidden;
-    // }
   }
 }
 </style>
