@@ -5,16 +5,16 @@
         <i class="fa-solid fa-arrow-left"></i>
       </router-link>
       <div class="user_title_area">
-        <span class="user_name">{{ user.name }}</span>
-        <span class="user_tweet">{{ user.tweetCount }} 推文</span>
+        <span class="user_name">{{ userInfo.name }}</span>
+        <span class="user_tweet">{{ userInfo.tweetCount }} 推文</span>
       </div>
     </div>
     <div class="user_image">
       <div class="user_image_background">
-        <img :src="user.cover" alt="" />
+        <img :src="userInfo.cover" alt="" />
       </div>
       <div class="user_image_avatar">
-        <img :src="user.avatar" alt="" />
+        <img :src="userInfo.avatar" alt="" />
       </div>
     </div>
 
@@ -37,97 +37,54 @@
       <button
         :class="[
           'other_btn_follow',
-          { active: this.user.id === this.$route.params.id },
+          { active: this.userInfo.id === this.$route.params.id },
         ]"
       >
         正在跟隨
       </button>
     </div>
     <div class="user_detail">
-      <span class="user_detail_name">{{ user.name }}</span>
-      <span class="user_detail_account">@{{ user.account }}</span>
-      <span class="user_detail_test">{{ user.introduction }} </span>
+      <span class="user_detail_name">{{ userInfo.name }}</span>
+      <span class="user_detail_account">@{{ userInfo.account }}</span>
+      <span class="user_detail_test">{{ userInfo.introduction }} </span>
       <div class="user_detail_area">
         <router-link to="/users/follows" class="follows"
-          ><span class="num">{{ user.followingCount }}個</span>
+          ><span class="num">{{ userInfo.followingCount }}個</span>
           跟隨中</router-link
         >
         <span class="follower"
-          ><span class="num">{{ user.followerCount }}位</span> 跟隨者</span
+          ><span class="num">{{ userInfo.followerCount }}位</span> 跟隨者</span
         >
       </div>
     </div>
-    <!-- model -->
-    <UserEdit :initial-user="user" />
   </section>
 </template>
 
 <script>
-import UserEdit from "./UserEdit.vue";
-import userAPI from "./../apis/users.js";
-import { Toast } from "./../utils/helpers.js";
-
 export default {
   name: "UserCard",
-  components: {
-    UserEdit,
+  components: {},
+  props: {
+    initialUser: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
-      user: {
-        id: "1",
-        account: "",
-        name: "John Doe",
-        avatar: "",
-        cover: "",
-        introduction: "",
-        followerCount: "",
-        followingCount: "",
-        tweetCount: "",
-      },
+      userInfo: this.initialUser,
       isUsers: true,
     };
   },
+  watch: {
+    initialUser: function (newValue) {
+      this.userInfo = newValue;
+    },
+  },
   mounted() {
     this.confirmRouter();
-    this.fetchUserInfo();
   },
   methods: {
-    async fetchUserInfo() {
-      try {
-        const pramsId = this.$route.params.id;
-        const response = await userAPI.getUserInfo(pramsId);
-        const {
-          id,
-          account,
-          name,
-          avatar,
-          cover,
-          introduction,
-          followerCount,
-          followingCount,
-          tweetCount,
-        } = response.data;
-
-        this.user = {
-          id,
-          account,
-          name,
-          avatar,
-          cover,
-          introduction,
-          followerCount,
-          followingCount,
-          tweetCount,
-        };
-      } catch (error) {
-        console.error(error.massage);
-        Toast.fire({
-          icon: "warning",
-          title: "無法取得使用者資料,請稍後再試!",
-        });
-      }
-    },
     confirmRouter() {
       if (this.$route.path.includes("other")) {
         this.isUsers = false;

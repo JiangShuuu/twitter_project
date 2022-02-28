@@ -13,6 +13,7 @@
             class="modal-header_close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            @click="deleteChange"
           >
             <i class="fa-solid fa-xmark"></i>
           </li>
@@ -27,7 +28,7 @@
           <!--display modal person info-->
           <div class="user_image">
             <div class="user_image_background">
-              <img :src="user.background" alt="" />
+              <img :src="userInfo.cover" alt="" />
             </div>
             <div class="user_image_edit_icon">
               <li class="change_image">
@@ -38,7 +39,7 @@
               </li>
             </div>
             <div class="user_image_avatar">
-              <img :src="user.avatar" alt="" />
+              <img :src="userInfo.avatar" alt="" />
             </div>
             <div class="user_image_edit_avatar_icon">
               <li class="change_image">
@@ -53,25 +54,25 @@
                 class="form-control"
                 id="name"
                 maxlength="50"
-                v-model="user.name"
+                v-model="userInfo.name"
                 required
                 autofocus
               />
               <label for="account">名稱</label>
-              <span>{{ user.name.length }}/50</span>
+              <span>{{ userInfo.name.length }}/50</span>
             </div>
             <div class="form-floating">
               <textarea
                 type="text"
                 class="form-control text"
                 id="text"
-                v-model="user.text"
                 maxlength="160"
+                v-model="userInfo.introduction"
                 required
                 autofocus
               />
               <label for="password">自我介紹</label>
-              <span>{{ user.introduction.length }}/160</span>
+              <span>{{ userInfo.introduction.length }}/160</span>
             </div>
           </form>
         </div>
@@ -86,13 +87,38 @@ export default {
   props: {
     initialUser: {
       type: Object,
-      require: true,
+      required: true,
+    },
+  },
+  watch: {
+    initialUser: function () {
+      this.fetchUserData();
     },
   },
   data() {
     return {
-      user: this.initialUser,
+      userInfo: {
+        id: "1",
+        name: "John Doe",
+        avatar: "",
+        cover: "",
+        introduction: "",
+      },
+      isUsers: true,
     };
+  },
+  mounted() {
+    this.fetchUserData();
+  },
+  methods: {
+    fetchUserData() {
+      this.userInfo = {
+        ...this.initialUser,
+      };
+    },
+    deleteChange() {
+      console.log("hi");
+    },
   },
 };
 </script>
