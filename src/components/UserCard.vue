@@ -49,7 +49,7 @@
       <span class="user_detail_account">@{{ userProfile.account }}</span>
       <span class="user_detail_test">{{ userProfile.introduction }} </span>
       <div class="user_detail_area">
-        <router-link to="/users/follows" class="follows"
+        <router-link :to="{ name: 'user', params: { id: this.$route.params.id } }" class="follows"
           ><span class="num">{{ userProfile.followingCount }}個</span>
           跟隨中</router-link
         >
