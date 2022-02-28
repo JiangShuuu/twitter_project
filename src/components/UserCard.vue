@@ -23,6 +23,7 @@
         class="user_edit_btn"
         data-bs-toggle="modal"
         data-bs-target="#personInfoModal"
+        :disabled="isProcess"
       >
         編輯個人資料
       </button>
@@ -59,7 +60,7 @@
       </div>
     </div>
     <!-- model -->
-    <UserEdit />
+    <UserEdit @is-loading="isProcess = !isProcess" />
   </section>
 </template>
 
@@ -77,6 +78,7 @@ export default {
   data() {
     return {
       isUsers: true,
+      isProcess: false,
     };
   },
   watch: {
@@ -184,6 +186,12 @@ export default {
         background: $orange;
         color: white;
       }
+      &:disabled {
+        border: 1px solid $mid-gray;
+        background: $mid-gray;
+        color: white;
+        cursor: progress;
+      }
     }
   }
   &_detail {
@@ -263,7 +271,8 @@ export default {
   &_follow {
     all: unset;
     border: 1px solid $orange;
-    color: $orange;
+    background: $orange;
+    color: white;
     width: 120px;
     text-align: center;
     padding: 5px 0;
@@ -272,8 +281,8 @@ export default {
     font-weight: 700;
     cursor: pointer;
     &:hover {
-      background: $orange;
-      color: white;
+      background: white;
+      color: $orange;
     }
   }
   .active {

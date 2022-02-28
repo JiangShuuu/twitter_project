@@ -102,6 +102,7 @@ import store from "./../store";
 
 export default {
   name: "userEdit",
+  props: {},
   data() {
     return {
       userdetail: {
@@ -142,8 +143,8 @@ export default {
     },
     async userProfilesEdit(e) {
       try {
+        this.$emit("is-loading");
         const pramsId = this.$route.params.id;
-
         const form = e.target;
         const formData = new FormData(form);
 
@@ -156,12 +157,14 @@ export default {
         if (data.status !== "success") {
           throw new Error(data.message);
         }
-        await store.dispatch("fetchUserInfo", { payload: pramsId });
+        await store.dispatch("fetchCurrentUser");
 
         Toast.fire({
           icon: "success",
           title: "更新成功!",
         });
+
+        this.$emit("is-loading");
       } catch (error) {
         Toast.fire({
           icon: "error",
