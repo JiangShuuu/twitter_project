@@ -60,18 +60,18 @@ const routes = [
     ],
   },
   {
-    path: "/user",
+    path: "/user/:id",
     name: "user",
     component: () => import("../views/Followers.vue"),
-    redirect: "/user/following",
+    redirect: "/user/:id/following",
     children: [
       {
-        path: "following",
+        path: "/user/:id/following",
         name: "following",
         component: () => import("../components/Following.vue"),
       },
       {
-        path: "follows",
+        path: "/user/:id/follows",
         name: "follows",
         component: () => import("../components/Follows.vue"),
       },
@@ -130,7 +130,7 @@ const routes = [
     component: () => import("../views/Main.vue"),
   },
   {
-    path: "/replyList",
+    path: "/replyList/:id",
     name: "reply-list",
     component: () => import("../views/ReplyList.vue"),
   },
