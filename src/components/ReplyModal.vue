@@ -44,7 +44,7 @@
         <span class="connect-line"></span>
         <div class="modal-reply">
           <img
-            :src="user.avatar"
+            :src="currentUser.avatar"
             alt="avatar on screen"
             class="modal-reply__avatar"
           />
@@ -67,18 +67,38 @@
   </div>
 </template>
 <script>
+import store from "./../store";
+import tweetsAPI from "./../apis/tweets";
+
+
 export default {
-  name: "CreateTweet",
-  props: {
-    initialUser: {
-      type: Object,
-      required: true,
-    },
-  },
+  name: "ReplyTweet",
   data() {
     return {
-      user: this.initialUser,
+      currentUser: {
+        id: "",
+        avatar: "",
+        name: "",
+      },
+      tweet: []
     };
+  },
+  mounted() {
+    this.fetchUserInfo()
+  },
+  methods: {
+    fetchUserInfo() {
+      const { account, avatar, id } = store.state.currentUser;
+      this.currentUser = { account, avatar, id };
+    },
+    async fetchTweetsDetail(id) {
+      try {
+        const { data } = await tweetsAPI.getTweetDetail({ id })
+        console.log(data)
+      }catch (error) {
+        console.error(error)
+      }
+    }
   },
 };
 </script>
