@@ -7,7 +7,10 @@
           <span class="content_title_name">帳戶設定</span>
         </div>
         <div class="content_form">
-          <AccountForm :initial-user="currentUser" />
+          <AccountForm
+            :initial-user="currentUser"
+            @account-info="handleSubmit"
+          />
         </div>
       </div>
     </div>
@@ -18,6 +21,8 @@
 import AccountForm from "../components/AccountForm.vue";
 import NavBar from "../components/NavBar.vue";
 import store from "./../store";
+import { Toast } from "./../utils/helpers";
+import usersAPI from "./../apis/users.js";
 
 export default {
   name: "Setting",
@@ -39,6 +44,35 @@ export default {
     fetchUserInfo() {
       const { account, name, email, id } = store.state.currentUser;
       this.currentUser = { account, name, email, id };
+    },
+    async handleSubmit(formData) {
+      try {
+        const { name, account, email, password, checkPassword, id } = formData;
+
+        const response = await usersAPI.settingUserAccount(id, {
+          name: name,
+          account: account,
+          email: email,
+          password: password,
+          checkPassword: checkPassword,
+        });
+
+        const { data } = response;
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: response.data.message,
+        });
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error,
+        });
+      }
     },
   },
 };
