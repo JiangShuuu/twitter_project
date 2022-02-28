@@ -41,7 +41,10 @@
             ><i class="nav-item__icon fa-solid fa-gear"></i>設定</router-link
           >
         </li>
-        <button class="btn">推文</button>
+        <button 
+        data-bs-toggle="modal"
+        data-bs-target="#createTweetsModal"
+        class="btn">推文</button>
       </ul>
     </div>
 

@@ -1,125 +1,91 @@
 <template>
   <div class="main-content">
-    <div class="contents">
-      <div class="contents_scroll">
-        <div v-for="tweet in tweets" :key="tweet.id" class="following-content">
-          <div class="following-list">
-            <img
-              :src="tweet.TweetAuthor.avatar"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">{{
-                tweet.TweetAuthor.name
-              }}</span>
-              <span class="following-item__account"
-                >@{{ tweet.TweetAuthor.account }}</span
-              >
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">{{ tweet.createdAt }}</span>
-              <p class="following-item__description">
-                {{ tweet.description }}
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i
-                    class="fa-regular fa-comment"
-                    data-bs-toggle="modal"
-                    data-bs-target="#createReplyModal"
-                  ></i>
-                  <span class="icons__reply-count">13</span>
-                </div>
-                <div class="icons_heart">
-                  <div v-if="tweet.isLiked" @click="isLiked = !isLiked">
-                    <li>
-                      <i class="icon fa-solid fa-heart"></i>
-                    </li>
-                  </div>
-                  <div v-else @click="isLiked = !isLiked">
-                    <li>
-                      <i class="icon fa-regular fa-heart"></i>
-                    </li>
-                  </div>
-                  <span class="icons__like-count">76</span>
-                </div>
+    <div
+      class="following-content"
+      v-for="tweet in initialTweet"
+      :key="tweet.id"
+    >
+      <div class="following-list">
+        <img
+          :src="tweet.TweetAuthor.avatar"
+          alt="avatar on screen"
+          class="following-list__avatar"
+        />
+        <div class="following-item">
+          <span class="following-item__name">{{ tweet.TweetAuthor.name }}</span>
+          <span class="following-item__account"
+            >@{{ tweet.TweetAuthor.account }}</span
+          >
+          <span class="following-item__icon">&#8226;</span>
+          <span class="following-item__date">{{ tweet.createdAt }}</span>
+          <p class="following-item__description">
+            {{ tweet.description }}
+          </p>
+          <div class="following-icons">
+            <div class="icons">
+              <i
+                class="fa-regular fa-comment"
+                data-bs-toggle="modal"
+                data-bs-target="#createReplyModal"
+              ></i>
+              <span class="icons__reply-count">{{ tweet.replyCount }}</span>
+            </div>
+            <div class="icons_heart">
+              <div v-if="tweet.isLiked" @click="addLiked(tweet.id)">
+                <li>
+                  <i class="icon fa-solid fa-heart"></i>
+                </li>
               </div>
+              <div v-else @click="addLiked(tweet.id)">
+                <li>
+                  <i class="icon fa-regular fa-heart"></i>
+                </li>
+              </div>
+              <span class="icons__like-count">{{ tweet.likeCount }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- model -->
-    <CreateTweets :initial-user="user" />
-    <ReplyModal :initial-user="user" />
   </div>
 </template>
+
 <script>
-import CreateTweets from "../components/CreateTweet.vue";
-import ReplyModal from "../components/ReplyModal.vue";
-import BetterScroll from "better-scroll";
-import store from "./../store";
+// import store from "./../store";
 import tweetsAPI from "./../apis/tweets";
-import { Toast } from "./../utils/helpers";
 
 export default {
   name: "Tweets",
-  components: {
-    CreateTweets,
-    ReplyModal,
+  props: {
+    initialTweet: {
+      type: Array,
+      required: true,
+    },
   },
-  data() {
+  data(){
     return {
-      currentUser: {
-        id: "",
-        avatar: "",
-        name: "",
-      },
-      user: {
-        avatar: "https://randomuser.me/api/portraits/men/93.jpg",
-      },
-      isLiked: false,
-      tweets: [],
-    };
-  },
-  mounted() {
-    this.fetchTweets(()=>{
-      this.$nextTick(()=>{
-        this.movefunction()
-      })
-    });
+      tweets: this.initialTweet
+    }
   },
   methods: {
-    fetchUserInfo() {
-      const { account, avatar, id } = store.state.currentUser;
-      this.currentUser = { account, avatar, id };
-    },
-    async fetchTweets(callback) {
+    // fetchUserInfo() {
+    //   const { account, avatar, id } = store.state.currentUser;
+    //   this.currentUser = { account, avatar, id };
+    // },
+    async addLiked(tweetId) {
       try {
-        const { data } = await tweetsAPI.getTweets();
-        this.tweets = data;
-        // 數據更新後，通知組件
-        callback()
-      } catch (error) {
+        console.log("add");
+        const { data } = await tweetsAPI.likeTweets({ tweetId });
+
+        console.log(data)
+        this.isLiked = true;
+      }catch (error) {
         console.log(error);
-        Toast.fire({
-          icon: "warning",
-          title: "無法取得推文，請稍後再試",
-        });
+        
       }
-    },
-    movefunction() {
-      new BetterScroll(".contents", {
-        mouseWheel: true, //開啟滑鼠滾動
-        disableMouse: false, //關閉滑鼠拖動
-        disableTouch: false, //關閉手指觸摸
-        scrollX: true, //X軸滾動開啟
-        click: true,
-      });
-    },
-    addLiked() {
-      this.isLiked = true;
-      console.log("add");
+      
+      
+      
     },
     deleteLiked() {
       this.isLiked = false;
