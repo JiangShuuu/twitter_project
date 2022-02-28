@@ -2,10 +2,7 @@
   <div class="main-content">
     <div class="contents">
       <div class="contents_scroll">
-        <div 
-        v-for="tweet in tweets"
-        :key="tweet.id"
-        class="following-content">
+        <div v-for="tweet in tweets" :key="tweet.id" class="following-content">
           <div class="following-list">
             <img
               :src="tweet.TweetAuthor.avatar"
@@ -13,8 +10,12 @@
               class="following-list__avatar"
             />
             <div class="following-item">
-              <span class="following-item__name">{{ tweet.TweetAuthor.name }}</span>
-              <span class="following-item__account">@{{ tweet.TweetAuthor.account }}</span>
+              <span class="following-item__name">{{
+                tweet.TweetAuthor.name
+              }}</span>
+              <span class="following-item__account"
+                >@{{ tweet.TweetAuthor.account }}</span
+              >
               <span class="following-item__icon">&#8226;</span>
               <span class="following-item__date">{{ tweet.createdAt }}</span>
               <p class="following-item__description">
@@ -78,7 +79,7 @@ export default {
         avatar: "https://randomuser.me/api/portraits/men/93.jpg",
       },
       isLiked: false,
-      tweets: []
+      tweets: [],
     };
   },
   mounted() {
@@ -87,14 +88,13 @@ export default {
   },
   methods: {
     fetchUserInfo() {
-      const { account, avatar,  id } = store.state.currentUser;
-      this.currentUser = { account,avatar, id };
+      const { account, avatar, id } = store.state.currentUser;
+      this.currentUser = { account, avatar, id };
     },
     async fetchTweets() {
       try {
-        const { data } = await tweetsAPI.getTweets()
-        this.tweets = data
-        console.log(this.tweet)
+        const { data } = await tweetsAPI.getTweets();
+        this.tweets = data;
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -102,7 +102,6 @@ export default {
           title: "無法取得推文，請稍後再試",
         });
       }
-
     },
     movefunction() {
       new BetterScroll(".contents", {
