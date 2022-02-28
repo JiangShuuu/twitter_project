@@ -1,7 +1,7 @@
 <template>
   <div class="accountForm">
     <ValidationObserver v-slot="{ handleSubmit }">
-      <form class="form" @submit.prevent="handleSubmit(signUpSubmit)">
+      <form class="form" @submit.prevent="handleSubmit(accountInfoSubmit)">
         <ValidationProvider
           name="account"
           rules="create_account|alpha_num"
@@ -104,8 +104,8 @@
 </template>
 
 <script>
-import { Toast } from "./../utils/helpers";
-import usersAPI from "./../apis/users.js";
+// import { Toast } from "./../utils/helpers";
+// import usersAPI from "./../apis/users.js";
 
 export default {
   name: "AccountForm",
@@ -145,29 +145,44 @@ export default {
         };
       }
     },
-    async signUpSubmit() {
-      try {
-        if (this.isSetting) {
-          const response = await usersAPI.settingUserAccount(this.user.id, {
-            account: this.user.account,
-            name: this.user.name,
-            email: this.user.email,
-            password: this.user.password,
-            checkPassword: this.user.checkPassword,
-          });
-          Toast.fire({
-            icon: "success",
-            title: response.data.message,
-          });
-        }
-      } catch (error) {
-        console.log(error);
-        Toast.fire({
-          icon: "warning",
-          title: error.message,
-        });
-      }
+    accountInfoSubmit() {
+      this.$emit("account-info", this.user);
     },
+    // async signUpSubmit(formData) {
+    //   try {
+    //     if (this.isSetting) {
+    //       console.log("isSetting");
+    //       console.log(formData);
+    //       const { name, account, email, password, checkPassword } = formData;
+
+    //       const response = await usersAPI.settingUserAccount(this.user.id, {
+    //         name: name,
+    //         account: account,
+    //         email: email,
+    //         password: password,
+    //         checkPassword: checkPassword,
+    //       });
+
+    //       const { data } = response;
+    //       if (data.status !== "success") {
+    //         throw new Error(data.message);
+    //       }
+
+    //       Toast.fire({
+    //         icon: "success",
+    //         title: response.data.message,
+    //       });
+    //     } else {
+    //       console.log("isNot");
+    //     }
+    //   } catch (e) {
+    //     console.log(e.message);
+    //     Toast.fire({
+    //       icon: "warning",
+    //       title: e.message,
+    //     });
+    //   }
+    // },
   },
 };
 </script>
