@@ -4,12 +4,12 @@
       <h2 class="pop-title">Popular</h2>
       <li v-for="user in data" :key="user.id" class="pop-item">
         <div class="pop-avatar">
-          <a href="#"
+          <router-link :to="{ name: 'other', params: { id: user.id }}"
             ><img
               class="pop-avatar__img"
               :src="user.avatar"
               alt="avatar on screen"
-          /></a>
+          /></router-link>
         </div>
         <div class="pop-text">
           <span class="pop-text__name">{{ user.name }}</span>
@@ -123,6 +123,8 @@ export default {
       @include flexCenter;
       .pop-avatar__img {
         width: 50px;
+        height: 50px;
+        object-fit: cover;
         border-radius: 50px;
       }
       .pop-text {
