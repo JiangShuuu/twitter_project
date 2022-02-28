@@ -37,10 +37,14 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
   },
-  addFollow({ userId }) {
-    return apiHelper.post(
-      "api/followships",
-      { userId },
+  // 追隨者頁面
+  getUserFollow(id) {
+    return apiHelper.get(`api/users/${id}/followings`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+  addFollow({ id }) {
+    return apiHelper.post("api/followships",{ id },
       {
         headers: { Authorization: `Bearer ${getToken()}` },
       }
