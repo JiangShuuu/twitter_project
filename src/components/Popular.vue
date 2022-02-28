@@ -145,7 +145,7 @@ export default {
         flex: 1;
         text-align: right;
         .followed {
-          @include btn-selected(90px, 35px);
+          @include btn-selected(95px, 35px);
           padding-top: 4px;
         }
         .follow {
