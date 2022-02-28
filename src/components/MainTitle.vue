@@ -1,39 +1,44 @@
 <template>
-  <div class="tweets-header">
-    <h2 class="tweets-title">首頁</h2>
-    <div class="tweets-create">
-      <img
-        :src="currentUser.avatar"
-        alt="avatar on screen"
-        class="tweets-create__avatar"
-      />
-      <textarea
-        name="mytext"
-        rows="6"
-        cols="40"
-        maxlength="140"
-        class="tweets-create__text"
-        placeholder="有什麼新鮮事?"
-        required
-      >
-      </textarea>
-      <button
-        class="btn tweets-create__btn"
-        data-bs-toggle="modal"
-        data-bs-target="#createTweetsModal"
-      >
-        推文
-      </button>
+  <form @submit.stop.prevent="handleSubmit">
+      <div class="tweets-header">
+      <h2 class="tweets-title">首頁</h2>
+      <div class="tweets-create">
+        <img
+          :src="currentUser.avatar"
+          alt="avatar on screen"
+          class="tweets-create__avatar"
+        />
+        <textarea
+          name="mytext"
+          rows="6"
+          cols="40"
+          maxlength="140"
+          class="tweets-create__text"
+          placeholder="有什麼新鮮事?"
+          required
+          v-model="description"
+        >
+        </textarea>
+        <button
+          class="btn tweets-create__btn"
+        >
+          推文
+        </button>
+      </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
 import store from "./../store";
+// import CreateTweets from "../components/CreateTweet.vue";
+import tweetsAPI from "./../apis/tweets";
 
 export default {
   name: "mainCard",
-  components: {},
+  components: {
+    // CreateTweets
+  },
   data() {
     return {
       currentUser: {
@@ -42,6 +47,7 @@ export default {
         name: "",
       },
       isUsers: true,
+      description: '',
     };
   },
   mounted() {
@@ -60,6 +66,21 @@ export default {
         this.isUsers = true;
       }
     },
+    async handleSubmit() {
+      try{
+        console.log('送出表單')
+        const { data } = await tweetsAPI.createTweets({ description: this.description })
+        console.log(data)
+        this.$emit('modal-create-tweet', {
+        description: this.description
+      })
+      this.description = '' // 將表單內的資料清空
+      }catch (error) {
+        console.error(error)
+      }
+      
+
+    }
   },
 };
 </script>
