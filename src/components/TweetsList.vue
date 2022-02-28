@@ -11,10 +11,10 @@
           <div>
             <div class="tweet_info_title">
               <div class="tweet_info_title_name">
-                {{ tweet.TweetAuthor.name }}
+                {{ userProfile.name }}
               </div>
               <div class="tweet_info_title_account">
-                @{{ tweet.TweetAuthor.account }}
+                @{{ userProfile.account }}
               </div>
               <div class="tweet_info_title_dot">‧</div>
               <div class="tweet_info_title_date">

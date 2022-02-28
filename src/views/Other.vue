@@ -25,6 +25,15 @@ export default {
     NavBar,
     Popular,
   },
+  mounted() {
+    this.fetchUserInfo();
+  },
+  methods: {
+    async fetchUserInfo() {
+      const pramsId = this.$route.params.id;
+      await this.$store.dispatch("fetchUserInfo", { payload: pramsId });
+    },
+  },
 };
 </script>
 

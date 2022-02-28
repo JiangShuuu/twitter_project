@@ -61,14 +61,8 @@ export default new Vuex.Store({
     },
     async fetchUserInfo({ commit }, payload) {
       try {
-        // const { pramsId } = payload;
-        // console.log(pramsId);
-        // console.log(payload);
         const { payload: id } = payload;
-        console.log(id);
-
         const { data } = await usersAPI.getUserInfo(id);
-        console.log(data);
         commit("getUserProfile", data);
       } catch (error) {
         console.error(error.message);

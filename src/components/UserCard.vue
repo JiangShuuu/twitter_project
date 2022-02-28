@@ -37,7 +37,7 @@
       <button
         :class="[
           'other_btn_follow',
-          { active: this.userInfo.id === this.$route.params.id },
+          { active: userProfile.id === this.$route.params.id },
         ]"
       >
         正在跟隨
@@ -58,27 +58,41 @@
         >
       </div>
     </div>
+    <!-- model -->
+    <UserEdit />
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import UserEdit from "../components/UserEdit.vue";
 export default {
   name: "UserCard",
-  components: {},
+  components: {
+    UserEdit,
+  },
   computed: {
     ...mapState(["userProfile"]),
   },
   data() {
     return {
-      userInfo: {},
       isUsers: true,
     };
   },
+  watch: {
+    $route: function () {
+      this.fetchUserInfo();
+    },
+  },
   mounted() {
     this.confirmRouter();
+    this.fetchUserInfo();
   },
   methods: {
+    async fetchUserInfo() {
+      const pramsId = this.$route.params.id;
+      await this.$store.dispatch("fetchUserInfo", { payload: pramsId });
+    },
     confirmRouter() {
       if (this.$route.path.includes("other")) {
         this.isUsers = false;

@@ -14,7 +14,6 @@
               class="modal-header_close"
               data-bs-dismiss="modal"
               aria-label="Close"
-              @click="cancelChange"
             >
               <i class="fa-solid fa-xmark"></i>
             </li>
@@ -103,17 +102,6 @@ import store from "./../store";
 
 export default {
   name: "userEdit",
-  props: {
-    initialUser: {
-      type: Object,
-      required: true,
-    },
-  },
-  watch: {
-    initialUser: function () {
-      this.fetchUserData();
-    },
-  },
   data() {
     return {
       userdetail: {
@@ -130,13 +118,12 @@ export default {
     this.fetchUserData();
   },
   methods: {
-    fetchUserData() {
+    async fetchUserData() {
+      const pramsId = this.$route.params.id;
+      await this.$store.dispatch("fetchUserInfo", { payload: pramsId });
       this.userdetail = {
         ...store.state.userProfile,
       };
-    },
-    cancelChange() {
-      this.fetchUserData();
     },
     deleteImage() {
       this.userdetail.cover = "";
@@ -169,8 +156,8 @@ export default {
         if (data.status !== "success") {
           throw new Error(data.message);
         }
-        await store.dispatch("fetchUserInfo", { payload: 24 });
-        this.$emit("update-user");
+        await store.dispatch("fetchUserInfo", { payload: pramsId });
+
         Toast.fire({
           icon: "success",
           title: "更新成功!",
