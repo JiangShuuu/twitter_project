@@ -13,9 +13,7 @@ export default {
       password,
     });
   },
-  signUp(data) {
-    return apiHelper.post("/signup", {
-      ...data,
-    });
+  signUp(formData) {
+    return apiHelper.post("api/users", formData);
   },
 };
