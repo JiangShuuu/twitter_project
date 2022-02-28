@@ -88,6 +88,11 @@ export default {
       isUsers: true,
     };
   },
+  watch: {
+    $route(){
+      this.fetchUserInfo()
+    }
+  },
   mounted() {
     this.confirmRouter();
     this.fetchUserInfo();
