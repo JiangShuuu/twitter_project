@@ -5,7 +5,7 @@
       <div class="users_content">
         <UserCard :initial-user="user" />
         <!-- model -->
-        <UserEdit :initial-user="user" />
+        <UserEdit :initial-user="user" @update-user="fetchUserInfo" />
         <TweetTabs />
         <router-view />
       </div>

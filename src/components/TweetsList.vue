@@ -8,20 +8,22 @@
           </div>
         </div>
         <div class="tweet_info">
-          <div class="tweet_info_title">
-            <div class="tweet_info_title_name">
-              {{ tweet.TweetAuthor.name }}
+          <div>
+            <div class="tweet_info_title">
+              <div class="tweet_info_title_name">
+                {{ tweet.TweetAuthor.name }}
+              </div>
+              <div class="tweet_info_title_account">
+                @{{ tweet.TweetAuthor.account }}
+              </div>
+              <div class="tweet_info_title_dot">‧</div>
+              <div class="tweet_info_title_date">
+                {{ tweet.createdAt | fromNow }}
+              </div>
             </div>
-            <div class="tweet_info_title_account">
-              @{{ tweet.TweetAuthor.account }}
+            <div class="tweet_info_content">
+              {{ tweet.description }}
             </div>
-            <div class="tweet_info_title_dot">‧</div>
-            <div class="tweet_info_title_date">
-              {{ tweet.createdAt | fromNow }}
-            </div>
-          </div>
-          <div class="tweet_info_content">
-            {{ tweet.description }}
           </div>
           <div class="tweet_info_icon">
             <ul class="tweet_info_icon_reply">
@@ -131,6 +133,9 @@ export default {
   &_info {
     flex: 1;
     padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     &_title {
       @include flexCenter;
       justify-content: flex-start;

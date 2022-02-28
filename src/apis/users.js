@@ -51,4 +51,9 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
   },
+  editUserInfo(id, formData) {
+    return apiHelper.put(`api/users/${id}`, formData, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
 };
