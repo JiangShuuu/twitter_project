@@ -14,7 +14,6 @@
               class="modal-header_close"
               data-bs-dismiss="modal"
               aria-label="Close"
-              @click="cancelChange"
             >
               <i class="fa-solid fa-xmark"></i>
             </li>
@@ -103,17 +102,7 @@ import store from "./../store";
 
 export default {
   name: "userEdit",
-  props: {
-    initialUser: {
-      type: Object,
-      required: true,
-    },
-  },
-  watch: {
-    initialUser: function () {
-      this.fetchUserData();
-    },
-  },
+  props: {},
   data() {
     return {
       userdetail: {
@@ -130,16 +119,15 @@ export default {
     this.fetchUserData();
   },
   methods: {
-    fetchUserData() {
+    async fetchUserData() {
+      const pramsId = this.$route.params.id;
+      await this.$store.dispatch("fetchUserInfo", { payload: pramsId });
       this.userdetail = {
-        ...this.initialUser,
+        ...store.state.userProfile,
       };
     },
-    cancelChange() {
-      this.fetchUserData();
-    },
     deleteImage() {
-      this.userdetail.cover = " ";
+      this.userdetail.cover = "";
     },
     changeCover(e) {
       const { files } = e.target;
@@ -155,20 +143,28 @@ export default {
     },
     async userProfilesEdit(e) {
       try {
+        this.$emit("is-loading");
         const pramsId = this.$route.params.id;
         const form = e.target;
         const formData = new FormData(form);
+
+        // 若背景的圖片為空值，則formData新增cover, -1，來取預設背景
+        if (this.userdetail.cover.length === 0) {
+          formData.append("cover", "-1");
+        }
 
         const { data } = await usersAPI.editUserInfo(pramsId, formData);
         if (data.status !== "success") {
           throw new Error(data.message);
         }
         await store.dispatch("fetchCurrentUser");
-        this.$emit("update-user");
+
         Toast.fire({
           icon: "success",
           title: "更新成功!",
         });
+
+        this.$emit("is-loading");
       } catch (error) {
         Toast.fire({
           icon: "error",

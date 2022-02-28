@@ -4,17 +4,17 @@
       <div class="tweet" v-for="tweet in tweets" :key="tweet.id">
         <div class="tweet_avatar">
           <div class="tweet_avatar_img">
-            <img :src="tweet.TweetAuthor.avatar" alt="" />
+            <img :src="userProfile.avatar" alt="" />
           </div>
         </div>
         <div class="tweet_info">
           <div>
             <div class="tweet_info_title">
               <div class="tweet_info_title_name">
-                {{ tweet.TweetAuthor.name }}
+                {{ userProfile.name }}
               </div>
               <div class="tweet_info_title_account">
-                @{{ tweet.TweetAuthor.account }}
+                @{{ userProfile.account }}
               </div>
               <div class="tweet_info_title_dot">‧</div>
               <div class="tweet_info_title_date">
@@ -51,6 +51,7 @@ import BetterScroll from "better-scroll";
 import userAPI from "./../apis/users.js";
 import { fromNowFilter } from "./../utils/mixins";
 import { Toast } from "./../utils/helpers";
+import { mapState } from "vuex";
 export default {
   name: "UserTweetList",
   mixins: [fromNowFilter],
@@ -59,10 +60,13 @@ export default {
       tweets: {},
     };
   },
+  computed: {
+    ...mapState(["userProfile"]),
+  },
   watch: {
-    $route(){
-      this.fetchUserTweets()
-    }
+    $route() {
+      this.fetchUserTweets();
+    },
   },
   mounted() {
     this.fetchUserTweets();
@@ -105,7 +109,7 @@ export default {
 @import "../assets/scss/All.scss";
 .tweets_list {
   width: 100%;
-  height: 55.5%;
+  height: 51%;
   overflow: hidden;
 }
 

@@ -5,16 +5,16 @@
         <i class="fa-solid fa-arrow-left"></i>
       </router-link>
       <div class="user_title_area">
-        <span class="user_name">{{ userInfo.name }}</span>
-        <span class="user_tweet">{{ userInfo.tweetCount }} 推文</span>
+        <span class="user_name">{{ userProfile.name }}</span>
+        <span class="user_tweet">{{ userProfile.tweetCount }} 推文</span>
       </div>
     </div>
     <div class="user_image">
       <div class="user_image_background">
-        <img :src="userInfo.cover" alt="" />
+        <img :src="userProfile.cover" alt="" />
       </div>
       <div class="user_image_avatar">
-        <img :src="userInfo.avatar" alt="" />
+        <img :src="userProfile.avatar" alt="" />
       </div>
     </div>
 
@@ -23,6 +23,7 @@
         class="user_edit_btn"
         data-bs-toggle="modal"
         data-bs-target="#personInfoModal"
+        :disabled="isProcess"
       >
         編輯個人資料
       </button>
@@ -37,54 +38,63 @@
       <button
         :class="[
           'other_btn_follow',
-          { active: this.userInfo.id === this.$route.params.id },
+          { active: userProfile.id === this.$route.params.id },
         ]"
       >
         正在跟隨
       </button>
     </div>
     <div class="user_detail">
-      <span class="user_detail_name">{{ userInfo.name }}</span>
-      <span class="user_detail_account">@{{ userInfo.account }}</span>
-      <span class="user_detail_test">{{ userInfo.introduction }} </span>
+      <span class="user_detail_name">{{ userProfile.name }}</span>
+      <span class="user_detail_account">@{{ userProfile.account }}</span>
+      <span class="user_detail_test">{{ userProfile.introduction }} </span>
       <div class="user_detail_area">
         <router-link to="/users/follows" class="follows"
-          ><span class="num">{{ userInfo.followingCount }}個</span>
+          ><span class="num">{{ userProfile.followingCount }}個</span>
           跟隨中</router-link
         >
         <span class="follower"
-          ><span class="num">{{ userInfo.followerCount }}位</span> 跟隨者</span
+          ><span class="num">{{ userProfile.followerCount }}位</span>
+          跟隨者</span
         >
       </div>
     </div>
+    <!-- model -->
+    <UserEdit @is-loading="isProcess = !isProcess" />
   </section>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import UserEdit from "../components/UserEdit.vue";
 export default {
   name: "UserCard",
-  components: {},
-  props: {
-    initialUser: {
-      type: Object,
-      required: true,
-    },
+  components: {
+    UserEdit,
+  },
+  computed: {
+    ...mapState(["userProfile"]),
   },
   data() {
     return {
-      userInfo: this.initialUser,
       isUsers: true,
+      isProcess: false,
     };
   },
   watch: {
-    initialUser: function (newValue) {
-      this.userInfo = newValue;
+    $route: function () {
+      this.fetchUserInfo();
     },
   },
   mounted() {
     this.confirmRouter();
+    this.fetchUserInfo();
   },
   methods: {
+    async fetchUserInfo() {
+      const pramsId = this.$route.params.id;
+      await this.$store.dispatch("fetchUserInfo", { payload: pramsId });
+    },
     confirmRouter() {
       if (this.$route.path.includes("other")) {
         this.isUsers = false;
@@ -176,6 +186,12 @@ export default {
         background: $orange;
         color: white;
       }
+      &:disabled {
+        border: 1px solid $mid-gray;
+        background: $mid-gray;
+        color: white;
+        cursor: progress;
+      }
     }
   }
   &_detail {
@@ -255,7 +271,8 @@ export default {
   &_follow {
     all: unset;
     border: 1px solid $orange;
-    color: $orange;
+    background: $orange;
+    color: white;
     width: 120px;
     text-align: center;
     padding: 5px 0;
@@ -264,8 +281,8 @@ export default {
     font-weight: 700;
     cursor: pointer;
     &:hover {
-      background: $orange;
-      color: white;
+      background: white;
+      color: $orange;
     }
   }
   .active {
