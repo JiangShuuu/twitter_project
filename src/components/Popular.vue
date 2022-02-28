@@ -13,12 +13,12 @@
         </div>
         <div class="pop-text">
           <span class="pop-text__name">{{ user.name }}</span>
-          <a class="pop-text__account" href="">{{ user.account }}</a>
+          <router-link class="pop-text__account" :to="{ name: 'users', params: { id: user.id }}">{{ user.account }}</router-link>
         </div>
         <div class="pop-btn">
           <button
             v-if="user.isFollowed"
-            @click.stop.prevent="deleteLike(user.id)"
+            @click.stop.prevent="deleteFollow(user.id)"
             type="button"
             class="btn followed"
           >
@@ -26,7 +26,7 @@
           </button>
           <button
             v-else
-            @click.stop.prevent="addLike(user.id)"
+            @click.stop.prevent="addFollow(user.id)"
             type="button"
             class="btn follow"
           >
@@ -56,19 +56,20 @@ export default {
       try {
         const response = await usersAPI.getUsersTop();
         const { data } = response.data;
-        console.log("data", data);
         this.data = data;
-        console.log("thisData:", this.data);
       } catch (error) {
-        console.log("error", error);
         Toast.fire({
           icon: "warning",
           title: "無法取得人氣追蹤者的資料,請稍後再試",
         });
       }
     },
-    deleteLike(userId) {
-      this.data = this.data.map(user => {
+    async deleteFollow(userId) {
+      try {
+        const response = await usersAPI.addFollow({ userId })
+        console.log(response)
+      }catch (error) {
+        this.data = this.data.map(user => {
         if (user.id !== userId) {
           return user
         } else {
@@ -78,8 +79,10 @@ export default {
           }
         }
       });
+      }
+
     },
-    addLike(userId) {
+    addFollow(userId) {
       this.data = this.data.map(user => {
         if (user.id !== userId) {
           return user

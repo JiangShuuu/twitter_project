@@ -2,22 +2,23 @@
   <div class="main-content">
     <div class="contents">
       <div class="contents_scroll">
-        <div class="following-content">
+        <div 
+        v-for="tweet in tweets"
+        :key="tweet.id"
+        class="following-content">
           <div class="following-list">
             <img
-              src="../assets/image/Photo.png"
+              :src="tweet.TweetAuthor.avatar"
               alt="avatar on screen"
               class="following-list__avatar"
             />
             <div class="following-item">
-              <span class="following-item__name">Apple</span>
-              <span class="following-item__account">@apple</span>
+              <span class="following-item__name">{{ tweet.TweetAuthor.name }}</span>
+              <span class="following-item__account">@{{ tweet.TweetAuthor.account }}</span>
               <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">3小時</span>
+              <span class="following-item__date">{{ tweet.createdAt }}</span>
               <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
+                {{ tweet.description }}
               </p>
               <div class="following-icons">
                 <div class="icons">
@@ -29,7 +30,7 @@
                   <span class="icons__reply-count">13</span>
                 </div>
                 <div class="icons_heart">
-                  <div v-if="this.isLiked" @click="isLiked = !isLiked">
+                  <div v-if="tweet.isLiked" @click="isLiked = !isLiked">
                     <li>
                       <i class="icon fa-solid fa-heart"></i>
                     </li>
@@ -40,400 +41,6 @@
                     </li>
                   </div>
                   <span class="icons__like-count">76</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">L'Oréal</span>
-              <span class="following-item__account">@Loreal</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">10小時</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">15</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">42</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Mary Jane</span>
-              <span class="following-item__account">@mjjane</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月23日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">17</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">46</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Starbucks</span>
-              <span class="following-item__account">@starbucks</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月24日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">22</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">25</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Louis Vuitton</span>
-              <span class="following-item__account">@LouisV</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月25日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">23</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">29</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Gillette</span>
-              <span class="following-item__account">@Gilletter</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月26日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">25</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">57</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">The Walt Disney Company</span>
-              <span class="following-item__account">@Disney</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月27日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">28</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">13</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Apple</span>
-              <span class="following-item__account">@apple</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">3小時</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i
-                    class="icon fa-regular fa-comment"
-                    data-bs-toggle="modal"
-                    data-bs-target="#createReplyModal"
-                  ></i>
-                  <span class="icons__reply-count">13</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">76</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">L'Oréal</span>
-              <span class="following-item__account">@Loreal</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">10小時</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">15</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">42</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Mary Jane</span>
-              <span class="following-item__account">@mjjane</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月23日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">17</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">46</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Starbucks</span>
-              <span class="following-item__account">@starbucks</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月24日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">22</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">25</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Louis Vuitton</span>
-              <span class="following-item__account">@LouisV</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月25日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">23</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">29</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Gillette</span>
-              <span class="following-item__account">@Gilletter</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月26日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">25</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">57</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">The Walt Disney Company</span>
-              <span class="following-item__account">@Disney</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">6月27日</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-icons">
-                <div class="icons">
-                  <i class="icon fa-regular fa-comment"></i>
-                  <span class="icons__reply-count">28</span>
-                </div>
-                <div class="icons">
-                  <i class="icon fa-regular fa-heart"></i>
-                  <span class="icons__like-count">13</span>
                 </div>
               </div>
             </div>
@@ -450,6 +57,9 @@
 import CreateTweets from "../components/CreateTweet.vue";
 import ReplyModal from "../components/ReplyModal.vue";
 import BetterScroll from "better-scroll";
+import store from "./../store";
+import tweetsAPI from "./../apis/tweets";
+import { Toast } from "./../utils/helpers";
 
 export default {
   name: "Tweets",
@@ -459,17 +69,41 @@ export default {
   },
   data() {
     return {
+      currentUser: {
+        id: "",
+        avatar: "",
+        name: "",
+      },
       user: {
         avatar: "https://randomuser.me/api/portraits/men/93.jpg",
       },
       isLiked: false,
+      tweets: []
     };
   },
   mounted() {
     this.movefunction();
+    this.fetchTweets();
   },
   methods: {
-    fetchTweets() {},
+    fetchUserInfo() {
+      const { account, avatar,  id } = store.state.currentUser;
+      this.currentUser = { account,avatar, id };
+    },
+    async fetchTweets() {
+      try {
+        const { data } = await tweetsAPI.getTweets()
+        this.tweets = data
+        console.log(this.tweet)
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: "無法取得推文，請稍後再試",
+        });
+      }
+
+    },
     movefunction() {
       new BetterScroll(".contents", {
         mouseWheel: true, //開啟滑鼠滾動
@@ -514,6 +148,8 @@ export default {
     display: flex;
     align-items: flex-start;
     &__avatar {
+      width: 50px;
+      border-radius: 50px;
       margin-top: 5px;
       margin-right: 10px;
     }
@@ -526,6 +162,7 @@ export default {
         font-weight: bold;
       }
       &__description {
+        height: 65px;
         margin-top: 5px;
       }
       &__name {
