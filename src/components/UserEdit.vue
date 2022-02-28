@@ -8,13 +8,13 @@
   >
     <div class="modal-dialog">
       <div class="modal-content">
-        <form @submit.stop.prevent="testForm">
+        <form class="form" @submit.stop.prevent="userProfilesEdit">
           <div class="modal-header">
             <li
               class="modal-header_close"
               data-bs-dismiss="modal"
               aria-label="Close"
-              @click="deleteChange"
+              @click="cancelChange"
             >
               <i class="fa-solid fa-xmark"></i>
             </li>
@@ -34,7 +34,7 @@
               <div class="user_image_edit_icon">
                 <input
                   type="file"
-                  name="image"
+                  name="cover"
                   accept="image/*"
                   class="image_toggle"
                   id="cover_toggle"
@@ -51,15 +51,24 @@
                 <img :src="userdetail.avatar" alt="" />
               </div>
               <div class="user_image_edit_avatar_icon">
-                <li class="change_image">
+                <input
+                  type="file"
+                  name="avatar"
+                  accept="image/*"
+                  class="image_toggle"
+                  id="avatar_toggle"
+                  @change="changeAvatar"
+                />
+                <label class="change_image" for="avatar_toggle">
                   <i class="fa-solid fa-camera"></i>
-                </li>
+                </label>
               </div>
             </div>
 
             <div class="form-floating">
               <input
                 type="text"
+                name="name"
                 class="form-control"
                 id="name"
                 maxlength="50"
@@ -71,6 +80,7 @@
             <div class="form-floating form-textarea">
               <textarea
                 type="text"
+                name="introduction"
                 class="form-control text"
                 id="text"
                 maxlength="160"
@@ -87,6 +97,10 @@
 </template>
 
 <script>
+import { Toast } from "./../utils/helpers";
+import usersAPI from "./../apis/users.js";
+import store from "./../store";
+
 export default {
   name: "userEdit",
   props: {
@@ -109,7 +123,6 @@ export default {
         cover: "",
         introduction: "",
       },
-      coverFile: {},
       isUsers: true,
     };
   },
@@ -122,37 +135,45 @@ export default {
         ...this.initialUser,
       };
     },
-    deleteChange() {
-      console.log("hi");
+    cancelChange() {
+      this.fetchUserData();
     },
     deleteImage() {
-      this.userdetail.cover = "";
+      this.userdetail.cover = " ";
     },
     changeCover(e) {
-      // console.log(e);
       const { files } = e.target;
-      // console.log(files[0]);
       if (files.length === 0) return;
       const imageURL = window.URL.createObjectURL(files[0]);
-      // console.log(imageURL);
       this.userdetail.cover = imageURL;
     },
-    testForm(e) {
-      // const form = {};
-      // const formData = new FormData(form);
-      // console.log(`name: ${this.userInfo.name}`);
-      // console.log(`avatar: ${this.userInfo.avatar}`);
-      // console.log(`cover: ${this.coverFile}`);
-      // console.log(`introduction: ${this.userInfo.introduction}`);
-      // for (var pair of formData.entries()) {
-      //   console.log(pair[0] + ", " + pair[1]);
-      // }
-      const form = e.target;
-      const formData = new FormData(form);
-      console.log(formData);
+    changeAvatar(e) {
+      const { files } = e.target;
+      if (files.length === 0) return;
+      const imageURL = window.URL.createObjectURL(files[0]);
+      this.userdetail.avatar = imageURL;
+    },
+    async userProfilesEdit(e) {
+      try {
+        const pramsId = this.$route.params.id;
+        const form = e.target;
+        const formData = new FormData(form);
 
-      for (let [name, value] of formData.entries()) {
-        console.log(name + ": " + value);
+        const { data } = await usersAPI.editUserInfo(pramsId, formData);
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+        await store.dispatch("fetchCurrentUser");
+        this.$emit("update-user");
+        Toast.fire({
+          icon: "success",
+          title: "更新成功!",
+        });
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "無法更新user資料，請稍後再試",
+        });
       }
     },
   },
@@ -245,6 +266,7 @@ export default {
     .fa-camera {
       font-size: 20px;
       margin-right: 36.5px;
+      color: white;
       cursor: pointer;
     }
     .fa-xmark {
@@ -258,6 +280,7 @@ export default {
     left: 73px;
     color: white;
     .fa-camera {
+      color: white;
       font-size: 20px;
       margin-right: 36.5px;
       cursor: pointer;
@@ -303,5 +326,8 @@ export default {
 }
 .form-textarea {
   margin-top: 42px;
+}
+.image_toggle {
+  color: white;
 }
 </style>
