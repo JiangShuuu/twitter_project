@@ -57,6 +57,11 @@ export default {
       tweets: {},
     };
   },
+  watch: {
+    $route(){
+      this.fetchUserTweets()
+    }
+  },
   mounted() {
     this.fetchUserTweets();
   },

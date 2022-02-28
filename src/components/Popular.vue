@@ -13,7 +13,7 @@
         </div>
         <div class="pop-text">
           <span class="pop-text__name">{{ user.name }}</span>
-          <router-link class="pop-text__account" :to="{ name: 'users', params: { id: user.id }}">{{ user.account }}</router-link>
+          <router-link class="pop-text__account" :to="{ name: 'other', params: { id: user.id }}">{{ user.account }}</router-link>
         </div>
         <div class="pop-btn">
           <button
