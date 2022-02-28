@@ -148,41 +148,6 @@ export default {
     accountInfoSubmit() {
       this.$emit("account-info", this.user);
     },
-    // async signUpSubmit(formData) {
-    //   try {
-    //     if (this.isSetting) {
-    //       console.log("isSetting");
-    //       console.log(formData);
-    //       const { name, account, email, password, checkPassword } = formData;
-
-    //       const response = await usersAPI.settingUserAccount(this.user.id, {
-    //         name: name,
-    //         account: account,
-    //         email: email,
-    //         password: password,
-    //         checkPassword: checkPassword,
-    //       });
-
-    //       const { data } = response;
-    //       if (data.status !== "success") {
-    //         throw new Error(data.message);
-    //       }
-
-    //       Toast.fire({
-    //         icon: "success",
-    //         title: response.data.message,
-    //       });
-    //     } else {
-    //       console.log("isNot");
-    //     }
-    //   } catch (e) {
-    //     console.log(e.message);
-    //     Toast.fire({
-    //       icon: "warning",
-    //       title: e.message,
-    //     });
-    //   }
-    // },
   },
 };
 </script>
