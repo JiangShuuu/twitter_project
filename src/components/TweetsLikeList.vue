@@ -47,9 +47,10 @@
               <span class="num">{{ like.LikedTweet.replyCount }}</span>
             </router-link>
 
+            <!-- 會造成連點錯誤，先用once -->
             <ul
               class="tweet_info_icon_like"
-              @click="unlikeTweet(like.TweetId)"
+              @click.once="unlikeTweet(like.TweetId)"
             >
               <li class="like_btn">
                 <i class="fa-solid fa-heart"></i>

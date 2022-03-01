@@ -18,31 +18,33 @@
               <i class="fa-solid fa-xmark"></i>
             </li>
           </div>
-          <div class="modal-tweets">
-            <img
-              :src="currentUser.avatar"
-              alt="avatar on screen"
-              class="modal-tweets__avatar"
-            />
-            <textarea
-              name="mytext"
-              rows="6"
-              cols="40"
-              maxlength="140"
-              class="modal-tweets__text"
-              placeholder="有什麼新鮮事?"
-              v-model="description"
-              required
-            >
-            </textarea>
-          </div>
-          <button
-            type="submit"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
+
+          <ValidationProvider
+            name="Name"
+            rules="max_tweet_length:10|min_tweet_length:0"
+            v-slot="{ errors }"
           >
-            推文
-          </button>
+            <div class="modal-tweets">
+              <img
+                :src="currentUser.avatar"
+                alt="avatar on screen"
+                class="modal-tweets__avatar"
+              />
+              <textarea
+                name="mytext"
+                rows="6"
+                cols="40"
+                maxlength="140"
+                class="modal-tweets__text"
+                placeholder="有什麼新鮮事?"
+                v-model="description"
+                required
+              >
+              </textarea>
+              <span class="error_message">{{ errors[0] }}</span>
+            </div>
+          </ValidationProvider>
+          <button type="submit" class="btn btn-secondary">推文</button>
         </div>
       </div>
     </div>
@@ -138,5 +140,11 @@ export default {
   border: none;
   right: 15px;
   bottom: 10px;
+}
+.error_message {
+  position: absolute;
+  bottom: -2.8rem;
+  right: 6rem;
+  color: red;
 }
 </style>

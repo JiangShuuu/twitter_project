@@ -51,24 +51,31 @@
             </div>
           </div>
           <span class="connect-line"></span>
-          <div class="modal-reply">
-            <img
-              :src="currentUser.avatar"
-              alt="avatar on screen"
-              class="modal-reply__avatar"
-            />
-            <textarea
-              name="mytext"
-              rows="6"
-              cols="40"
-              maxlength="140"
-              class="modal-reply__text"
-              placeholder="推你的回覆"
-              required
-              v-model="comment"
-            >
-            </textarea>
-          </div>
+          <ValidationProvider
+            name="Name"
+            rules="max_tweet_length:140|min_tweet_length:0"
+            v-slot="{ errors }"
+          >
+            <div class="modal-reply">
+              <img
+                :src="currentUser.avatar"
+                alt="avatar on screen"
+                class="modal-reply__avatar"
+              />
+              <textarea
+                name="mytext"
+                rows="6"
+                cols="40"
+                maxlength="140"
+                class="modal-reply__text"
+                placeholder="推你的回覆"
+                required
+                v-model="comment"
+              >
+              </textarea>
+              <span class="error_message">{{ errors[0] }}</span>
+            </div>
+          </ValidationProvider>
           <button
             type="submit"
             class="btn btn-secondary"
@@ -132,6 +139,7 @@ export default {
         if (data.status === "error") {
           throw new Error(data.message);
         }
+        console.log(data);
 
         Toast.fire({
           icon: "success",
@@ -256,5 +264,12 @@ export default {
   border: none;
   right: 15px;
   bottom: 10px;
+}
+
+.error_message {
+  position: absolute;
+  bottom: -3rem;
+  right: 6rem;
+  color: red;
 }
 </style>

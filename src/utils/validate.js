@@ -61,6 +61,14 @@ extend("max_name_length", {
   ...max,
   message: "最多50個字母!",
 });
+extend("max_tweet_length", {
+  ...max,
+  message: "字數不可超過140個字",
+});
+extend("min_tweet_length", {
+  ...min,
+  message: "內容不可空白",
+});
 
 extend("pass", (value) => {
   if (

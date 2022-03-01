@@ -5,12 +5,14 @@
       <TweetDetail />
       <Popular :initial-popular="popularUpdate" />
     </div>
+    <CreateTweets />
   </main>
 </template>
 <script>
 import NavBar from "../components/NavBar.vue";
 import Popular from "../components/Popular.vue";
 import TweetDetail from "../components/TweetDetail.vue";
+import CreateTweets from "../components/CreateTweet.vue";
 
 export default {
   name: "ReplyList",
@@ -18,6 +20,7 @@ export default {
     NavBar,
     Popular,
     TweetDetail,
+    CreateTweets,
   },
   data() {
     return {
