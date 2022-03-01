@@ -4,6 +4,7 @@ import {
   email,
   confirmed,
   min,
+  max,
   alpha_num,
 } from "vee-validate/dist/rules";
 import Vue from "vue";
@@ -51,6 +52,14 @@ extend("confirmed", {
 extend("min_length", {
   ...min,
   message: "至少6個字母!",
+});
+extend("max_length", {
+  ...max,
+  message: "最多12個字母!",
+});
+extend("max_name_length", {
+  ...max,
+  message: "最多50個字母!",
 });
 
 extend("pass", (value) => {
