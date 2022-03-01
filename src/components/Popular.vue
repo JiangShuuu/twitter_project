@@ -58,7 +58,7 @@ export default {
   methods: {
     async fetchUsersTop() {
       try {
-        const response = await usersAPI.getUsersTop(212);
+        const response = await usersAPI.getUsersTop();
         const { data } = response.data;
 
         if (data.status === "error") {
