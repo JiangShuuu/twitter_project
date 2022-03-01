@@ -27,12 +27,14 @@
                 {{ like.LikedTweet.createdAt | fromNow }}
               </div>
             </router-link>
-            <router-link
-              :to="{ name: 'reply-list', params: { id: like.TweetId } }"
-              class="tweet_info_content"
-            >
-              {{ like.LikedTweet.description }}
-            </router-link>
+            <div class="tweet_info_content">
+              <router-link
+                :to="{ name: 'reply-list', params: { id: like.TweetId } }"
+                class="tweet_info_content_text"
+              >
+                {{ like.LikedTweet.description }}
+              </router-link>
+            </div>
           </div>
           <div class="tweet_info_icon">
             <router-link
@@ -224,7 +226,7 @@ export default {
         }
         .like_btn {
           margin-bottom: -2px;
-          color: #F91880;
+          color: #f91880;
         }
       }
       .num {
@@ -233,8 +235,13 @@ export default {
       }
     }
     &_content {
-      all: unset;
-      cursor: pointer;
+      width: 100%;
+      padding-right: 15px;
+      overflow-wrap: anywhere;
+      &_text {
+        all: unset;
+        cursor: pointer;
+      }
     }
   }
 }
