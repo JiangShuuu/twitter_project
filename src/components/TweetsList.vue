@@ -250,7 +250,7 @@ export default {
         }
         .like_btn {
           margin-bottom: -2px;
-          color: red;
+          color: #F91880;
         }
       }
       .num {
