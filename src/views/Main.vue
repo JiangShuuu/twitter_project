@@ -68,7 +68,7 @@ export default {
         // callback在第二次呼叫後會失效，故先用promise叫套件
         // await callback();
 
-        await this.movefunction();
+        await this.movefunction(100);
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -77,17 +77,19 @@ export default {
         });
       }
     },
-    movefunction() {
+    movefunction(s) {
       return new Promise(function (resolve) {
-        resolve(
-          new BetterScroll(".contents", {
-            mouseWheel: true, //開啟滑鼠滾動
-            disableMouse: false, //關閉滑鼠拖動
-            disableTouch: false, //關閉手指觸摸
-            scrollX: true, //X軸滾動開啟
-            click: true,
-          })
-        );
+        setTimeout(() => {
+          resolve(
+            new BetterScroll(".contents", {
+              mouseWheel: true, //開啟滑鼠滾動
+              disableMouse: false, //關閉滑鼠拖動
+              disableTouch: false, //關閉手指觸摸
+              scrollX: true, //X軸滾動開啟
+              click: true,
+            })
+          );
+        }, s);
       });
     },
     afterCreateTweet() {
