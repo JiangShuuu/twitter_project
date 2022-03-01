@@ -124,7 +124,7 @@ export default {
   }
   .following-list {
     padding: 10px 0px 0px 15px;
-    height: 146px;
+    min-height: 146px;
     display: flex;
     align-items: flex-start;
     &__avatar {
@@ -141,7 +141,7 @@ export default {
       &__description {
         font-size: 15px;
         color: $black;
-        font-weight: bold;
+        /* font-weight: bold; */
       }
       &__description {
         height: 65px;
