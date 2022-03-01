@@ -3,23 +3,29 @@
     <div class="wrapper">
       <NavBar />
       <TweetDetail />
-      <Popular />
+      <Popular :initial-popular="popularUpdate" />
     </div>
   </main>
 </template>
 <script>
 import NavBar from "../components/NavBar.vue";
 import Popular from "../components/Popular.vue";
-import TweetDetail from "../components/TweetDetail.vue"
+import TweetDetail from "../components/TweetDetail.vue";
 
 export default {
   name: "ReplyList",
   components: {
     NavBar,
     Popular,
-    TweetDetail
-  }
-}
+    TweetDetail,
+  },
+  data() {
+    return {
+      // 有時間再優化
+      popularUpdate: false,
+    };
+  },
+};
 </script>
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";

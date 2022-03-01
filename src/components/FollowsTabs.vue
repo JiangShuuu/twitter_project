@@ -1,9 +1,9 @@
 <template>
   <section class="follows-tabs">
     <div class="user_title">
-      <router-link :to="{ name: 'users', params: { id: currentUser.id } }" class="user_title_return">
+      <div class="user_title_return" @click="$router.back()">
         <i class="fa-solid fa-arrow-left"></i>
-      </router-link>
+      </div>
       <div class="user_title_area">
         <span class="user_name">{{ currentUser.name }}</span>
         <span class="user_tweet">{{ currentUser.tweetCount }}推文</span>
@@ -28,12 +28,8 @@
 import { mapState } from "vuex";
 export default {
   name: "FollowsTabs",
-    computed: {
+  computed: {
     ...mapState(["currentUser"]),
-  },
-  data() {
-    return {
-    };
   },
 };
 </script>

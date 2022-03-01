@@ -52,8 +52,19 @@ export default {
       users: [],
     };
   },
+  props: {
+    initialUpdate: {
+      type: Boolean,
+      required: true,
+    },
+  },
   mounted() {
     this.fetchFollowing();
+  },
+  watch: {
+    initialUpdate: function () {
+      this.fetchFollowing();
+    },
   },
   methods: {
     async fetchFollowing() {
@@ -81,6 +92,7 @@ export default {
           }
         });
         this.fetchFollowing();
+        this.$emit("update-popular");
       } catch (error) {
         console.log(error);
       }
@@ -100,6 +112,7 @@ export default {
           }
         });
         this.fetchFollowing();
+        this.$emit("update-popular");
       } catch (error) {
         console.log(error);
       }

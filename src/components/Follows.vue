@@ -43,10 +43,21 @@ import usersAPI from "./../apis/users";
 
 export default {
   name: "Follows",
+  props: {
+    initialUpdate: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       users: [],
     };
+  },
+  watch: {
+    initialUpdate: function () {
+      this.fetchFollowers();
+    },
   },
   mounted() {
     this.fetchFollowers();
@@ -56,7 +67,6 @@ export default {
       try {
         const id = this.$route.params.id;
         const response = await usersAPI.getUserFollowers(id);
-        console.log(response.data);
         this.users = response.data;
       } catch (error) {
         console.error(error);
@@ -77,6 +87,7 @@ export default {
           }
         });
         this.fetchFollowers();
+        this.$emit("update-popular");
       } catch (error) {
         console.log(error);
       }
@@ -96,6 +107,7 @@ export default {
           }
         });
         this.fetchFollowers();
+        this.$emit("update-popular");
       } catch (error) {
         console.log(error);
       }
