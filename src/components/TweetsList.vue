@@ -114,7 +114,7 @@ export default {
 @import "../assets/scss/All.scss";
 .tweets_list {
   width: 100%;
-  height: 51%;
+  height: 55%;
   overflow: hidden;
 }
 
