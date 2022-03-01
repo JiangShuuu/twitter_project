@@ -21,21 +21,37 @@
                 {{ tweet.createdAt | fromNow }}
               </div>
             </div>
-            <div class="tweet_info_content">
-              {{ tweet.description }}
-            </div>
+            <router-link
+              :to="{ name: 'reply-list', params: { id: tweet.id } }"
+              class="tweet_info_content"
+              >{{ tweet.description }}</router-link
+            >
           </div>
           <div class="tweet_info_icon">
-            <ul class="tweet_info_icon_reply">
+            <router-link
+              :to="{ name: 'reply-list', params: { id: tweet.id } }"
+              class="tweet_info_icon_reply"
+            >
               <li class="commemt_btn">
                 <img src="../assets/image/comment.png" alt="" />
               </li>
               <span class="num">{{ tweet.replyCount }}</span>
-            </ul>
+            </router-link>
 
             <ul class="tweet_info_icon_like">
-              <li class="like_btn">
-                <img src="../assets/image/heart.png" alt="" />
+              <li
+                class="unlike_btn"
+                v-show="tweet.isLiked === false"
+                @click.once="likeTweet(tweet.id)"
+              >
+                <i class="fa-regular fa-heart"></i>
+              </li>
+              <li
+                class="like_btn"
+                v-show="tweet.isLiked === true"
+                @click.once="unlikeTweet(tweet.id)"
+              >
+                <i class="fa-solid fa-heart"></i>
               </li>
               <span class="num">{{ tweet.likeCount }}</span>
             </ul>
@@ -52,6 +68,7 @@ import userAPI from "./../apis/users.js";
 import { fromNowFilter } from "./../utils/mixins";
 import { Toast } from "./../utils/helpers";
 import { mapState } from "vuex";
+import tweetAPI from "./../apis/tweets.js";
 export default {
   name: "UserTweetList",
   mixins: [fromNowFilter],
@@ -106,6 +123,50 @@ export default {
         }, s);
       });
     },
+    async likeTweet(id) {
+      console.log(id);
+      try {
+        const { data } = await tweetAPI.likeTweets(id);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+        await this.fetchUserTweets();
+      } catch (error) {
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
+    },
+    async unlikeTweet(id) {
+      console.log(id);
+      try {
+        const { data } = await tweetAPI.unLikeTweets(id);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+        await this.fetchUserTweets();
+      } catch (error) {
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
+    },
   },
 };
 </script>
@@ -148,6 +209,7 @@ export default {
     &_title {
       @include flexCenter;
       justify-content: flex-start;
+      cursor: default;
       &_name {
         font-size: 15px;
         font-weight: 700;
@@ -182,11 +244,23 @@ export default {
         display: flex;
         align-items: flex-end;
         color: $mid-gray;
+        cursor: pointer;
+        .unlike_btn {
+          margin-bottom: -2px;
+        }
+        .like_btn {
+          margin-bottom: -2px;
+          color: red;
+        }
       }
       .num {
         margin-left: 11px;
         font-size: 13px;
       }
+    }
+    &_content {
+      all: unset;
+      cursor: pointer;
     }
   }
 }

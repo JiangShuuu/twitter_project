@@ -22,13 +22,21 @@
           </div>
           <div class="tweet_info_reply">
             <span class="tweet_info_reply_test">回覆</span>
-            <span class="tweet_info_reply_account"
-              >@{{ reply.TargetTweet.TweetAuthor.account }}</span
+            <router-link
+              :to="{
+                name: 'other',
+                params: { id: reply.TargetTweet.UserId },
+              }"
+              class="tweet_info_reply_account"
+              >@{{ reply.TargetTweet.TweetAuthor.account }}</router-link
             >
           </div>
-          <div class="tweet_info_content">
+          <router-link
+            :to="{ name: 'reply-list', params: { id: reply.TweetId } }"
+            class="tweet_info_content"
+          >
             {{ reply.TargetTweet.description }}
-          </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -127,6 +135,7 @@ export default {
     &_title {
       @include flexCenter;
       justify-content: flex-start;
+      cursor: default;
       &_name {
         font-size: 15px;
         font-weight: 700;
@@ -149,10 +158,16 @@ export default {
       &_test {
         color: $mid-gray;
         margin-right: 2px;
+        cursor: default;
       }
       &_account {
         color: $orange;
+        cursor: pointer;
       }
+    }
+    &_content {
+      all: unset;
+      cursor: pointer;
     }
   }
 }

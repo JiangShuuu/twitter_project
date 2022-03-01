@@ -90,24 +90,24 @@ const routes = [
     ],
   },
   {
-    path: "/other",
+    path: "/other/:id",
     name: "other",
     component: () => import("../views/Other.vue"),
-    redirect: "/other/self/:id",
+    redirect: "/other/:id/self",
     beforeEnter: authorizeIsUser,
     children: [
       {
-        path: "self/:id",
+        path: "/other/:id/self",
         name: "other-self",
         component: () => import("../components/TweetsList.vue"),
       },
       {
-        path: "reply/:id",
+        path: "/other/:id/reply",
         name: "other-reply",
         component: () => import("../components/TweetsReplyList.vue"),
       },
       {
-        path: "like/:id",
+        path: "/other/:id/like",
         name: "other-like",
         component: () => import("../components/TweetsLikeList.vue"),
       },
