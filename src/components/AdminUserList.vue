@@ -16,7 +16,7 @@
           <div class="user_detail_icon">
             <li class="user_detail_icon_comment">
               <i class="icon fa-regular fa-comment"></i>
-              <span class="num">{{ user.replyCount }}k</span>
+              <span class="num">{{ user.tweetCount }}k</span>
             </li>
             <li class="user_detail_icon_heart">
               <i class="icon fa-regular fa-heart"></i>
