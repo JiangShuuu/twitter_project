@@ -54,14 +54,22 @@
         data-bs-toggle="modal"
         data-bs-target="#createReplyModal"
       ></i>
-      <div v-if="this.isLiked" @click="isLiked = !isLiked">
-        <li>
-          <i class="reply-icon__heart fa-solid fa-heart"></i>
+      <div>
+        <li
+          class="unlike_btn"
+          v-show="tweetDetail.isLiked === false"
+          @click.once="likeTweet(tweetDetail.id)"
+        >
+          <i class="reply-icon__heart fa-regular fa-heart"></i>
         </li>
       </div>
-      <div v-else @click="isLiked = !isLiked">
-        <li>
-          <i class="icon fa-regular fa-heart"></i>
+      <div>
+        <li
+          class="like_btn"
+          v-show="tweetDetail.isLiked === true"
+          @click.once="unlikeTweet(tweetDetail.id)"
+        >
+          <i class="icon fa-solid fa-heart"></i>
         </li>
       </div>
     </div>
@@ -92,7 +100,10 @@
       </div>
     </div>
     <!-- Modal -->
-    <ReplyModal />
+    <ReplyModal
+      :initialTweetDetail="tweetDetail"
+      @modal-reply-tweet="afterReplyTweet"
+    />
   </div>
 </template>
 
@@ -100,6 +111,7 @@
 import ReplyModal from "../components/ReplyModal.vue";
 import tweetsAPI from "../apis/tweets";
 import { fromNowFilter } from "./../utils/mixins";
+import { Toast } from "./../utils/helpers";
 
 export default {
   name: "TweetDetail",
@@ -116,8 +128,6 @@ export default {
   },
   mounted() {
     this.fetchTweetsDetail();
-    // const {tweetId: id} = this.$route.params.id
-    // console.log(this.$route.params.id);
   },
   methods: {
     async fetchTweetsDetail() {
@@ -131,13 +141,52 @@ export default {
         console.log(error);
       }
     },
-    addLiked() {
-      this.isLiked = true;
-      console.log("add");
+    afterReplyTweet() {
+      this.fetchTweetsDetail();
     },
-    deleteLiked() {
-      this.isLiked = false;
-      console.log("delete");
+    async likeTweet(id) {
+      console.log(id);
+      try {
+        const { data } = await tweetsAPI.likeTweets(id);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+        await this.fetchTweetsDetail();
+      } catch (error) {
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
+    },
+    async unlikeTweet(id) {
+      console.log(id);
+      try {
+        const { data } = await tweetsAPI.unLikeTweets(id);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+        await this.fetchTweetsDetail();
+      } catch (error) {
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
     },
   },
 };
@@ -239,6 +288,9 @@ export default {
   color: $mid-gray;
   &__comment {
     margin-right: 150px;
+  }
+  .like_btn {
+    color: #F91880;
   }
 }
 

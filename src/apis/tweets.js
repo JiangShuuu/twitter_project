@@ -7,6 +7,9 @@ export default {
   createTweets({ description }) {
     return apiHelper.post("api/tweets", { description });
   },
+  replyTweets({tweetId, comment}) {
+    return apiHelper.post(`api/tweets/${tweetId}/replies`, { comment });
+  },
   likeTweets(tweetId) {
     return apiHelper.post(`api/tweets/${tweetId}/like`);
   },

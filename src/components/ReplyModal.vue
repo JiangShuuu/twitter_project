@@ -1,78 +1,91 @@
 <template>
-  <div
-    class="modal fade"
-    id="createReplyModal"
-    tabindex="-1"
-    aria-labelledby="createReplyModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <li
-            class="modal-header_close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          >
-            <i class="fa-solid fa-xmark"></i>
-          </li>
-        </div>
-        <div class="following-content">
-          <div class="following-list">
-            <img
-              src="../assets/image/Photo.png"
-              alt="avatar on screen"
-              class="following-list__avatar"
-            />
-            <div class="following-item">
-              <span class="following-item__name">Apple</span>
-              <span class="following-item__account">@apple</span>
-              <span class="following-item__icon">&#8226;</span>
-              <span class="following-item__date">3小時</span>
-              <p class="following-item__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                mollitia assumenda itaque asperiores, deserunt necessitatibus
-                doloremque libero provident dolores similique?
-              </p>
-              <div class="following-detail">
-                <span class="following-detail__header">回覆給</span>
-                <span class="following-detail__account">@apple</span>
+  <form @submit.stop.prevent="handleSubmit">
+    <div
+      class="modal fade"
+      id="createReplyModal"
+      tabindex="-1"
+      aria-labelledby="createReplyModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <li
+              class="modal-header_close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </li>
+          </div>
+          <div class="following-content">
+            <div class="following-list">
+              <img
+                :src="initialTweetDetail.TweetAuthor.avatar"
+                alt="avatar on screen"
+                class="following-list__avatar"
+              />
+              <div class="following-item">
+                <span class="following-item__name">{{ initialTweetDetail.TweetAuthor.name }}</span>
+                <span class="following-item__account">@{{ initialTweetDetail.TweetAuthor.account }}</span>
+                <span class="following-item__icon">&#8226;</span>
+                <span class="following-item__date">{{ initialTweetDetail.createdAt | fromNow}}</span>
+                <p class="following-item__description">
+                  {{ initialTweetDetail.description }}
+                </p>
+                <div class="following-detail">
+                  <span class="following-detail__header">回覆給</span>
+                  <span class="following-detail__account">@{{ initialTweetDetail.TweetAuthor.account }}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <span class="connect-line"></span>
-        <div class="modal-reply">
-          <img
-            :src="currentUser.avatar"
-            alt="avatar on screen"
-            class="modal-reply__avatar"
-          />
-          <textarea
-            name="mytext"
-            rows="6"
-            cols="40"
-            maxlength="140"
-            class="modal-reply__text"
-            placeholder="推你的回覆"
-            required
+          <span class="connect-line"></span>
+          <div class="modal-reply">
+            <img
+              :src="currentUser.avatar"
+              alt="avatar on screen"
+              class="modal-reply__avatar"
+            />
+            <textarea
+              name="mytext"
+              rows="6"
+              cols="40"
+              maxlength="140"
+              class="modal-reply__text"
+              placeholder="推你的回覆"
+              required
+              v-model="comment"
+            >
+            </textarea>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
           >
-          </textarea>
+            回覆
+          </button>
         </div>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          回覆
-        </button>
       </div>
     </div>
-  </div>
+  </form>
 </template>
 <script>
 import store from "./../store";
 import tweetsAPI from "./../apis/tweets";
-
+import { Toast } from "./../utils/helpers";
+import { fromNowFilter } from "./../utils/mixins";
 
 export default {
-  name: "ReplyTweet",
+  name: "ReplyModal",
+  mixins: [fromNowFilter],
+  props: {
+    initialTweetDetail: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       currentUser: {
@@ -80,25 +93,51 @@ export default {
         avatar: "",
         name: "",
       },
-      tweet: []
+      // tweetDetail: this.initialTweetDetail,
+      comment:'',
     };
   },
   mounted() {
-    this.fetchUserInfo()
+    this.fetchUserInfo();
   },
   methods: {
     fetchUserInfo() {
       const { account, avatar, id } = store.state.currentUser;
       this.currentUser = { account, avatar, id };
     },
-    async fetchTweetsDetail(id) {
+    // async fetchTweetsDetail(id) {
+    //   try {
+    //     const { data } = await tweetsAPI.getTweetDetail({ id });
+    //     console.log(data);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
+    async handleSubmit() {
       try {
-        const { data } = await tweetsAPI.getTweetDetail({ id })
+        const { data } = await tweetsAPI.replyTweets({
+          tweetId: this.$route.params.id,
+          comment: this.comment,
+        });
         console.log(data)
-      }catch (error) {
-        console.error(error)
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+        this.$emit("modal-reply-tweet");
+        this.comment = ""; // 將表單內的資料清空
+      } catch (error) {
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
-    }
+    },
   },
 };
 </script>
@@ -145,6 +184,7 @@ export default {
   }
   &__avatar {
     width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
@@ -158,6 +198,10 @@ export default {
   display: flex;
   align-items: flex-start;
   &__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
     margin-top: 5px;
     margin-right: 10px;
   }

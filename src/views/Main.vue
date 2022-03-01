@@ -48,11 +48,6 @@ export default {
   },
   mounted() {
     this.fetchUserInfo();
-    // this.fetchTweets(() => {
-    //   this.$nextTick(() => {
-    //     this.movefunction();
-    //   });
-    // });
     this.fetchTweets();
   },
   methods: {
