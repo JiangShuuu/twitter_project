@@ -3,22 +3,16 @@
     <div class="wrapper">
       <NavBar />
       <div class="tweets_content">
-        <MainCard 
-        @after-create-tweet="afterCreateTweet"
-        />
+        <MainCard @modal-create-tweet="afterCreateTweet" />
         <div class="contents">
           <div div class="contents_scroll">
-            <Tweets
-            :initialTweet="tweets"
-            />
+            <Tweets :initialTweet="tweets" />
           </div>
         </div>
       </div>
       <Popular />
     </div>
-     <CreateTweets 
-      :currentUser="currentUser"
-      />
+    <CreateTweets :currentUser="currentUser" />
   </main>
 </template>
 <script>
@@ -39,7 +33,7 @@ export default {
     Popular,
     Tweets,
     MainCard,
-    CreateTweets
+    CreateTweets,
   },
   data() {
     return {
@@ -53,23 +47,28 @@ export default {
   },
   mounted() {
     this.fetchUserInfo();
-    this.fetchTweets(()=>{
-      this.$nextTick(()=>{
-        this.movefunction()
-      })
-    });
+    // this.fetchTweets(() => {
+    //   this.$nextTick(() => {
+    //     this.movefunction();
+    //   });
+    // });
+    this.fetchTweets();
   },
   methods: {
     fetchUserInfo() {
-      const { account, avatar,  id } = store.state.currentUser;
-      this.currentUser = { account,avatar, id };
+      const { account, avatar, id } = store.state.currentUser;
+      this.currentUser = { account, avatar, id };
     },
-    async fetchTweets(callback) {
+    async fetchTweets() {
       try {
         const { data } = await tweetsAPI.getTweets();
         this.tweets = data;
         // 數據更新後，通知組件
-        callback()
+
+        // callback在第二次呼叫後會失效，故先用promise叫套件
+        // await callback();
+
+        await this.movefunction();
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -79,21 +78,33 @@ export default {
       }
     },
     movefunction() {
-      new BetterScroll(".contents", {
-        mouseWheel: true, //開啟滑鼠滾動
-        disableMouse: false, //關閉滑鼠拖動
-        disableTouch: false, //關閉手指觸摸
-        scrollX: true, //X軸滾動開啟
-        click: true,
+      return new Promise(function (resolve) {
+        resolve(
+          new BetterScroll(".contents", {
+            mouseWheel: true, //開啟滑鼠滾動
+            disableMouse: false, //關閉滑鼠拖動
+            disableTouch: false, //關閉手指觸摸
+            scrollX: true, //X軸滾動開啟
+            click: true,
+          })
+        );
       });
     },
-    afterCreateTweet(payload) {
-      const description  = payload;
-      this.tweets.push({
-        description,
-      })
-      this.fetchTweets()
+    afterCreateTweet() {
+      // console.log(payload);
+      // 作法1. 把輸入的資料先加進tweets陣列，先不重新fetchTweets。
+      //    但資料要包含完整資訊，不能只有description，並且要加在Array最前
+      // const description = payload;
+      // this.tweets.push({
+      //   description,
+      // });
+
+      // 作法2. 直接重新fetchAPI
+      this.fetchTweets();
     },
+    // ----
+    // 因為你原本的$emit叫 after-create-tweet
+
     // 不知道為什麼modal吃不到submit的資料
     // modalCreateTweet(payload) {
     //   const description  = payload;
