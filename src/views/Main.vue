@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <Popular />
+      <Popular :initial-popular="popularUpdate" />
     </div>
     <CreateTweets @modal-create-tweet="afterCreateTweet" />
   </main>
@@ -43,6 +43,7 @@ export default {
         name: "",
       },
       tweets: [],
+      popularUpdate: false,
     };
   },
   mounted() {

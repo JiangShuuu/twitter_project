@@ -1,9 +1,9 @@
 <template>
   <section class="user">
     <div class="user_title">
-      <router-link to="/main" class="user_title_return">
+      <div class="user_title_return" @click="$router.back()">
         <i class="fa-solid fa-arrow-left"></i>
-      </router-link>
+      </div>
       <div class="user_title_area">
         <span class="user_name">{{ userProfile.name }}</span>
         <span class="user_tweet">{{ userProfile.tweetCount }} 推文</span>
@@ -49,7 +49,9 @@
       <span class="user_detail_account">@{{ userProfile.account }}</span>
       <span class="user_detail_test">{{ userProfile.introduction }} </span>
       <div class="user_detail_area">
-        <router-link :to="{ name: 'user', params: { id: this.$route.params.id } }" class="follows"
+        <router-link
+          :to="{ name: 'user', params: { id: this.$route.params.id } }"
+          class="follows"
           ><span class="num">{{ userProfile.followingCount }}個</span>
           跟隨中</router-link
         >

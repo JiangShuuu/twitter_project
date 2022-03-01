@@ -7,7 +7,7 @@
         <TweetTabs />
         <router-view />
       </div>
-      <Popular />
+      <Popular :initial-popular="popularUpdate" />
     </div>
     <CreateTweets />
   </section>
@@ -30,6 +30,11 @@ export default {
   },
   mounted() {
     this.fetchUserInfo();
+  },
+  data() {
+    return {
+      popularUpdate: false,
+    };
   },
   methods: {
     async fetchUserInfo() {

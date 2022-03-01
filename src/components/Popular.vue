@@ -47,10 +47,21 @@ import { Toast } from "./../utils/helpers";
 
 export default {
   name: "Popular",
+  props: {
+    initialPopular: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       users: [],
     };
+  },
+  watch: {
+    initialPopular: function () {
+      this.fetchUsersTop();
+    },
   },
   created() {
     this.fetchUsersTop();
@@ -88,6 +99,11 @@ export default {
             };
           }
         });
+        this.$emit("update-follows");
+
+        // 即時更新當前使用者追蹤人數
+        const currentUser = this.$store.state.currentUser;
+        this.$store.dispatch("fetchUserInfo", { payload: currentUser.id });
       } catch (error) {
         console.log(error);
       }
@@ -106,6 +122,11 @@ export default {
             };
           }
         });
+        this.$emit("update-follows");
+
+        // 即時更新當前使用者追蹤人數
+        const currentUser = this.$store.state.currentUser;
+        this.$store.dispatch("fetchUserInfo", { payload: currentUser.id });
       } catch (error) {
         console.log(error);
       }

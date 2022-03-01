@@ -1,33 +1,41 @@
 <template>
   <div class="main-content">
     <div class="tweets-header">
-      <router-link to="/main" class="tweets-return">
+      <div class="tweets-return" @click="$router.back()">
         <i class="fa-solid fa-arrow-left"></i>
-      </router-link>
+      </div>
       <h2 class="tweets-title">推文</h2>
     </div>
     <div class="following-content">
       <div class="following-list">
         <!-- 嘗試要連結到其他user,但還不知道怎麼取得user.id -->
         <!-- <router-link :to="{ name: 'other', params: { id: user.id } }"> -->
-          <img
+        <img
           :src="tweetDetail.TweetAuthor.avatar"
           alt="avatar on screen"
           class="following-list__avatar"
-          />
+        />
         <!-- </router-link> -->
         <div class="following-title">
-          <span class="following-title__name">{{ tweetDetail.TweetAuthor.account }}</span>
-          <span class="following-title__account">@{{ tweetDetail.TweetAuthor.name }}</span>
+          <span class="following-title__name">{{
+            tweetDetail.TweetAuthor.account
+          }}</span>
+          <span class="following-title__account"
+            >@{{ tweetDetail.TweetAuthor.name }}</span
+          >
         </div>
       </div>
       <div class="following-item">
         <p class="following-item__description">
           {{ tweetDetail.description }}
         </p>
-        <span class="following-item__time">{{ tweetDetail.updatedAt | fromNow }}</span>
+        <span class="following-item__time">{{
+          tweetDetail.updatedAt | fromNow
+        }}</span>
         <span class="following-item__icon">&#8226;</span>
-        <span class="following-item__date">{{ tweetDetail.createdAt | fromNow }}</span>
+        <span class="following-item__date">{{
+          tweetDetail.createdAt | fromNow
+        }}</span>
       </div>
     </div>
     <div class="comments">
@@ -58,10 +66,7 @@
       </div>
     </div>
     <div class="reply">
-      <div 
-      v-for="reply in replies"
-      :key="reply.id"
-      class="reply-list">
+      <div v-for="reply in replies" :key="reply.id" class="reply-list">
         <img
           :src="reply.ReplyAuthor.avatar"
           alt="avatar on screen"
@@ -69,12 +74,18 @@
         />
         <div class="reply-item">
           <span class="reply-item__name">{{ reply.ReplyAuthor.name }}</span>
-          <span class="reply-item__account">@{{ reply.ReplyAuthor.account }}</span>
+          <span class="reply-item__account"
+            >@{{ reply.ReplyAuthor.account }}</span
+          >
           <span class="reply-item__icon">&#8226;</span>
-          <span class="reply-item__date">{{ reply.ReplyAuthor.updatedAt | fromNow }}</span>
+          <span class="reply-item__date">{{
+            reply.ReplyAuthor.updatedAt | fromNow
+          }}</span>
           <div class="reply-detail">
             <span class="reply-detail__header">回覆</span>
-            <span class="reply-detail__account">@{{ tweetDetail.TweetAuthor.account }}</span>
+            <span class="reply-detail__account"
+              >@{{ tweetDetail.TweetAuthor.account }}</span
+            >
           </div>
           <p class="reply-item__description">{{ reply.comment }}</p>
         </div>
@@ -99,7 +110,7 @@ export default {
   data() {
     return {
       tweetDetail: {},
-      replies:[],
+      replies: [],
       isLiked: false,
     };
   },
@@ -111,12 +122,11 @@ export default {
   methods: {
     async fetchTweetsDetail() {
       try {
-        const id = this.$route.params.id
+        const id = this.$route.params.id;
         const response = await tweetsAPI.getTweetDetail({ id });
         this.tweetDetail = response.data;
-        this.replies = response.data.Replies
+        this.replies = response.data.Replies;
         // console.log(response.data);
-
       } catch (error) {
         console.log(error);
       }
@@ -145,6 +155,7 @@ export default {
     display: flex;
     .tweets-return {
       color: $black;
+      cursor: pointer;
     }
     .fa-arrow-left {
       font-size: 18px;
@@ -165,7 +176,7 @@ export default {
   align-items: center;
   justify-content: left;
   &__avatar {
-     width: 50px;
+    width: 50px;
     height: 50px;
     overflow: hidden;
     border-radius: 50px;
