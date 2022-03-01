@@ -1,12 +1,13 @@
 <template>
   <section class="following">
     <div class="following-content">
-      <div 
-      v-for="user in users"
-      :key="user.Followship.id"
-      class="following-list">
+      <div
+        v-for="user in users"
+        :key="user.Followship.id"
+        class="following-list"
+      >
         <img
-          src="../assets/image/Photo.png"
+          :src="user.avatar"
           alt="avatar on screen"
           class="following-list__avatar"
         />
@@ -15,8 +16,8 @@
             <span class="following-title__name">{{ user.name }}</span>
             <span class="following-title__account">@{{ user.account }}</span>
             <button
-              v-if="user.isFollowing"
-              @click.stop.prevent="deleteFollow()"
+              v-if="user.isFollowed"
+              @click.stop.prevent="deleteFollow(user.Followship.followingId)"
               type="button"
               class="following-title__followed"
             >
@@ -24,7 +25,7 @@
             </button>
             <button
               v-else
-              @click.stop.prevent="addFollow()"
+              @click.stop.prevent="addFollow(user.Followship.followingId)"
               type="button"
               class="following-title__follow"
             >
@@ -32,7 +33,7 @@
             </button>
           </div>
           <p class="following-item__description">
-            {{ user.description }}
+            {{ user.introduction }}
           </p>
         </div>
       </div>
@@ -41,7 +42,7 @@
 </template>
 
 <script>
-import { ToastWarning } from "./../utils/helpers";
+// import { ToastWarning } from "./../utils/helpers";
 import usersAPI from "./../apis/users";
 
 export default {
@@ -52,39 +53,76 @@ export default {
     };
   },
   mounted() {
-    this.fetchFollow();
+    this.fetchFollowing();
   },
   methods: {
-    async fetchFollow() {
+    async fetchFollowing() {
       try {
         const id = this.$route.params.id;
-        const response = await usersAPI.getUserFollow(id);
+        const response = await usersAPI.getUserFollowing(id);
         console.log(response.data);
         this.users = response.data;
-
       } catch (error) {
         console.error(error);
       }
     },
-    addFollow() {
-      this.user.isFollowing = true;
+    async deleteFollow(userId) {
+      try {
+        const { data } = await usersAPI.deleteFollow({ userId });
+        console.log(data);
+        this.users = this.users.map((user) => {
+          if (user.id !== userId) {
+            return user;
+          } else {
+            return {
+              ...user,
+              isFollowed: false,
+            };
+          }
+        });
+        this.fetchFollowing();
+      } catch (error) {
+        console.log(error);
+      }
     },
-    deleteFollow() {
-      ToastWarning.fire({
-        title: "確定要取消追蹤嗎?",
-        // text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "是",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          ToastWarning.fire("OK!", "已經取消追蹤", "success");
-          this.user.isFollowing = false;
-        }
-      });
+    async addFollow(id) {
+      try {
+        const { data } = await usersAPI.addFollow({ id });
+        console.log(data);
+        this.users = this.users.map((user) => {
+          if (user.id !== id) {
+            return user;
+          } else {
+            return {
+              ...user,
+              isFollowed: true,
+            };
+          }
+        });
+        this.fetchFollowing();
+      } catch (error) {
+        console.log(error);
+      }
     },
+    // addFollow() {
+    //   this.user.isFollowing = true;
+    // },
+    // deleteFollow() {
+    //   ToastWarning.fire({
+    //     title: "確定要取消追蹤嗎?",
+    //     // text: "You won't be able to revert this!",
+    //     icon: "warning",
+    //     showCancelButton: false,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "是",
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       ToastWarning.fire("OK!", "已經取消追蹤", "success");
+    //       this.user.isFollowing = false;
+    //     }
+    //   });
+    // },
   },
 };
 </script>
@@ -102,7 +140,7 @@ export default {
   .following-list {
     border-bottom: 1px solid $dividerColor;
     padding: 5px 0px 0px 15px;
-    height: 105px;
+    min-height: 105px;
     display: flex;
     align-items: flex-start;
     &:last-child {
@@ -111,6 +149,9 @@ export default {
     &__avatar {
       margin-top: 5px;
       margin-right: 10px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
     }
     .following-title {
       position: relative;

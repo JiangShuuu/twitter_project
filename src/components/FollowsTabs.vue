@@ -1,22 +1,22 @@
 <template>
   <section class="follows-tabs">
     <div class="user_title">
-      <router-link to="/users" class="user_title_return">
+      <router-link :to="{ name: 'users', params: { id: currentUser.id } }" class="user_title_return">
         <i class="fa-solid fa-arrow-left"></i>
       </router-link>
       <div class="user_title_area">
-        <span class="user_name">{{ user.name }}</span>
-        <span class="user_tweet">{{ user.tweetCount }}推文</span>
+        <span class="user_name">{{ currentUser.name }}</span>
+        <span class="user_tweet">{{ currentUser.tweetCount }}推文</span>
       </div>
     </div>
     <div class="tabs">
       <router-link
-        to="/user/follows"
+        :to="{ name: 'follows', params: { id: currentUser.id } }"
         :class="['tabs__btn', { active: this.$route.name === 'follows' }]"
         >跟隨者</router-link
       >
       <router-link
-        to="/user/following"
+        :to="{ name: 'following', params: { id: currentUser.id } }"
         :class="['tabs__btn', { active: this.$route.name === 'following' }]"
         >正在跟隨</router-link
       >
@@ -25,15 +25,14 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "FollowsTabs",
+    computed: {
+    ...mapState(["currentUser"]),
+  },
   data() {
     return {
-      user: {
-        id: 1,
-        name: "John Doe",
-        tweetCount: "25",
-      },
     };
   },
 };
