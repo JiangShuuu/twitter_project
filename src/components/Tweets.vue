@@ -20,42 +20,44 @@
           <span class="following-item__date">{{
             tweet.createdAt | fromNow
           }}</span>
-          <router-link
-            class="following-item__description"
-            :to="{ name: 'reply-list', params: { id: tweet.id } }"
-          >
-            {{ tweet.description }}
-          </router-link>
-          <div class="following-icons">
-            <div class="icons">
-              <router-link
-                class="icons__comment"
-                :to="{ name: 'reply-list', params: { id: tweet.id } }"
-              >
-                <i class="fa-regular fa-comment"></i>
-              </router-link>
-              <span class="icons__reply-count">{{ tweet.replyCount }}</span>
-            </div>
-            <div class="icons_heart">
-              <div>
-                <li
-                  class="like_btn"
-                  v-show="tweet.isLiked === true"
-                  @click.once="unlikeTweet(tweet.id)"
+          <div class="following-item__content">
+            <router-link
+              class="following-item__description"
+              :to="{ name: 'reply-list', params: { id: tweet.id } }"
+            >
+              {{ tweet.description }}
+            </router-link>
+            <div class="following-icons">
+              <div class="icons">
+                <router-link
+                  class="icons__comment"
+                  :to="{ name: 'reply-list', params: { id: tweet.id } }"
                 >
-                  <i class="icon fa-solid fa-heart"></i>
-                </li>
+                  <i class="fa-regular fa-comment"></i>
+                </router-link>
+                <span class="icons__reply-count">{{ tweet.replyCount }}</span>
               </div>
-              <div>
-                <li
-                  class="unlike_btn"
-                  v-show="tweet.isLiked === false"
-                  @click.once="likeTweet(tweet.id)"
-                >
-                  <i class="icon fa-regular fa-heart"></i>
-                </li>
+              <div class="icons_heart">
+                <div>
+                  <li
+                    class="like_btn"
+                    v-show="tweet.isLiked === true"
+                    @click="unlikeTweet(tweet.id)"
+                  >
+                    <i class="icon fa-solid fa-heart"></i>
+                  </li>
+                </div>
+                <div>
+                  <li
+                    class="unlike_btn"
+                    v-show="tweet.isLiked === false"
+                    @click="likeTweet(tweet.id)"
+                  >
+                    <i class="icon fa-regular fa-heart"></i>
+                  </li>
+                </div>
+                <span class="icons__like-count">{{ tweet.likeCount }}</span>
               </div>
-              <span class="icons__like-count">{{ tweet.likeCount }}</span>
             </div>
           </div>
         </div>
@@ -99,12 +101,15 @@ export default {
           icon: "success",
           title: data.message,
         });
+
+        // await this.fetchTweetsDetail();
       } catch (error) {
         Toast.fire({
           icon: "warning",
           title: error.message,
         });
       }
+
     },
     async unlikeTweet(id) {
       console.log(id);
@@ -148,7 +153,6 @@ export default {
   }
   .following-list {
     padding: 10px 0px 0px 15px;
-    min-height: 146px;
     display: flex;
     align-items: flex-start;
     &__avatar {
@@ -160,15 +164,23 @@ export default {
       margin-right: 10px;
     }
     .following-item {
+      flex: 1;
       margin-right: 10px;
       &__name,
       &__description {
         font-size: 15px;
         color: $black;
-        /* font-weight: bold; */
+      }
+      &__content {
+        width: 100%;
+        padding-right: 15px;
+        overflow-wrap: anywhere;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
       &__description {
-        height: 65px;
+        min-height: 50px;
         margin-top: 5px;
         display: flex;
       }
@@ -180,27 +192,27 @@ export default {
         font-size: 15px;
         color: $mid-gray;
       }
-      .following-icons {
-        font-size: 15px;
-        color: $mid-gray;
-        width: 130px;
-        margin-top: 13px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 30px;
-        .icons {
-          margin-right: 10px;
-          cursor: pointer;
-          &__comment {
-            margin-right: 10px;
-            color: $mid-gray;
-          }
-          &__like-count {
-            margin-left: 10px;
-          }
-        }
-      }
+    }
+  }
+}
+.following-icons {
+  font-size: 15px;
+  color: $mid-gray;
+  width: 130px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  .icons {
+    margin-right: 10px;
+    cursor: pointer;
+    &__comment {
+      margin-right: 10px;
+      color: $mid-gray;
+    }
+    &__like-count {
+      margin-left: 10px;
     }
   }
 }

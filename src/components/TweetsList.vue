@@ -183,7 +183,7 @@ export default {
 
 .tweet {
   border: 1px solid $light-gray;
-  height: 145px;
+  min-height: 150px;
   display: flex;
   &_avatar {
     min-width: 80px;

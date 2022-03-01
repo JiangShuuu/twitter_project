@@ -117,12 +117,14 @@ export default {
       resize: none;
       border: none;
       margin-top: 10px;
+      overflow-y:hidden;
       &:focus {
         outline: none;
       }
     }
     &__avatar {
       width: 50px;
+      height: 50px;
       border-radius: 50%;
       object-fit: cover;
       margin-right: 10px;

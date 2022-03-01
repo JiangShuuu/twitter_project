@@ -49,7 +49,7 @@
 
             <ul
               class="tweet_info_icon_like"
-              @click.once="unlikeTweet(like.TweetId)"
+              @click="unlikeTweet(like.TweetId)"
             >
               <li class="like_btn">
                 <i class="fa-solid fa-heart"></i>
@@ -155,7 +155,7 @@ export default {
 
 .tweet {
   border: 1px solid $light-gray;
-  height: 145px;
+  min-height: 145px;
   display: flex;
   &_avatar {
     width: 80px;

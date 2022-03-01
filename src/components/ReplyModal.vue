@@ -26,16 +26,26 @@
                 class="following-list__avatar"
               />
               <div class="following-item">
-                <span class="following-item__name">{{ initialTweetDetail.TweetAuthor.name }}</span>
-                <span class="following-item__account">@{{ initialTweetDetail.TweetAuthor.account }}</span>
+                <span class="following-item__name">{{
+                  initialTweetDetail.TweetAuthor.name
+                }}</span>
+                <span class="following-item__account"
+                  >@{{ initialTweetDetail.TweetAuthor.account }}</span
+                >
                 <span class="following-item__icon">&#8226;</span>
-                <span class="following-item__date">{{ initialTweetDetail.createdAt | fromNow}}</span>
-                <p class="following-item__description">
-                  {{ initialTweetDetail.description }}
-                </p>
+                <span class="following-item__date">{{
+                  initialTweetDetail.createdAt | fromNow
+                }}</span>
+                <div class="following-item__content">
+                  <p class="following-item__description">
+                    {{ initialTweetDetail.description }}
+                  </p>
+                </div>
                 <div class="following-detail">
                   <span class="following-detail__header">回覆給</span>
-                  <span class="following-detail__account">@{{ initialTweetDetail.TweetAuthor.account }}</span>
+                  <span class="following-detail__account"
+                    >@{{ initialTweetDetail.TweetAuthor.account }}</span
+                  >
                 </div>
               </div>
             </div>
@@ -83,8 +93,8 @@ export default {
   props: {
     initialTweetDetail: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -93,8 +103,7 @@ export default {
         avatar: "",
         name: "",
       },
-      // tweetDetail: this.initialTweetDetail,
-      comment:'',
+      comment: "",
     };
   },
   mounted() {
@@ -119,7 +128,7 @@ export default {
           tweetId: this.$route.params.id,
           comment: this.comment,
         });
-        console.log(data)
+        console.log(data);
         if (data.status === "error") {
           throw new Error(data.message);
         }
@@ -207,6 +216,10 @@ export default {
   }
   .following-item {
     margin-right: 10px;
+    &__content {
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
     &__name,
     &__description {
       font-size: 15px;

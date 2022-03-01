@@ -26,9 +26,11 @@
         </div>
       </div>
       <div class="following-item">
-        <p class="following-item__description">
-          {{ tweetDetail.description }}
-        </p>
+        <div class="following-item__content">
+          <p class="following-item__description">
+            {{ tweetDetail.description }}
+          </p>
+        </div>
         <span class="following-item__time">{{
           tweetDetail.updatedAt | fromNow
         }}</span>
@@ -58,7 +60,7 @@
         <li
           class="unlike_btn"
           v-show="tweetDetail.isLiked === false"
-          @click.once="likeTweet(tweetDetail.id)"
+          @click="likeTweet(tweetDetail.id)"
         >
           <i class="reply-icon__heart fa-regular fa-heart"></i>
         </li>
@@ -67,7 +69,7 @@
         <li
           class="like_btn"
           v-show="tweetDetail.isLiked === true"
-          @click.once="unlikeTweet(tweetDetail.id)"
+          @click="unlikeTweet(tweetDetail.id)"
         >
           <i class="icon fa-solid fa-heart"></i>
         </li>
@@ -95,7 +97,9 @@
               >@{{ tweetDetail.TweetAuthor.account }}</span
             >
           </div>
-          <p class="reply-item__description">{{ reply.comment }}</p>
+          <div class="reply-item__content">
+            <p class="reply-item__description">{{ reply.comment }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -136,7 +140,6 @@ export default {
         const response = await tweetsAPI.getTweetDetail({ id });
         this.tweetDetail = response.data;
         this.replies = response.data.Replies;
-        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -218,7 +221,7 @@ export default {
 
 .following-content {
   border-top: 1px solid $dividerColor;
-  padding: 15px 75px 0 15px;
+  padding: 15px 15px 0 15px;
 }
 .following-list {
   display: flex;
@@ -251,6 +254,10 @@ export default {
     color: $black;
     padding-top: 20px;
     padding-bottom: 20px;
+  }
+  &__content {
+    width: 100%;
+    overflow-wrap: anywhere;
   }
   &__time,
   &__icon,
@@ -290,14 +297,14 @@ export default {
     margin-right: 150px;
   }
   .like_btn {
-    color: #F91880;
+    color: #f91880;
   }
 }
 
 .reply-list {
   border-bottom: 1px solid $dividerColor;
-  padding: 10px 0 0 15px;
-  height: 105px;
+  padding: 10px 0 15px 15px;
+  min-height: 150px;
   display: flex;
   align-items: flex-start;
   &__avatar {
@@ -311,6 +318,10 @@ export default {
   }
   .reply-item {
     margin-right: 10px;
+    &__content {
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
     &__name {
       margin-right: 5px;
     }
