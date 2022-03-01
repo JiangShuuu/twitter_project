@@ -128,7 +128,9 @@ export default {
     display: flex;
     align-items: flex-start;
     &__avatar {
+      height: 50px;
       width: 50px;
+      object-fit: cover;
       border-radius: 50px;
       margin-top: 5px;
       margin-right: 10px;

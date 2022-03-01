@@ -1,7 +1,10 @@
 <template>
   <section class="following">
     <div class="following-content">
-      <div class="following-list">
+      <div 
+      v-for="user in users"
+      :key="user.Followship.id"
+      class="following-list">
         <img
           src="../assets/image/Photo.png"
           alt="avatar on screen"
@@ -45,7 +48,7 @@ export default {
   name: "Following",
   data() {
     return {
-      user: [],
+      users: [],
     };
   },
   mounted() {
@@ -55,8 +58,10 @@ export default {
     async fetchFollow() {
       try {
         const id = this.$route.params.id;
-        const response = await usersAPI.getUserFollow({ id });
-        this.user = response.data;
+        const response = await usersAPI.getUserFollow(id);
+        console.log(response.data);
+        this.users = response.data;
+
       } catch (error) {
         console.error(error);
       }
