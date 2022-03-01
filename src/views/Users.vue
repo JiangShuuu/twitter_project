@@ -9,6 +9,7 @@
       </div>
       <Popular />
     </div>
+    <CreateTweets />
   </section>
 </template>
 
@@ -17,6 +18,7 @@ import NavBar from "../components/NavBar.vue";
 import Popular from "../components/Popular.vue";
 import UserCard from "../components/UserCard.vue";
 import TweetTabs from "../components/TweetTabs.vue";
+import CreateTweets from "../components/CreateTweet.vue";
 
 export default {
   name: "Users",
@@ -25,6 +27,7 @@ export default {
     TweetTabs,
     NavBar,
     Popular,
+    CreateTweets,
   },
   mounted() {
     this.fetchUserInfo();

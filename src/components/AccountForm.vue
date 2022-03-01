@@ -4,7 +4,7 @@
       <form class="form" @submit.prevent="handleSubmit(accountInfoSubmit)">
         <ValidationProvider
           name="account"
-          rules="create_account|alpha_num"
+          rules="create_account|alpha_num|max_length:12"
           v-slot="{ errors }"
         >
           <div class="form-floating">
@@ -22,7 +22,7 @@
         </ValidationProvider>
         <ValidationProvider
           name="Name"
-          rules="create_name|alpha_num"
+          rules="create_name|alpha_num|max_name_length:50"
           v-slot="{ errors }"
         >
           <div class="form-floating">
@@ -58,7 +58,7 @@
         </ValidationProvider>
         <ValidationProvider
           name="password"
-          rules="create_password|min_length:6"
+          rules="create_password|min_length:6|max_length:12"
           v-slot="{ errors }"
           vid="confirmation"
         >
@@ -104,9 +104,6 @@
 </template>
 
 <script>
-// import { Toast } from "./../utils/helpers";
-// import usersAPI from "./../apis/users.js";
-
 export default {
   name: "AccountForm",
   props: {

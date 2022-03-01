@@ -43,14 +43,14 @@ export default {
 
         Toast.fire({
           icon: "success",
-          title: response.data.message,
+          title: data.message,
         });
+
         this.$router.push("/signIn");
       } catch (error) {
-        console.log(error);
         Toast.fire({
           icon: "warning",
-          title: error,
+          title: error.message,
         });
       }
     },

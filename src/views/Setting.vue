@@ -14,6 +14,7 @@
         </div>
       </div>
     </div>
+    <CreateTweets />
   </div>
 </template>
 
@@ -23,10 +24,11 @@ import NavBar from "../components/NavBar.vue";
 import store from "./../store";
 import { Toast } from "./../utils/helpers";
 import usersAPI from "./../apis/users.js";
+import CreateTweets from "../components/CreateTweet.vue";
 
 export default {
   name: "Setting",
-  components: { AccountForm, NavBar },
+  components: { AccountForm, NavBar, CreateTweets },
   data() {
     return {
       currentUser: {
@@ -64,13 +66,15 @@ export default {
 
         Toast.fire({
           icon: "success",
-          title: response.data.message,
+          title: data.message,
         });
+
+        this.$store.dispatch("fetchCurrentUser");
+        this.$router.push("/main");
       } catch (error) {
-        console.log(error);
         Toast.fire({
           icon: "warning",
-          title: error,
+          title: error.message,
         });
       }
     },

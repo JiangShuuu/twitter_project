@@ -98,14 +98,14 @@ export default {
     this.fetchTweetsDetail();
   },
   methods: {
+    // 從這邊開始檢查
     async fetchTweetsDetail() {
-      try{
+      try {
         const id = this.$route.params.id;
         const response = await tweetsAPI.getTweetDetail(id);
         this.tweetDetail = response.data;
         console.log(response.data);
-        
-      }catch (error) {
+      } catch (error) {
         console.log(error);
       }
     },

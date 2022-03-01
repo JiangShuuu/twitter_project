@@ -17,9 +17,12 @@
             >@{{ tweet.TweetAuthor.account }}</span
           >
           <span class="following-item__icon">&#8226;</span>
-          <span class="following-item__date">{{ tweet.createdAt | fromNow }}</span>
-          <router-link class="following-item__description"
-          :to="{ name: 'reply-list', params: { id: tweet.id } }"
+          <span class="following-item__date">{{
+            tweet.createdAt | fromNow
+          }}</span>
+          <router-link
+            class="following-item__description"
+            :to="{ name: 'reply-list', params: { id: tweet.id } }"
           >
             {{ tweet.description }}
           </router-link>
@@ -75,7 +78,7 @@ export default {
     return {
       tweet: this.initialTweet,
       isLiked: false,
-    }
+    };
   },
   methods: {
     // fetchUserInfo() {
@@ -88,7 +91,6 @@ export default {
         // const { data } = await tweetsAPI.likeTweets({ tweetId });
         // console.log(data);
         this.isLiked = true;
-
       } catch (error) {
         console.log(error);
       }

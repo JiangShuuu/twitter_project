@@ -1,6 +1,6 @@
 <template>
   <form @submit.stop.prevent="handleSubmit">
-      <div class="tweets-header">
+    <div class="tweets-header">
       <h2 class="tweets-title">首頁</h2>
       <div class="tweets-create">
         <img
@@ -19,11 +19,7 @@
           v-model="description"
         >
         </textarea>
-        <button
-          class="btn tweets-create__btn"
-        >
-          推文
-        </button>
+        <button class="btn tweets-create__btn">推文</button>
       </div>
     </div>
   </form>
@@ -33,6 +29,7 @@
 import store from "./../store";
 // import CreateTweets from "../components/CreateTweet.vue";
 import tweetsAPI from "./../apis/tweets";
+import { Toast } from "./../utils/helpers";
 
 export default {
   name: "mainCard",
@@ -47,7 +44,7 @@ export default {
         name: "",
       },
       isUsers: true,
-      description: '',
+      description: "",
     };
   },
   mounted() {
@@ -56,8 +53,8 @@ export default {
   },
   methods: {
     fetchUserInfo() {
-      const { account, avatar,  id } = store.state.currentUser;
-      this.currentUser = { account,avatar, id };
+      const { account, avatar, id } = store.state.currentUser;
+      this.currentUser = { account, avatar, id };
     },
     confirmRouter() {
       if (this.$route.path.includes("other")) {
@@ -67,20 +64,29 @@ export default {
       }
     },
     async handleSubmit() {
-      try{
-        console.log('送出表單')
-        const { data } = await tweetsAPI.createTweets({ description: this.description })
-        console.log(data)
-        this.$emit('modal-create-tweet', {
-        description: this.description
-      })
-      this.description = '' // 將表單內的資料清空
-      }catch (error) {
-        console.error(error)
-      }
-      
+      try {
+        const { data } = await tweetsAPI.createTweets({
+          description: this.description,
+        });
 
-    }
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+        this.$emit("modal-create-tweet");
+        this.description = ""; // 將表單內的資料清空
+      } catch (error) {
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
+    },
   },
 };
 </script>

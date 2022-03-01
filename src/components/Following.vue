@@ -53,12 +53,13 @@ export default {
   },
   methods: {
     async fetchFollow() {
-      try{
+      try {
         const id = this.$route.params.id;
-        const response = await usersAPI.getUserFollow({ id })
+
+        const response = await usersAPI.getUserFollow({ id });
         this.user = response.data;
-      }catch (error) {
-        console.error(error)
+      } catch (error) {
+        console.error(error);
       }
     },
     addFollow() {

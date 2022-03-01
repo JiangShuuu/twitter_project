@@ -55,10 +55,9 @@ export default {
         });
         this.$router.push("/main");
       } catch (error) {
-        console.log(error);
         Toast.fire({
           icon: "warning",
-          title: "輸入的帳號密碼有誤",
+          title: error.message,
         });
       }
     },

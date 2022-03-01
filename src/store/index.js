@@ -63,12 +63,16 @@ export default new Vuex.Store({
       try {
         const { payload: id } = payload;
         const { data } = await usersAPI.getUserInfo(id);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
         commit("getUserProfile", data);
       } catch (error) {
-        console.error(error.message);
         Toast.fire({
           icon: "warning",
-          title: "驗證!!失敗,請重新登入",
+          title: error.message,
         });
       }
     },
