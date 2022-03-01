@@ -1,9 +1,9 @@
 <template>
   <div class="main-content">
     <div class="tweets-header">
-      <router-link class="tweets-return" @click="$router.back()">
+      <div class="tweets-return" @click="$router.back()">
         <i class="fa-solid fa-arrow-left"></i>
-      </router-link>
+      </div>
       <h2 class="tweets-title">推文</h2>
     </div>
     <div class="following-content">
@@ -155,6 +155,7 @@ export default {
     display: flex;
     .tweets-return {
       color: $black;
+      cursor: pointer;
     }
     .fa-arrow-left {
       font-size: 18px;
