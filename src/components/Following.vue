@@ -61,7 +61,7 @@ export default {
         const response = await usersAPI.getUserFollow(id);
         console.log(response.data);
         this.users = response.data;
-        
+
       } catch (error) {
         console.error(error);
       }
