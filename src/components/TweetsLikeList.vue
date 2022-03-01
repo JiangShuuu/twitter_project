@@ -2,14 +2,20 @@
   <section class="tweets_like_list">
     <div class="tweets">
       <div class="tweet" v-for="like in likes" :key="like.id">
-        <div class="tweet_avatar">
+        <router-link
+          :to="{ name: 'other', params: { id: like.LikedTweet.UserId } }"
+          class="tweet_avatar"
+        >
           <div class="tweet_avatar_img">
             <img :src="like.LikedTweet.TweetAuthor.avatar" alt="" />
           </div>
-        </div>
+        </router-link>
         <div class="tweet_info">
           <div>
-            <div class="tweet_info_title">
+            <router-link
+              :to="{ name: 'other', params: { id: like.LikedTweet.UserId } }"
+              class="tweet_info_title"
+            >
               <div class="tweet_info_title_name">
                 {{ like.LikedTweet.TweetAuthor.name }}
               </div>
@@ -20,22 +26,31 @@
               <div class="tweet_info_title_date">
                 {{ like.LikedTweet.createdAt | fromNow }}
               </div>
-            </div>
-            <div class="tweet_info_content">
+            </router-link>
+            <router-link
+              :to="{ name: 'reply-list', params: { id: like.TweetId } }"
+              class="tweet_info_content"
+            >
               {{ like.LikedTweet.description }}
-            </div>
+            </router-link>
           </div>
           <div class="tweet_info_icon">
-            <ul class="tweet_info_icon_reply">
+            <router-link
+              :to="{ name: 'reply-list', params: { id: like.TweetId } }"
+              class="tweet_info_icon_reply"
+            >
               <li class="commemt_btn">
                 <img src="../assets/image/comment.png" alt="" />
               </li>
               <span class="num">{{ like.LikedTweet.replyCount }}</span>
-            </ul>
+            </router-link>
 
-            <ul class="tweet_info_icon_like">
+            <ul
+              class="tweet_info_icon_like"
+              @click.once="unlikeTweet(like.TweetId)"
+            >
               <li class="like_btn">
-                <img src="../assets/image/heart01.png" alt="" />
+                <i class="fa-solid fa-heart"></i>
               </li>
               <span class="num">{{ like.LikedTweet.likeCount }}</span>
             </ul>
@@ -51,6 +66,8 @@ import BetterScroll from "better-scroll";
 import userAPI from "./../apis/users.js";
 import { fromNowFilter } from "./../utils/mixins";
 import { Toast } from "./../utils/helpers";
+import tweetAPI from "./../apis/tweets.js";
+
 export default {
   name: "UserTweetList",
   mixins: [fromNowFilter],
@@ -68,7 +85,6 @@ export default {
         const pramsId = this.$route.params.id;
         const response = await userAPI.getUserLikes(pramsId);
         const { data } = response;
-        console.log(response);
 
         if (data.status === "error") {
           throw new Error(data.message);
@@ -101,6 +117,27 @@ export default {
           );
         }, s);
       });
+    },
+    async unlikeTweet(id) {
+      console.log(id);
+      try {
+        const { data } = await tweetAPI.unLikeTweets(id);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+        this.fetchUserLikes();
+      } catch (error) {
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
     },
   },
 };
@@ -142,8 +179,10 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     &_title {
+      all: unset;
       @include flexCenter;
       justify-content: flex-start;
+      cursor: pointer;
       &_name {
         font-size: 15px;
         font-weight: 700;
@@ -178,15 +217,24 @@ export default {
         display: flex;
         align-items: flex-end;
         color: $mid-gray;
+        cursor: pointer;
         img {
           width: 20px;
           height: 18px;
+        }
+        .like_btn {
+          margin-bottom: -2px;
+          color: red;
         }
       }
       .num {
         margin-left: 11px;
         font-size: 13px;
       }
+    }
+    &_content {
+      all: unset;
+      cursor: pointer;
     }
   }
 }

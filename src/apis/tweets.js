@@ -7,11 +7,11 @@ export default {
   createTweets({ description }) {
     return apiHelper.post("api/tweets", { description });
   },
-  likeTweets({ tweetId }) {
-    return apiHelper.post(`tweets/${tweetId}/like`, null);
+  likeTweets(tweetId) {
+    return apiHelper.post(`api/tweets/${tweetId}/like`);
   },
-  unLikeTweets({ tweetId }) {
-    return apiHelper.delete(`tweets/${tweetId}/unlike`, null);
+  unLikeTweets(tweetId) {
+    return apiHelper.post(`api/tweets/${tweetId}/unlike`);
   },
   getTweetDetail({ id }) {
     return apiHelper.get(`api/tweets/${id}`);
