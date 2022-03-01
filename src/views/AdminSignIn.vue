@@ -37,13 +37,14 @@ export default {
         });
 
         const { data } = response;
+
         if (data.status !== "success") {
           throw new Error(data.message);
         }
         localStorage.setItem("token", data.token);
 
-        // 透過 setCurrentUser 把使用者資料存到 vuex 的 state 中
-        this.$store.commit("setCurrentUser", data.user);
+        // 透過 setCurrentUser 把管理者資料存到 vuex 的 state 中
+        await this.$store.commit("setCurrentUser", data.data);
 
         Toast.fire({
           icon: "success",
