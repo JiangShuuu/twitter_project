@@ -135,7 +135,6 @@ export default {
 .main-content {
   border-left: 1px solid $dividerColor;
   border-right: 1px solid $dividerColor;
-  height: 85%;
 }
 .contents {
   width: 100%;
