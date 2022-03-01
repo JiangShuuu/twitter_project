@@ -68,6 +68,11 @@ export default {
         const pramsId = this.$route.params.id;
         const response = await userAPI.getUserLikes(pramsId);
         const { data } = response;
+        console.log(response);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
 
         // 篩掉當前使用者自己的貼文
         this.likes = data.filter((item) => {
@@ -76,10 +81,9 @@ export default {
 
         await this.movefunction(100);
       } catch (error) {
-        console.error(error);
         Toast.fire({
           icon: "warning",
-          title: "讀取like列表失敗,請稍後再試!",
+          title: error.message,
         });
       }
     },

@@ -58,13 +58,18 @@ export default {
   methods: {
     async fetchUsersTop() {
       try {
-        const response = await usersAPI.getUsersTop();
+        const response = await usersAPI.getUsersTop(212);
         const { data } = response.data;
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
         this.users = data;
       } catch (error) {
         Toast.fire({
           icon: "warning",
-          title: "無法取得人氣追蹤者的資料,請稍後再試",
+          title: error.message,
         });
       }
     },

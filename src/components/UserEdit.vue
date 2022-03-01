@@ -161,14 +161,15 @@ export default {
 
         Toast.fire({
           icon: "success",
-          title: "更新成功!",
+          title: data.message,
         });
 
+        this.fetchUserData();
         this.$emit("is-loading");
       } catch (error) {
         Toast.fire({
           icon: "error",
-          title: "無法更新user資料，請稍後再試",
+          title: error.message,
         });
       }
     },

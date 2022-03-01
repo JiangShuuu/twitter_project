@@ -82,17 +82,16 @@ export default {
     },
     async deleteTweet(id) {
       try {
-        const response = await adminAPI.deleteTweet(id);
+        const { data } = await adminAPI.deleteTweet(id);
         Toast.fire({
           icon: "success",
-          title: response.data.message,
+          title: data.message,
         });
         this.fetchAllTweets();
       } catch (error) {
-        console.log(error);
         Toast.fire({
           icon: "warning",
-          title: "刪除貼文失敗,請稍後再試!",
+          title: error.message,
         });
       }
     },

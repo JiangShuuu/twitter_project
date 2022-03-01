@@ -66,13 +66,15 @@ export default {
 
         Toast.fire({
           icon: "success",
-          title: response.data.message,
+          title: data.message,
         });
+
+        this.$store.dispatch("fetchCurrentUser");
+        this.$router.push("/main");
       } catch (error) {
-        console.log(error);
         Toast.fire({
           icon: "warning",
-          title: error,
+          title: error.message,
         });
       }
     },

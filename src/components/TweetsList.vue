@@ -75,14 +75,19 @@ export default {
     async fetchUserTweets() {
       try {
         const pramsId = this.$route.params.id;
-        const response = await userAPI.getUserTweet(pramsId);
-        this.tweets = response.data;
+        const { data } = await userAPI.getUserTweet(pramsId);
+
+        // 目前後端API不會拋錯，故這邊待測試
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        this.tweets = data;
         await this.movefunction(100);
       } catch (error) {
-        console.error(error);
         Toast.fire({
           icon: "warning",
-          title: "讀取tweet列表失敗,請稍後再試!",
+          title: error.message,
         });
       }
     },

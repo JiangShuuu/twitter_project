@@ -56,14 +56,18 @@ export default {
     async fetchReplyTweets() {
       try {
         const pramsId = this.$route.params.id;
-        const response = await userAPI.getUserReply(pramsId);
-        this.replyTweets = response.data;
+        const { data } = await userAPI.getUserReply(pramsId);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        this.replyTweets = data;
         await this.movefunction(100);
       } catch (error) {
-        console.error(error);
         Toast.fire({
           icon: "warning",
-          title: "讀取reply列表失敗,請稍後再試!",
+          title: error.message,
         });
       }
     },
