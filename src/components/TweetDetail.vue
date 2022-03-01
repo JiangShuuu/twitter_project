@@ -8,33 +8,35 @@
     </div>
     <div class="following-content">
       <div class="following-list">
-        <img
-          src="../assets/image/Photo.png"
+        <!-- 嘗試要連結到其他user,但還不知道怎麼取得user.id -->
+        <!-- <router-link :to="{ name: 'other', params: { id: user.id } }"> -->
+          <img
+          :src="tweetDetail.TweetAuthor.avatar"
           alt="avatar on screen"
           class="following-list__avatar"
-        />
+          />
+        <!-- </router-link> -->
         <div class="following-title">
-          <span class="following-title__name">Apple</span>
-          <span class="following-title__account">@apple</span>
+          <span class="following-title__name">{{ tweetDetail.TweetAuthor.account }}</span>
+          <span class="following-title__account">@{{ tweetDetail.TweetAuthor.name }}</span>
         </div>
       </div>
       <div class="following-item">
         <p class="following-item__description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem mollitia
-          assumenda itaque asperiores, deserunt necessitatibus doloremque libero
+          {{ tweetDetail.description }}
         </p>
-        <span class="following-item__time">上午 10:05</span>
+        <span class="following-item__time">{{ tweetDetail.updatedAt | fromNow }}</span>
         <span class="following-item__icon">&#8226;</span>
-        <span class="following-item__date">2020年6月10日</span>
+        <span class="following-item__date">{{ tweetDetail.createdAt | fromNow }}</span>
       </div>
     </div>
     <div class="comments">
       <div class="comments-list">
-        <span class="comments-list__num">34</span>
+        <span class="comments-list__num">{{ tweetDetail.replyCount }}</span>
         <span class="comments-list__title">回覆</span>
       </div>
       <div class="likes">
-        <span class="likes__num">808</span>
+        <span class="likes__num">{{ tweetDetail.likeCount }}</span>
         <span class="like__title">喜歡次數</span>
       </div>
     </div>
@@ -56,22 +58,25 @@
       </div>
     </div>
     <div class="reply">
-      <div class="reply-list">
+      <div 
+      v-for="reply in replies"
+      :key="reply.id"
+      class="reply-list">
         <img
-          src="../assets/image/Photo.png"
+          :src="reply.ReplyAuthor.avatar"
           alt="avatar on screen"
           class="reply-list__avatar"
         />
         <div class="reply-item">
-          <span class="reply-item__name">MaryJane</span>
-          <span class="reply-item__account">@mjjane</span>
+          <span class="reply-item__name">{{ reply.ReplyAuthor.name }}</span>
+          <span class="reply-item__account">@{{ reply.ReplyAuthor.account }}</span>
           <span class="reply-item__icon">&#8226;</span>
-          <span class="reply-item__date">13小時</span>
+          <span class="reply-item__date">{{ reply.ReplyAuthor.updatedAt | fromNow }}</span>
           <div class="reply-detail">
             <span class="reply-detail__header">回覆</span>
-            <span class="reply-detail__account">@apple</span>
+            <span class="reply-detail__account">@{{ tweetDetail.TweetAuthor.account }}</span>
           </div>
-          <p class="reply-item__description">Great~</p>
+          <p class="reply-item__description">{{ reply.comment }}</p>
         </div>
       </div>
     </div>
@@ -83,28 +88,35 @@
 <script>
 import ReplyModal from "../components/ReplyModal.vue";
 import tweetsAPI from "../apis/tweets";
+import { fromNowFilter } from "./../utils/mixins";
+
 export default {
   name: "TweetDetail",
+  mixins: [fromNowFilter],
   components: {
     ReplyModal,
   },
   data() {
     return {
       tweetDetail: {},
+      replies:[],
       isLiked: false,
     };
   },
   mounted() {
     this.fetchTweetsDetail();
+    // const {tweetId: id} = this.$route.params.id
+    // console.log(this.$route.params.id);
   },
   methods: {
-    // 從這邊開始檢查
     async fetchTweetsDetail() {
       try {
-        const id = this.$route.params.id;
-        const response = await tweetsAPI.getTweetDetail(id);
+        const id = this.$route.params.id
+        const response = await tweetsAPI.getTweetDetail({ id });
         this.tweetDetail = response.data;
-        console.log(response.data);
+        this.replies = response.data.Replies
+        // console.log(response.data);
+
       } catch (error) {
         console.log(error);
       }
@@ -152,6 +164,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: left;
+  &__avatar {
+     width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50px;
+  }
   .following-title {
     margin-left: 10px;
     font-size: 15px;
@@ -220,6 +238,11 @@ export default {
   display: flex;
   align-items: flex-start;
   &__avatar {
+    width: 50px;
+    height: 50px;
+    /* 有些圖片尺寸太小會造成排版不對，先關掉看看 */
+    /* overflow: hidden; */
+    border-radius: 50px;
     margin-top: 5px;
     margin-right: 10px;
   }
