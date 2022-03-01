@@ -29,6 +29,7 @@
 import store from "./../store";
 // import CreateTweets from "../components/CreateTweet.vue";
 import tweetsAPI from "./../apis/tweets";
+import { Toast } from "./../utils/helpers";
 
 export default {
   name: "mainCard",
@@ -64,15 +65,26 @@ export default {
     },
     async handleSubmit() {
       try {
-        console.log("送出表單");
-        await tweetsAPI.createTweets({ description: this.description });
-        // console.log(data)
-        this.$emit("modal-create-tweet", {
-          // description: this.description
+        const { data } = await tweetsAPI.createTweets({
+          description: this.description,
         });
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+        this.$emit("modal-create-tweet");
         this.description = ""; // 將表單內的資料清空
       } catch (error) {
-        console.error(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
     },
   },
