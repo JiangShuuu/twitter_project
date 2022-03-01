@@ -15,6 +15,15 @@ const authorizeIsAdmin = (to, from, next) => {
   next();
 };
 
+const authorizeIsUser = (to, from, next) => {
+  const currentUser = store.state.currentUser;
+  if (currentUser && currentUser.role !== "user") {
+    next("/admin");
+    return;
+  }
+  next();
+};
+
 const routes = [
   {
     path: "/",
@@ -35,12 +44,14 @@ const routes = [
     path: "/setting",
     name: "setting",
     component: () => import("../views/Setting.vue"),
+    beforeEnter: authorizeIsUser,
   },
   {
     path: "/users/:id",
     name: "users",
     component: () => import("../views/Users.vue"),
     redirect: "/users/:id/self",
+    beforeEnter: authorizeIsUser,
     children: [
       {
         path: "/users/:id/self",
@@ -64,6 +75,7 @@ const routes = [
     name: "user",
     component: () => import("../views/Followers.vue"),
     redirect: "/user/:id/following",
+    beforeEnter: authorizeIsUser,
     children: [
       {
         path: "/user/:id/following",
@@ -82,6 +94,7 @@ const routes = [
     name: "other",
     component: () => import("../views/Other.vue"),
     redirect: "/other/self/:id",
+    beforeEnter: authorizeIsUser,
     children: [
       {
         path: "self/:id",
@@ -128,11 +141,13 @@ const routes = [
     path: "/main",
     name: "main",
     component: () => import("../views/Main.vue"),
+    beforeEnter: authorizeIsUser,
   },
   {
     path: "/replyList/:id",
     name: "reply-list",
     component: () => import("../views/ReplyList.vue"),
+    beforeEnter: authorizeIsUser,
   },
   {
     path: "*",
