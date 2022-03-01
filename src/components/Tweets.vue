@@ -28,21 +28,27 @@
           </router-link>
           <div class="following-icons">
             <div class="icons">
-              <i
-                class="fa-regular fa-comment"
-                data-bs-toggle="modal"
-                data-bs-target="#createReplyModal"
-              ></i>
+              <router-link class="icons__comment" :to="{ name: 'reply-list', params: { id: tweet.id } }">
+                <i class="fa-regular fa-comment"></i>
+              </router-link>
               <span class="icons__reply-count">{{ tweet.replyCount }}</span>
             </div>
             <div class="icons_heart">
-              <div v-if="tweet.isLiked" @click="unLiked()">
-                <li>
+              <div>
+                <li
+                  class="like_btn"
+                  v-show="tweet.isLiked === true"
+                  @click.once="unlikeTweet(tweet.id)"
+                >
                   <i class="icon fa-solid fa-heart"></i>
                 </li>
               </div>
-              <div v-else @click="addLiked()">
-                <li>
+              <div>
+                <li
+                  class="unlike_btn"
+                  v-show="tweet.isLiked === false"
+                  @click.once="likeTweet(tweet.id)"
+                >
                   <i class="icon fa-regular fa-heart"></i>
                 </li>
               </div>
@@ -61,6 +67,7 @@
 import tweetsAPI from "./../apis/tweets";
 import ReplyModal from "./../components/ReplyModal.vue";
 import { fromNowFilter } from "./../utils/mixins";
+import { Toast } from "./../utils/helpers";
 
 export default {
   name: "Tweets",
@@ -80,26 +87,52 @@ export default {
       isLiked: false,
     };
   },
+  // watch: {
+    // 重新拉資料進來
+  //   },
+  // },
   methods: {
-    // fetchUserInfo() {
-    //   const { account, avatar, id } = store.state.currentUser;
-    //   this.currentUser = { account, avatar, id };
-    // },
-    async addLiked() {
+    async likeTweet(id) {
+      console.log(id);
       try {
-        // console.log("addLiked:", tweetId);
-        // const { data } = await tweetsAPI.likeTweets({ tweetId });
-        // console.log(data);
-        this.isLiked = true;
+        const { data } = await tweetsAPI.likeTweets(id);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
       } catch (error) {
-        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
     },
-    async unLiked(tweetId) {
-      console.log("delike", tweetId);
-      const { data } = await tweetsAPI.likeTweets({ tweetId });
-      console.log(data);
-      this.isLiked = false;
+    async unlikeTweet(id) {
+      console.log(id);
+      try {
+        const { data } = await tweetsAPI.unLikeTweets(id);
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+      } catch (error) {
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
     },
   },
 };
@@ -164,9 +197,17 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 30px;
         .icons {
           margin-right: 10px;
           cursor: pointer;
+          &__comment {
+            margin-right: 10px;
+            color: $mid-gray;
+          }
+          &__like-count {
+            margin-left: 10px;
+          }
         }
       }
     }
@@ -176,6 +217,9 @@ export default {
   display: flex;
   margin-right: 10px;
   cursor: pointer;
+  .like_btn{
+    color: #F91880;
+  }
 }
 
 /* 愛心效果試做
