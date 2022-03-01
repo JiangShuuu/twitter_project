@@ -31,12 +31,14 @@
               >@{{ reply.TargetTweet.TweetAuthor.account }}</router-link
             >
           </div>
-          <router-link
-            :to="{ name: 'reply-list', params: { id: reply.TweetId } }"
-            class="tweet_info_content"
-          >
-            {{ reply.TargetTweet.description }}
-          </router-link>
+          <div class="tweet_info_content">
+            <router-link
+              :to="{ name: 'reply-list', params: { id: reply.TweetId } }"
+              class="tweet_info_content_text"
+            >
+              {{ reply.TargetTweet.description }}
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -112,7 +114,7 @@ export default {
   height: 135px;
   display: flex;
   &_avatar {
-    width: 80px;
+    min-width: 80px;
     @include flexCenter;
     align-items: flex-start;
     &_img {
@@ -166,8 +168,13 @@ export default {
       }
     }
     &_content {
-      all: unset;
-      cursor: pointer;
+      width: 100%;
+      padding-right: 15px;
+      overflow-wrap: anywhere;
+      &_text {
+        all: unset;
+        cursor: pointer;
+      }
     }
   }
 }

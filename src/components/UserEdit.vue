@@ -167,6 +167,7 @@ export default {
         this.fetchUserData();
         this.$emit("is-loading");
       } catch (error) {
+        this.$emit("is-loading");
         Toast.fire({
           icon: "error",
           title: error.message,

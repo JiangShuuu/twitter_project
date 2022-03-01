@@ -28,7 +28,10 @@
           </router-link>
           <div class="following-icons">
             <div class="icons">
-              <router-link class="icons__comment" :to="{ name: 'reply-list', params: { id: tweet.id } }">
+              <router-link
+                class="icons__comment"
+                :to="{ name: 'reply-list', params: { id: tweet.id } }"
+              >
                 <i class="fa-regular fa-comment"></i>
               </router-link>
               <span class="icons__reply-count">{{ tweet.replyCount }}</span>
@@ -58,23 +61,18 @@
         </div>
       </div>
     </div>
-    <ReplyModal />
   </div>
 </template>
 
 <script>
 // import store from "./../store";
 import tweetsAPI from "./../apis/tweets";
-import ReplyModal from "./../components/ReplyModal.vue";
 import { fromNowFilter } from "./../utils/mixins";
 import { Toast } from "./../utils/helpers";
 
 export default {
   name: "Tweets",
   mixins: [fromNowFilter],
-  components: {
-    ReplyModal,
-  },
   props: {
     initialTweet: {
       type: Array,
@@ -87,10 +85,6 @@ export default {
       isLiked: false,
     };
   },
-  // watch: {
-    // 重新拉資料進來
-  //   },
-  // },
   methods: {
     async likeTweet(id) {
       console.log(id);
@@ -105,7 +99,6 @@ export default {
           icon: "success",
           title: data.message,
         });
-
       } catch (error) {
         Toast.fire({
           icon: "warning",
@@ -126,7 +119,6 @@ export default {
           icon: "success",
           title: data.message,
         });
-
       } catch (error) {
         Toast.fire({
           icon: "warning",
@@ -143,7 +135,6 @@ export default {
 .main-content {
   border-left: 1px solid $dividerColor;
   border-right: 1px solid $dividerColor;
-  height: 85%;
 }
 .contents {
   width: 100%;
@@ -217,8 +208,8 @@ export default {
   display: flex;
   margin-right: 10px;
   cursor: pointer;
-  .like_btn{
-    color: #F91880;
+  .like_btn {
+    color: #f91880;
   }
 }
 

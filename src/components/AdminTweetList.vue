@@ -152,6 +152,7 @@ export default {
     }
     &_content {
       width: 400px;
+      overflow-wrap: anywhere;
       &_text {
         overflow: hidden;
         text-overflow: ellipsis;
