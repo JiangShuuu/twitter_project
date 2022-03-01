@@ -12,7 +12,7 @@
       </div>
       <Popular />
     </div>
-    <CreateTweets :currentUser="currentUser" />
+    <CreateTweets @modal-create-tweet="afterCreateTweet" />
   </main>
 </template>
 <script>

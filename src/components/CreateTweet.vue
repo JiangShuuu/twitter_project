@@ -37,7 +37,7 @@
             </textarea>
           </div>
           <button
-            type="button"
+            type="submit"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
@@ -50,13 +50,11 @@
 </template>
 <script>
 import tweetsAPI from "./../apis/tweets";
+import { mapState } from "vuex";
 export default {
   name: "CreateTweet",
-  props: {
-    currentUser: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapState(["currentUser"]),
   },
   data() {
     return {
@@ -66,14 +64,12 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        console.log('modal')
+        console.log("modal");
         const { data } = await tweetsAPI.createTweets({
           description: this.description,
         });
-        console.log(data)
-        this.$emit("modalCreateTweet", {
-          description: this.description,
-        });
+        console.log(data);
+        this.$emit("modal-create-tweet");
         this.description = ""; // 將表單內的資料清空
       } catch (error) {
         console.error(error);

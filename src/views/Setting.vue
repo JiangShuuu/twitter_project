@@ -14,6 +14,7 @@
         </div>
       </div>
     </div>
+    <CreateTweets />
   </div>
 </template>
 
@@ -23,10 +24,11 @@ import NavBar from "../components/NavBar.vue";
 import store from "./../store";
 import { Toast } from "./../utils/helpers";
 import usersAPI from "./../apis/users.js";
+import CreateTweets from "../components/CreateTweet.vue";
 
 export default {
   name: "Setting",
-  components: { AccountForm, NavBar },
+  components: { AccountForm, NavBar, CreateTweets },
   data() {
     return {
       currentUser: {

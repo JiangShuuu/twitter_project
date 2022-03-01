@@ -44,7 +44,7 @@ export default {
   name: "Following",
   props: {
     initialUser: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
