@@ -22,9 +22,13 @@ export default {
   getUsersTop() {
     return apiHelper.get("api/users/top");
   },
-  // 追隨者頁面
-  getUserFollow(id) {
+  // 正在追隨頁面
+  getUserFollowing(id) {
     return apiHelper.get(`api/users/${id}/followings`);
+  },
+  // 追隨者頁面
+  getUserFollowers(id) {
+    return apiHelper.get(`api/users/${id}/followers`);
   },
   addFollow({ id }) {
     return apiHelper.post("api/followships", { id });

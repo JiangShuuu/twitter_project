@@ -1,9 +1,9 @@
 <template>
   <section class="follows">
     <div class="follows-content">
-      <div class="follows-list">
+      <div v-for="user in users" :key="user.Followship.id" class="follows-list">
         <img
-          src="../assets/image/Photo.png"
+          :src="user.avatar"
           alt="avatar on screen"
           class="follows-list__avatar"
         />
@@ -13,7 +13,7 @@
             <span class="follows-title__account">@{{ user.account }}</span>
             <button
               v-if="user.isFollowed"
-              @click.stop.prevent="deleteFollow()"
+              @click.stop.prevent="deleteFollow(user.Followship.followerId)"
               type="button"
               class="follows-title__followed"
             >
@@ -21,7 +21,7 @@
             </button>
             <button
               v-else
-              @click.stop.prevent="addFollow()"
+              @click.stop.prevent="addFollow(user.Followship.followerId)"
               type="button"
               class="follows-title__follow"
             >
@@ -29,7 +29,7 @@
             </button>
           </div>
           <p class="follows-item__description">
-            {{ user.description }}
+            {{ user.introduction }}
           </p>
         </div>
       </div>
@@ -38,41 +38,87 @@
 </template>
 
 <script>
-import { ToastWarning } from "./../utils/helpers";
+// import { ToastWarning } from "./../utils/helpers";
+import usersAPI from "./../apis/users";
 
 export default {
-  name: "Following",
-  props: {
-    initialUser: {
-      type: Object,
-      required: true,
-    },
-  },
+  name: "Follows",
   data() {
     return {
-      user: this.initialUser,
+      users: [],
     };
   },
+  mounted() {
+    this.fetchFollowers();
+  },
   methods: {
-    addFollow() {
-      this.user.isFollowed = true;
+    async fetchFollowers() {
+      try {
+        const id = this.$route.params.id;
+        const response = await usersAPI.getUserFollowers(id);
+        console.log(response.data);
+        this.users = response.data;
+      } catch (error) {
+        console.error(error);
+      }
     },
-    deleteFollow() {
-      ToastWarning.fire({
-        title: "確定要取消追蹤嗎?",
-        // text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "是",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          ToastWarning.fire("OK!", "已經取消追蹤", "success");
-          this.user.isFollowed = false;
-        }
-      });
+    async deleteFollow(userId) {
+      try {
+        const { data } = await usersAPI.deleteFollow({ userId });
+        console.log(data);
+        this.users = this.users.map((user) => {
+          if (user.id !== userId) {
+            return user;
+          } else {
+            return {
+              ...user,
+              isFollowed: false,
+            };
+          }
+        });
+        this.fetchFollowers();
+      } catch (error) {
+        console.log(error);
+      }
     },
+    async addFollow(id) {
+      try {
+        const { data } = await usersAPI.addFollow({ id });
+        console.log(data);
+        this.users = this.users.map((user) => {
+          if (user.id !== id) {
+            return user;
+          } else {
+            return {
+              ...user,
+              isFollowed: true,
+            };
+          }
+        });
+        this.fetchFollowers();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // addFollow() {
+    //   this.user.isFollowed = true;
+    // },
+    // deleteFollow() {
+    //   ToastWarning.fire({
+    //     title: "確定要取消追蹤嗎?",
+    //     // text: "You won't be able to revert this!",
+    //     icon: "warning",
+    //     showCancelButton: false,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "是",
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       ToastWarning.fire("OK!", "已經取消追蹤", "success");
+    //       this.user.isFollowed = false;
+    //     }
+    //   });
+    // },
   },
 };
 </script>
@@ -91,11 +137,15 @@ export default {
     border-bottom: none;
   }
   .follows-list {
+    border-bottom: 1px solid $dividerColor;
     padding: 5px 0px 0px 15px;
-    height: 105px;
+    min-height: 105px;
     display: flex;
     align-items: flex-start;
     &__avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
       margin-top: 5px;
       margin-right: 10px;
     }
