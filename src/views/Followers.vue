@@ -5,9 +5,6 @@
       <div class="follows-content">
         <FollowsTabs />
         <router-view 
-        :initial-user="user"
-        v-for="user in users"
-        :key="user.id"
         />
       </div>
       <Popular />
