@@ -49,6 +49,7 @@ export default {
   mounted() {
     this.fetchUserInfo();
     this.fetchTweets();
+    this.movefunction(1000);
   },
   methods: {
     fetchUserInfo() {
@@ -59,12 +60,6 @@ export default {
       try {
         const { data } = await tweetsAPI.getTweets();
         this.tweets = data;
-        // 數據更新後，通知組件
-
-        // callback在第二次呼叫後會失效，故先用promise叫套件
-        // await callback();
-
-        await this.movefunction(100);
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -100,17 +95,6 @@ export default {
       // 作法2. 直接重新fetchAPI
       this.fetchTweets();
     },
-    // ----
-    // 因為你原本的$emit叫 after-create-tweet
-
-    // 不知道為什麼modal吃不到submit的資料
-    // modalCreateTweet(payload) {
-    //   const description  = payload;
-    //   this.tweets.push({
-    //     description,
-    //   })
-    //   this.fetchTweets()
-    // }
   },
 };
 </script>

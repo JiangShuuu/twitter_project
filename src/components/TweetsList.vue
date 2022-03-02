@@ -44,14 +44,14 @@
               <li
                 class="unlike_btn"
                 v-show="tweet.isLiked === false"
-                @click.once="likeTweet(tweet.id)"
+                @click="likeTweet(tweet.id)"
               >
                 <i class="fa-regular fa-heart"></i>
               </li>
               <li
                 class="like_btn"
                 v-show="tweet.isLiked === true"
-                @click.once="unlikeTweet(tweet.id)"
+                @click="unlikeTweet(tweet.id)"
               >
                 <i class="fa-solid fa-heart"></i>
               </li>
@@ -89,6 +89,7 @@ export default {
   },
   mounted() {
     this.fetchUserTweets();
+    this.movefunction(1000);
   },
   methods: {
     async fetchUserTweets() {
@@ -96,13 +97,11 @@ export default {
         const pramsId = this.$route.params.id;
         const { data } = await userAPI.getUserTweet(pramsId);
 
-        // 目前後端API不會拋錯，故這邊待測試
         if (data.status === "error") {
           throw new Error(data.message);
         }
 
         this.tweets = data;
-        await this.movefunction(100);
       } catch (error) {
         Toast.fire({
           icon: "warning",
@@ -138,7 +137,7 @@ export default {
           title: data.message,
         });
 
-        await this.fetchUserTweets();
+        this.fetchUserTweets();
       } catch (error) {
         Toast.fire({
           icon: "warning",
@@ -159,7 +158,7 @@ export default {
           title: data.message,
         });
 
-        await this.fetchUserTweets();
+        this.fetchUserTweets();
       } catch (error) {
         Toast.fire({
           icon: "warning",

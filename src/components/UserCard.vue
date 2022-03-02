@@ -55,9 +55,11 @@
           ><span class="num">{{ userProfile.followingCount }}個</span>
           跟隨中</router-link
         >
-        <span class="follower"
+        <router-link
+          :to="{ name: 'follows', params: { id: this.$route.params.id } }"
+          class="follower"
           ><span class="num">{{ userProfile.followerCount }}位</span>
-          跟隨者</span
+          跟隨者</router-link
         >
       </div>
     </div>

@@ -230,11 +230,12 @@ export default {
     height: 200px;
     overflow: hidden;
     background: $mid-gray;
-
     img {
       object-fit: cover;
       width: 100%;
       height: 100%;
+      // 這行部屬會有問題，本地執行不會
+      opacity: 75%;
     }
   }
   &_avatar {
@@ -249,9 +250,10 @@ export default {
     background: $light-gray;
     img {
       object-fit: cover;
-
       width: 100%;
       height: 100%;
+      // 這行部屬會有問題，本地執行不會
+      opacity: 75%;
     }
   }
   &_edit_icon {
