@@ -25,14 +25,14 @@
           </div>
           <div class="user_detail_area">
             <span class="follows"
-              ><router-link to="/user/following" class="num"
-                >{{ user.followingCount }}個</router-link
+              ><span to="/user/following" class="num"
+                >{{ user.followingCount }}個</span
               >
               跟隨中</span
             >
             <span class="follower"
-              ><router-link to="/user/follows" class="num"
-                >{{ user.followerCount }}位</router-link
+              ><span to="/user/follows" class="num"
+                >{{ user.followerCount }}位</span
               >
               跟隨者</span
             >

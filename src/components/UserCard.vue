@@ -36,12 +36,24 @@
         <i class="fa-regular fa-bell"></i>
       </li>
       <button
+        v-if="this.isFollowed"
+        @click.once="df"
+        :class="[
+          'other_btn_following',
+          { active: userProfile.id === this.$route.params.id },
+        ]"
+      >
+        正在跟隨
+      </button>
+      <button
+        v-else
+        @click.once="addFollow(14)"
         :class="[
           'other_btn_follow',
           { active: userProfile.id === this.$route.params.id },
         ]"
       >
-        正在跟隨
+        跟隨
       </button>
     </div>
     <div class="user_detail">
@@ -70,7 +82,10 @@
 
 <script>
 import { mapState } from "vuex";
+import store from "./../store";
 import UserEdit from "../components/UserEdit.vue";
+import usersAPI from "./../apis/users";
+
 export default {
   name: "UserCard",
   components: {
@@ -83,6 +98,9 @@ export default {
     return {
       isUsers: true,
       isProcess: false,
+      isFollowed: false,
+      currentUserId: "",
+      following: [],
     };
   },
   watch: {
@@ -95,15 +113,71 @@ export default {
     this.fetchUserInfo();
   },
   methods: {
+    df() {
+      this.isFollowed = false;
+    },
     async fetchUserInfo() {
       const pramsId = this.$route.params.id;
       await this.$store.dispatch("fetchUserInfo", { payload: pramsId });
+      const { id } = store.state.currentUser;
+      this.currentUserId = id;
+      this.following = store.state.userProfile.Followings;
+  
+      console.log(this.following[0].id)
     },
     confirmRouter() {
       if (this.$route.path.includes("other")) {
         this.isUsers = false;
       } else if (this.$route.name.includes("users")) {
         this.isUsers = true;
+      }
+    },
+    // async deleteFollow(userId) {
+    //   try {
+    //     const { data } = await usersAPI.deleteFollow({ userId });
+    //     console.log(data);
+    //     this.users = this.users.map((user) => {
+    //       if (user.id !== userId) {
+    //         return user;
+    //       } else {
+    //         return {
+    //           ...user,
+    //           isFollowed: false,
+    //         };
+    //       }
+    //     });
+    //     this.$emit("update-follows");
+
+    //     // 即時更新當前使用者追蹤人數
+    //     const currentUser = this.$store.state.currentUser;
+    //     this.$store.dispatch("fetchUserInfo", { payload: currentUser.id });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
+    async addFollow() {
+      try {
+        // const {currentUserId} =  this.currentUserId;
+        const { data } = await usersAPI.addFollow(14);// 這裡的ID是指當前使用者id
+        console.log(data);
+        this.following = this.following.map((follower) => {
+            if (follower.id === 14) {
+              return follower;
+            } else {
+              return {
+                ...follower,
+                isFollowed: true,
+              };
+            }
+          }
+        );
+        // this.$emit("update-follows");
+
+        // 即時更新當前使用者追蹤人數
+        // const currentUser = this.$store.state.currentUser;
+        // this.$store.dispatch("fetchUserInfo", { payload: currentUser.id });
+      } catch (error) {
+        console.log(error);
       }
     },
   },
@@ -273,21 +347,30 @@ export default {
       }
     }
   }
-  &_follow {
+  &_following {
     all: unset;
+    @include btn-selected(120px, null);
     border: 1px solid $orange;
-    background: $orange;
-    color: white;
-    width: 120px;
     text-align: center;
     padding: 5px 0;
-    border-radius: 50px;
     font-size: 15px;
-    font-weight: 700;
     cursor: pointer;
     &:hover {
       background: white;
       color: $orange;
+    }
+  }
+  &_follow {
+    all: unset;
+    @include btn-unselected(120px, null);
+    border: 1px solid $orange;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 15px;
+    cursor: pointer;
+    &:hover {
+      background: $orange;
+      color: white;
     }
   }
   .active {
