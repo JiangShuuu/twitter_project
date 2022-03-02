@@ -21,7 +21,7 @@
 
           <ValidationProvider
             name="Name"
-            rules="max_tweet_length:10|min_tweet_length:0"
+            rules="max_tweet_length:140|min_tweet_length:0"
             v-slot="{ errors }"
           >
             <div class="modal-tweets">
