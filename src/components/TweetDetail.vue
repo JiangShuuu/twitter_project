@@ -125,7 +125,11 @@ export default {
   },
   data() {
     return {
-      tweetDetail: {},
+      tweetDetail: {
+        TweetAuthor: {
+          avatar: "",
+        },
+      },
       replies: [],
       isLiked: false,
     };
