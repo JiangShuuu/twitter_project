@@ -238,22 +238,4 @@ export default {
     color: #f91880;
   }
 }
-
-/* 愛心效果試做
-
-.icons {
-  &__heart {
-    position: relative;
-    color: #aab8c2;
-    cursor: pointer;
-    &--checkbox {
-      position: absolute;
-      left: -100vw;
-      
-    }
-    &--checkbox:checked + .icons__heart {
-      color: #e2264d;
-    }
-  }
-} */
 </style>
