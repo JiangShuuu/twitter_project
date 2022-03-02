@@ -8,8 +8,6 @@
     </div>
     <div class="following-content">
       <div class="following-list">
-        <!-- 嘗試要連結到其他user,但還不知道怎麼取得user.id -->
-        <!-- <router-link :to="{ name: 'other', params: { id: user.id } }"> -->
         <img
           :src="tweetDetail.TweetAuthor.avatar"
           alt="avatar on screen"
@@ -75,30 +73,32 @@
         </li>
       </div>
     </div>
-    <div class="reply">
-      <div v-for="reply in replies" :key="reply.id" class="reply-list">
-        <img
-          :src="reply.ReplyAuthor.avatar"
-          alt="avatar on screen"
-          class="reply-list__avatar"
-        />
-        <div class="reply-item">
-          <span class="reply-item__name">{{ reply.ReplyAuthor.name }}</span>
-          <span class="reply-item__account"
-            >@{{ reply.ReplyAuthor.account }}</span
-          >
-          <span class="reply-item__icon">&#8226;</span>
-          <span class="reply-item__date">{{
-            reply.ReplyAuthor.updatedAt | fromNow
-          }}</span>
-          <div class="reply-detail">
-            <span class="reply-detail__header">回覆</span>
-            <span class="reply-detail__account"
-              >@{{ tweetDetail.TweetAuthor.account }}</span
+    <div div class="contents_scroll">
+      <div class="reply">
+        <div v-for="reply in replies" :key="reply.id" class="reply-list">
+          <img
+            :src="reply.ReplyAuthor.avatar"
+            alt="avatar on screen"
+            class="reply-list__avatar"
+          />
+          <div class="reply-item">
+            <span class="reply-item__name">{{ reply.ReplyAuthor.name }}</span>
+            <span class="reply-item__account"
+              >@{{ reply.ReplyAuthor.account }}</span
             >
-          </div>
-          <div class="reply-item__content">
-            <p class="reply-item__description">{{ reply.comment }}</p>
+            <span class="reply-item__icon">&#8226;</span>
+            <span class="reply-item__date">{{
+              reply.ReplyAuthor.updatedAt | fromNow
+            }}</span>
+            <div class="reply-detail">
+              <span class="reply-detail__header">回覆</span>
+              <span class="reply-detail__account"
+                >@{{ tweetDetail.TweetAuthor.account }}</span
+              >
+            </div>
+            <div class="reply-item__content">
+              <p class="reply-item__description">{{ reply.comment }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -116,6 +116,7 @@ import ReplyModal from "../components/ReplyModal.vue";
 import tweetsAPI from "../apis/tweets";
 import { fromNowFilter } from "./../utils/mixins";
 import { Toast } from "./../utils/helpers";
+import BetterScroll from "better-scroll";
 
 export default {
   name: "TweetDetail",
@@ -132,6 +133,7 @@ export default {
   },
   mounted() {
     this.fetchTweetsDetail();
+    this.movefunction(1000);
   },
   methods: {
     async fetchTweetsDetail() {
@@ -139,7 +141,8 @@ export default {
         const id = this.$route.params.id;
         const response = await tweetsAPI.getTweetDetail({ id });
         this.tweetDetail = response.data;
-        this.replies = response.data.Replies;
+        // 反轉排序
+        this.replies = response.data.Replies.reverse();
       } catch (error) {
         console.log(error);
       }
@@ -191,12 +194,33 @@ export default {
         });
       }
     },
+    movefunction(s) {
+      return new Promise(function (resolve) {
+        setTimeout(() => {
+          resolve(
+            new BetterScroll(".contents_scroll", {
+              mouseWheel: true, //開啟滑鼠滾動
+              disableMouse: false, //關閉滑鼠拖動
+              disableTouch: false, //關閉手指觸摸
+              scrollX: true, //X軸滾動開啟
+              click: true,
+            })
+          );
+        }, s);
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/All.scss";
+/* better-scroll卷軸css */
+.contents_scroll {
+  width: 100%;
+  height: 55%;
+  overflow: hidden;
+}
 .main-content {
   border-left: 1px solid $dividerColor;
   border-right: 1px solid $dividerColor;
