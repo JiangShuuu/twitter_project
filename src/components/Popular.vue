@@ -16,7 +16,7 @@
           <router-link
             class="pop-text__account"
             :to="{ name: 'other', params: { id: user.id } }"
-            >{{ user.account }}</router-link
+            >@{{ user.account }}</router-link
           >
         </div>
         <div class="pop-btn">
@@ -165,12 +165,14 @@ export default {
         border-radius: 50px;
       }
       .pop-text {
-        @include flexCenter;
+        display: flex;
+        justify-content: flex-start;
         flex-direction: column;
-        margin-left: 10px;
+        margin: 0 40px 0 10px;
+        gap: 5px;
         &__name,
         &__account {
-          line-height: 15px;
+          @include longText;
           @include font-w700(15px);
         }
         &__name {

@@ -142,6 +142,8 @@ export default {
         font-size: 15px;
         font-weight: 700;
         margin-right: 5px;
+        @include longText;
+        max-width: 40%;
       }
       &_account {
         font-size: 15px;

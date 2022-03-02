@@ -32,11 +32,11 @@
           </p>
         </div>
         <span class="following-item__time">{{
-          tweetDetail.updatedAt | fromNow
+          tweetDetail.createdAt | fromTime
         }}</span>
         <span class="following-item__icon">&#8226;</span>
         <span class="following-item__date">{{
-          tweetDetail.createdAt | fromNow
+          tweetDetail.createdAt | fromDay
         }}</span>
       </div>
     </div>

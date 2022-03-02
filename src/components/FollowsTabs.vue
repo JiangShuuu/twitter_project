@@ -58,6 +58,7 @@ export default {
       .user_name {
         font-size: 19px;
         font-weight: 900;
+        @include longText;
       }
       .user_tweet {
         font-size: 13px;
