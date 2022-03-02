@@ -36,8 +36,8 @@
         <i class="fa-regular fa-bell"></i>
       </li>
       <button
-        v-if="this.isFollowed"
-        @click.once="df"
+
+        @click.once="deleteFollow(userProfile.id)"
         :class="[
           'other_btn_following',
           { active: userProfile.id === this.$route.params.id },
@@ -46,8 +46,7 @@
         正在跟隨
       </button>
       <button
-        v-else
-        @click.once="addFollow(14)"
+        @click.once="addFollow(userProfile.id)"
         :class="[
           'other_btn_follow',
           { active: userProfile.id === this.$route.params.id },
@@ -99,8 +98,10 @@ export default {
       isUsers: true,
       isProcess: false,
       isFollowed: false,
-      currentUserId: "",
-      following: [],
+      currentUser: {
+        id: "",
+      },
+      follower: [],
     };
   },
   watch: {
@@ -113,17 +114,18 @@ export default {
     this.fetchUserInfo();
   },
   methods: {
-    df() {
-      this.isFollowed = false;
-    },
     async fetchUserInfo() {
       const pramsId = this.$route.params.id;
       await this.$store.dispatch("fetchUserInfo", { payload: pramsId });
+      // 取得當前使用者的id
       const { id } = store.state.currentUser;
-      this.currentUserId = id;
+      this.currentUser.id = id;
+      // 取得使用者頁面的被追蹤名單
+      this.isFollowed = store.state.userProfile.isFollowed;
+      // 取得使用者正在追蹤的名單
       this.following = store.state.userProfile.Followings;
-  
-      console.log(this.following[0].id)
+      // 取得使用者頁面的被追蹤的狀態True/False
+      this.follower = store.state.userProfile.Followers;
     },
     confirmRouter() {
       if (this.$route.path.includes("other")) {
@@ -132,50 +134,43 @@ export default {
         this.isUsers = true;
       }
     },
-    // async deleteFollow(userId) {
-    //   try {
-    //     const { data } = await usersAPI.deleteFollow({ userId });
-    //     console.log(data);
-    //     this.users = this.users.map((user) => {
-    //       if (user.id !== userId) {
-    //         return user;
-    //       } else {
-    //         return {
-    //           ...user,
-    //           isFollowed: false,
-    //         };
-    //       }
-    //     });
-    //     this.$emit("update-follows");
-
-    //     // 即時更新當前使用者追蹤人數
-    //     const currentUser = this.$store.state.currentUser;
-    //     this.$store.dispatch("fetchUserInfo", { payload: currentUser.id });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
-    async addFollow() {
+    async deleteFollow(userId) {
       try {
-        // const {currentUserId} =  this.currentUserId;
-        const { data } = await usersAPI.addFollow(14);// 這裡的ID是指當前使用者id
+        console.log('執行刪除')
+        const { data } = await usersAPI.deleteFollow({ userId });
         console.log(data);
-        this.following = this.following.map((follower) => {
-            if (follower.id === 14) {
-              return follower;
-            } else {
-              return {
-                ...follower,
-                isFollowed: true,
-              };
-            }
-          }
-        );
-        // this.$emit("update-follows");
 
-        // 即時更新當前使用者追蹤人數
-        // const currentUser = this.$store.state.currentUser;
-        // this.$store.dispatch("fetchUserInfo", { payload: currentUser.id });
+        this.follower = this.follower.map((follower) => {
+          if (follower.id !== userId) {
+            return follower;
+          } else {
+            return {
+              ...follower,
+            };
+          }
+        });
+        this.isFollowed = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addFollow(id) {
+      try {
+        console.log('執行追蹤')
+        console.log(id);
+        const { data } = await usersAPI.addFollow({ id });
+        console.log(data);
+        
+        this.follower = this.follower.map((follower) => {
+          if (follower.id !== id) {
+            return follower;
+          } else {
+            return {
+              ...follower,
+            };
+          }
+        });
+        this.isFollowed = true;
       } catch (error) {
         console.log(error);
       }
@@ -355,10 +350,10 @@ export default {
     padding: 5px 0;
     font-size: 15px;
     cursor: pointer;
-    &:hover {
+    /* &:hover {
       background: white;
       color: $orange;
-    }
+    } */
   }
   &_follow {
     all: unset;
@@ -368,10 +363,10 @@ export default {
     padding: 5px 0;
     font-size: 15px;
     cursor: pointer;
-    &:hover {
+    /* &:hover {
       background: $orange;
       color: white;
-    }
+    } */
   }
   .active {
     background: $orange;
