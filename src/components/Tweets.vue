@@ -42,7 +42,7 @@
                   <li
                     class="like_btn"
                     v-show="tweet.isLiked === true"
-                    @click="unlikeTweet(tweet.id)"
+                    @click.once="unlikeTweet(tweet.id)"
                   >
                     <i class="icon fa-solid fa-heart"></i>
                   </li>
@@ -51,7 +51,7 @@
                   <li
                     class="unlike_btn"
                     v-show="tweet.isLiked === false"
-                    @click="likeTweet(tweet.id)"
+                    @click.once="likeTweet(tweet.id)"
                   >
                     <i class="icon fa-regular fa-heart"></i>
                   </li>
@@ -102,14 +102,14 @@ export default {
           title: data.message,
         });
 
-        // await this.fetchTweetsDetail();
+        // 這行目前會造成執行多次
+        this.$emit("update-tweet");
       } catch (error) {
         Toast.fire({
           icon: "warning",
           title: error.message,
         });
       }
-
     },
     async unlikeTweet(id) {
       console.log(id);
@@ -124,6 +124,9 @@ export default {
           icon: "success",
           title: data.message,
         });
+
+        // 這行目前會造成執行多次
+        this.$emit("update-tweet");
       } catch (error) {
         Toast.fire({
           icon: "warning",
@@ -148,6 +151,7 @@ export default {
 }
 .following-content {
   border-bottom: 1px solid $dividerColor;
+
   &:last-child {
     border-bottom: none;
   }
@@ -166,6 +170,8 @@ export default {
     .following-item {
       flex: 1;
       margin-right: 10px;
+      // 加了這行
+      margin-bottom: 15px;
       &__name,
       &__description {
         font-size: 15px;

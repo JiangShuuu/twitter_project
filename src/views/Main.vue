@@ -6,7 +6,7 @@
         <MainCard @modal-create-tweet="afterCreateTweet" />
         <div class="contents">
           <div div class="contents_scroll">
-            <Tweets :initialTweet="tweets" />
+            <Tweets :initialTweet="tweets" @update-tweet="afterCreateTweet" />
           </div>
         </div>
       </div>

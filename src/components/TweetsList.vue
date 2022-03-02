@@ -126,7 +126,6 @@ export default {
       });
     },
     async likeTweet(id) {
-      console.log(id);
       try {
         const { data } = await tweetAPI.likeTweets(id);
 
@@ -148,7 +147,6 @@ export default {
       }
     },
     async unlikeTweet(id) {
-      console.log(id);
       try {
         const { data } = await tweetAPI.unLikeTweets(id);
 
