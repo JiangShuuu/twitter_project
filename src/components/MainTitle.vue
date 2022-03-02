@@ -2,25 +2,32 @@
   <form @submit.stop.prevent="handleSubmit">
     <div class="tweets-header">
       <h2 class="tweets-title">首頁</h2>
-      <div class="tweets-create">
-        <img
-          :src="currentUser.avatar"
-          alt="avatar on screen"
-          class="tweets-create__avatar"
-        />
-        <textarea
-          name="mytext"
-          rows="6"
-          cols="40"
-          maxlength="140"
-          class="tweets-create__text"
-          placeholder="有什麼新鮮事?"
-          required
-          v-model="description"
-        >
-        </textarea>
-        <button class="btn tweets-create__btn">推文</button>
-      </div>
+      <ValidationProvider
+        name="Name"
+        rules="max_tweet_length:140|tweet_empty"
+        v-slot="{ errors }"
+      >
+        <div class="tweets-create">
+          <img
+            :src="currentUser.avatar"
+            alt="avatar on screen"
+            class="tweets-create__avatar"
+          />
+          <textarea
+            name="mytext"
+            rows="6"
+            cols="40"
+            maxlength="140"
+            class="tweets-create__text"
+            placeholder="有什麼新鮮事?"
+            required
+            v-model="description"
+          >
+          </textarea>
+          <span class="error_message">{{ errors[0] }}</span>
+          <button class="btn tweets-create__btn">推文</button>
+        </div>
+      </ValidationProvider>
     </div>
   </form>
 </template>
@@ -117,7 +124,7 @@ export default {
       resize: none;
       border: none;
       margin-top: 10px;
-      overflow-y:hidden;
+      overflow-y: hidden;
       &:focus {
         outline: none;
       }
@@ -137,5 +144,11 @@ export default {
       bottom: 10px;
     }
   }
+}
+.error_message {
+  position: absolute;
+  bottom: 1rem;
+  right: 6rem;
+  color: red;
 }
 </style>
