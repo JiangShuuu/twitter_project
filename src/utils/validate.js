@@ -65,23 +65,21 @@ extend("max_tweet_length", {
   ...max,
   message: "字數不可超過140個字",
 });
-extend("min_tweet_length", {
-  ...min,
-  message: "內容不可空白",
-});
 
-extend("pass", (value) => {
-  if (
-    value.indexOf(" ") >= 0 ||
-    value == null ||
-    value.indexOf(" ") >= 0 ||
-    value == null
-  ) {
-    return "請輸入正確帳號!";
+extend("tweet_empty", (value) => {
+  let arrStr = value.split(""); //將字串轉換為陣列
+  for (let i = 0; i < arrStr.length; i++) {
+    if (arrStr[i] === " ") {
+      arrStr[i] = "";
+    }
   }
+  arrStr = arrStr.join("");
+
+  if (arrStr.length > 0) {
+    return true;
+  }
+  return "內容不可空白";
 });
 
 Vue.component("ValidationProvider", ValidationProvider);
-
-// 用confirmed 明天查官方文件
 Vue.component("ValidationObserver", ValidationObserver);
