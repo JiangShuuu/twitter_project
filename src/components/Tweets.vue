@@ -42,7 +42,7 @@
                   <li
                     class="like_btn"
                     v-show="tweet.isLiked === true"
-                    @click.once="unlikeTweet(tweet.id)"
+                    @click="unlikeTweet(tweet.id)"
                   >
                     <i class="icon fa-solid fa-heart"></i>
                   </li>
@@ -51,7 +51,7 @@
                   <li
                     class="unlike_btn"
                     v-show="tweet.isLiked === false"
-                    @click.once="likeTweet(tweet.id)"
+                    @click="likeTweet(tweet.id)"
                   >
                     <i class="icon fa-regular fa-heart"></i>
                   </li>
@@ -89,7 +89,6 @@ export default {
   },
   methods: {
     async likeTweet(id) {
-      console.log(id);
       try {
         const { data } = await tweetsAPI.likeTweets(id);
 
@@ -102,7 +101,6 @@ export default {
           title: data.message,
         });
 
-        // 這行目前會造成執行多次
         this.$emit("update-tweet");
       } catch (error) {
         Toast.fire({
@@ -112,7 +110,6 @@ export default {
       }
     },
     async unlikeTweet(id) {
-      console.log(id);
       try {
         const { data } = await tweetsAPI.unLikeTweets(id);
 
@@ -125,7 +122,6 @@ export default {
           title: data.message,
         });
 
-        // 這行目前會造成執行多次
         this.$emit("update-tweet");
       } catch (error) {
         Toast.fire({
