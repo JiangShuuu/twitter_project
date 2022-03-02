@@ -231,6 +231,7 @@ export default {
     overflow: hidden;
     background: $mid-gray;
     opacity: 75%;
+    z-index: 2;
     img {
       object-fit: cover;
       width: 100%;
@@ -247,6 +248,7 @@ export default {
     bottom: -35%;
     left: 15px;
     background: $light-gray;
+    z-index: 2;
     img {
       object-fit: cover;
       opacity: 75%;
