@@ -25,6 +25,14 @@
   font-weight: 700;
 }
 
+@mixin longText{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 
 @mixin mobile {
   @media (max-width: 768px) {
