@@ -44,7 +44,13 @@
               <span class="error_message">{{ errors[0] }}</span>
             </div>
           </ValidationProvider>
-          <button type="submit" class="btn btn-secondary">推文</button>
+          <button
+            type="submit"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            推文
+          </button>
         </div>
       </div>
     </div>
