@@ -28,7 +28,7 @@
               跟隨
             </button>
           </div>
-          <p class="follows-item__description">
+          <p class="follows-title__description">
             {{ user.introduction }}
           </p>
         </div>
@@ -150,7 +150,7 @@ export default {
   }
   .follows-list {
     border-bottom: 1px solid $dividerColor;
-    padding: 5px 0px 0px 15px;
+    padding: 10px 0px 10px 15px;
     min-height: 105px;
     display: flex;
     align-items: flex-start;
@@ -174,9 +174,12 @@ export default {
       }
       &__description {
         margin-top: 5px;
+        padding-right: 25px;
       }
       &__name {
         font-weight: 700;
+        @include longText;
+        width: 70%;
       }
       &__account {
         font-size: 15px;

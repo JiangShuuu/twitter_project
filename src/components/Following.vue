@@ -6,15 +6,26 @@
         :key="user.Followship.id"
         class="following-list"
       >
-        <img
-          :src="user.avatar"
-          alt="avatar on screen"
-          class="following-list__avatar"
-        />
+        <router-link
+          :to="{ name: 'other', params: { id: user.Followship.followingId } }"
+        >
+          <img
+            :src="user.avatar"
+            alt="avatar on screen"
+            class="following-list__avatar"
+          />
+        </router-link>
         <div class="following-item">
           <div class="following-title">
             <span class="following-title__name">{{ user.name }}</span>
-            <span class="following-title__account">@{{ user.account }}</span>
+            <router-link
+              :to="{
+                name: 'other',
+                params: { id: user.Followship.followingId },
+              }"
+            >
+              <span class="following-title__account">@{{ user.account }}</span>
+            </router-link>
             <button
               v-if="user.isFollowed"
               @click.stop.prevent="deleteFollow(user.Followship.followingId)"
@@ -32,7 +43,7 @@
               跟隨
             </button>
           </div>
-          <p class="following-item__description">
+          <p class="following-title__description">
             {{ user.introduction }}
           </p>
         </div>
@@ -152,7 +163,7 @@ export default {
   border-top: 1px solid $dividerColor;
   .following-list {
     border-bottom: 1px solid $dividerColor;
-    padding: 5px 0px 0px 15px;
+    padding: 10px 0px 10px 15px;
     min-height: 105px;
     display: flex;
     align-items: flex-start;
@@ -179,9 +190,12 @@ export default {
       }
       &__description {
         margin-top: 5px;
+        padding-right: 25px;
       }
       &__name {
         font-weight: 700;
+        @include longText;
+        width: 30%;
       }
       &__account {
         font-size: 15px;

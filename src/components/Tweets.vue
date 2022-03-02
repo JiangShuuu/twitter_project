@@ -6,20 +6,26 @@
       :key="tweet.id"
     >
       <div class="following-list">
-        <img
-          :src="tweet.TweetAuthor.avatar"
-          alt="avatar on screen"
-          class="following-list__avatar"
-        />
+        <router-link :to="{ name: 'other', params: { id: tweet.UserId } }">
+          <img
+            :src="tweet.TweetAuthor.avatar"
+            alt="avatar on screen"
+            class="following-list__avatar"
+          />
+        </router-link>
         <div class="following-item">
-          <span class="following-item__name">{{ tweet.TweetAuthor.name }}</span>
-          <span class="following-item__account"
-            >@{{ tweet.TweetAuthor.account }}</span
-          >
-          <span class="following-item__icon">&#8226;</span>
-          <span class="following-item__date">{{
-            tweet.createdAt | fromNow
-          }}</span>
+          <div class="following-header">
+            <span class="following-header__name">{{
+              tweet.TweetAuthor.name
+            }}</span>
+            <span class="following-header__account"
+              >@{{ tweet.TweetAuthor.account }}</span
+            >
+            <span class="following-header__icon">&#8226;</span>
+            <span class="following-header__date">{{
+              tweet.createdAt | fromNow
+            }}</span>
+          </div>
           <div class="following-item__content">
             <router-link
               class="following-item__description"
@@ -152,7 +158,7 @@ export default {
     border-bottom: none;
   }
   .following-list {
-    padding: 10px 0px 0px 15px;
+    padding: 10px 0px 10px 15px;
     display: flex;
     align-items: flex-start;
     &__avatar {
@@ -164,11 +170,24 @@ export default {
       margin-right: 10px;
     }
     .following-item {
-      flex: 1;
       margin-right: 10px;
-      // 加了這行
-      margin-bottom: 15px;
-      &__name,
+      .following-header {
+        display: flex;
+        &__name {
+          @include longText;
+          max-width: 40%;
+          margin-right: 5px;
+          font-weight: 700;
+          font-size: 15px;
+          color: $black;
+        }
+        &__account,
+        &__date {
+          font-size: 15px;
+          color: $mid-gray;
+        }
+      }
+
       &__description {
         font-size: 15px;
         color: $black;
@@ -186,22 +205,15 @@ export default {
         margin-top: 5px;
         display: flex;
       }
-      &__name {
-        font-weight: 700;
-      }
-      &__account,
-      &__date {
-        font-size: 15px;
-        color: $mid-gray;
-      }
     }
   }
 }
 .following-icons {
-  font-size: 15px;
+  font-size: 13px;
   color: $mid-gray;
   width: 130px;
-  margin-top: 10px;
+  padding-left: 2px;
+  padding-top: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
