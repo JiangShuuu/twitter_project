@@ -1,5 +1,6 @@
 # 推特協作專案(前後分離)
-Demo:這裡要補上佈署後的連結
+Demo: https://jiangshuuu.github.io/twitter_project/
+![alt text](https://github.com/JiangShuuu/twitter_project/blob/main/src/assets/DemoGif.gif)
 ## 瀏覽專案
 ### 使用者測試帳號:
   
@@ -61,6 +62,16 @@ npm run serve
 ```
 Listening on http://localhost:8080
 ```
+
+## MAC M1 啟動錯誤
+若在步驟 4 出現一卡車錯誤並且無顯示 node_modules 資料夾，代表安裝失敗，修正如下：
+```
+npm remove node-sass
+```
+```
+npm install sass
+```
+接著重新接續 步驟4 即可
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
