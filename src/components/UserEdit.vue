@@ -235,7 +235,7 @@ export default {
       width: 100%;
       height: 100%;
       // 這行部屬會有問題，本地執行不會
-      opacity: 75%;
+      opacity: 0.75;
     }
   }
   &_avatar {
@@ -253,7 +253,7 @@ export default {
       width: 100%;
       height: 100%;
       // 這行部屬會有問題，本地執行不會
-      opacity: 75%;
+      opacity: 0.75;
     }
   }
   &_edit_icon {
