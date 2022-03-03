@@ -36,8 +36,8 @@
         <i class="fa-regular fa-bell"></i>
       </li>
       <button
-
-        @click.once="deleteFollow(userProfile.id)"
+        v-show="isFollowed"
+        @click="deleteFollow(userProfile.id)"
         :class="[
           'other_btn_following',
           { active: userProfile.id === this.$route.params.id },
@@ -46,7 +46,8 @@
         正在跟隨
       </button>
       <button
-        @click.once="addFollow(userProfile.id)"
+        v-show="!isFollowed"
+        @click="addFollow(userProfile.id)"
         :class="[
           'other_btn_follow',
           { active: userProfile.id === this.$route.params.id },
@@ -136,7 +137,7 @@ export default {
     },
     async deleteFollow(userId) {
       try {
-        console.log('執行刪除')
+        console.log("執行刪除");
         const { data } = await usersAPI.deleteFollow({ userId });
         console.log(data);
 
@@ -156,11 +157,11 @@ export default {
     },
     async addFollow(id) {
       try {
-        console.log('執行追蹤')
+        console.log("執行追蹤");
         console.log(id);
         const { data } = await usersAPI.addFollow({ id });
         console.log(data);
-        
+
         this.follower = this.follower.map((follower) => {
           if (follower.id !== id) {
             return follower;
