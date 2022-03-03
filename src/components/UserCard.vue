@@ -105,8 +105,17 @@ export default {
       follower: [],
     };
   },
+  props: {
+    initialPopular: {
+      type: Boolean,
+      required: true,
+    },
+  },
   watch: {
     $route: function () {
+      this.fetchUserInfo();
+    },
+    initialPopular: function () {
       this.fetchUserInfo();
     },
   },
@@ -150,6 +159,7 @@ export default {
             };
           }
         });
+        this.$emit("update-popular");
         this.isFollowed = false;
       } catch (error) {
         console.log(error);
@@ -171,6 +181,7 @@ export default {
             };
           }
         });
+        this.$emit("update-popular");
         this.isFollowed = true;
       } catch (error) {
         console.log(error);

@@ -125,8 +125,7 @@ export default {
         this.$emit("update-follows");
 
         // 即時更新當前使用者追蹤人數
-        const currentUser = this.$store.state.currentUser;
-        this.$store.dispatch("fetchCurrentUser", { payload: currentUser.id });
+        this.$store.dispatch("fetchCurrentUser");
       } catch (error) {
         console.log(error);
       }
