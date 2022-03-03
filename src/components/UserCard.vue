@@ -5,16 +5,16 @@
         <i class="fa-solid fa-arrow-left"></i>
       </div>
       <div class="user_title_area">
-        <span class="user_name">{{ userProfile.name }}</span>
-        <span class="user_tweet">{{ userProfile.tweetCount }} 推文</span>
+        <span class="user_name">{{ initialUserProfile.name }}</span>
+        <span class="user_tweet">{{ initialUserProfile.tweetCount }} 推文</span>
       </div>
     </div>
     <div class="user_image">
       <div class="user_image_background">
-        <img :src="userProfile.cover" alt="" />
+        <img :src="initialUserProfile.cover" alt="" />
       </div>
       <div class="user_image_avatar">
-        <img :src="userProfile.avatar" alt="" />
+        <img :src="initialUserProfile.avatar" alt="" />
       </div>
     </div>
 
@@ -36,7 +36,7 @@
         <i class="fa-regular fa-bell"></i>
       </li>
       <button
-
+        v-show="isFollowed === true"
         @click.once="deleteFollow(userProfile.id)"
         :class="[
           'other_btn_following',
@@ -46,6 +46,7 @@
         正在跟隨
       </button>
       <button
+        v-show="isFollowed === false"
         @click.once="addFollow(userProfile.id)"
         :class="[
           'other_btn_follow',
@@ -56,20 +57,20 @@
       </button>
     </div>
     <div class="user_detail">
-      <span class="user_detail_name">{{ userProfile.name }}</span>
-      <span class="user_detail_account">@{{ userProfile.account }}</span>
-      <span class="user_detail_test">{{ userProfile.introduction }} </span>
+      <span class="user_detail_name">{{ initialUserProfile.name }}</span>
+      <span class="user_detail_account">@{{ initialUserProfile.account }}</span>
+      <span class="user_detail_test">{{ initialUserProfile.introduction }} </span>
       <div class="user_detail_area">
         <router-link
           :to="{ name: 'user', params: { id: this.$route.params.id } }"
           class="follows"
-          ><span class="num">{{ userProfile.followingCount }}個</span>
+          ><span class="num">{{ initialUserProfile.followingCount }}個</span>
           跟隨中</router-link
         >
         <router-link
           :to="{ name: 'follows', params: { id: this.$route.params.id } }"
           class="follower"
-          ><span class="num">{{ userProfile.followerCount }}位</span>
+          ><span class="num">{{ initialUserProfile.followerCount }}位</span>
           跟隨者</router-link
         >
       </div>
@@ -100,8 +101,10 @@ export default {
       isFollowed: false,
       currentUser: {
         id: "",
+        name:'',
       },
       follower: [],
+      initialUserProfile: []
     };
   },
   watch: {
@@ -120,6 +123,8 @@ export default {
       // 取得當前使用者的id
       const { id } = store.state.currentUser;
       this.currentUser.id = id;
+      // 取得userProfile
+      this.initialUserProfile = store.state.userProfile
       // 取得使用者頁面的被追蹤名單
       this.isFollowed = store.state.userProfile.isFollowed;
       // 取得使用者正在追蹤的名單
