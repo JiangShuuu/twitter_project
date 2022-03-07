@@ -36,7 +36,7 @@
         <i class="fa-regular fa-bell"></i>
       </li>
       <button
-
+        v-show="isFollowed"
         @click.once="deleteFollow(userProfile.id)"
         :class="[
           'other_btn_following',
@@ -46,6 +46,7 @@
         正在跟隨
       </button>
       <button
+        v-show="!isFollowed"
         @click.once="addFollow(userProfile.id)"
         :class="[
           'other_btn_follow',
@@ -84,6 +85,7 @@ import { mapState } from "vuex";
 import store from "./../store";
 import UserEdit from "../components/UserEdit.vue";
 import usersAPI from "./../apis/users";
+import { Toast } from "./../utils/helpers";
 
 export default {
   name: "UserCard",
@@ -104,8 +106,17 @@ export default {
       follower: [],
     };
   },
+  props: {
+    initialPopular: {
+      type: Boolean,
+      required: true,
+    },
+  },
   watch: {
     $route: function () {
+      this.fetchUserInfo();
+    },
+    initialPopular: function () {
       this.fetchUserInfo();
     },
   },
@@ -136,9 +147,11 @@ export default {
     },
     async deleteFollow(userId) {
       try {
-        console.log('執行刪除')
         const { data } = await usersAPI.deleteFollow({ userId });
-        console.log(data);
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
 
         this.follower = this.follower.map((follower) => {
           if (follower.id !== userId) {
@@ -149,18 +162,25 @@ export default {
             };
           }
         });
+        // 需要將資料改變的消息告訴popular
+        this.$emit("update-popular");
         this.isFollowed = false;
       } catch (error) {
-        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
     },
     async addFollow(id) {
       try {
-        console.log('執行追蹤')
-        console.log(id);
         const { data } = await usersAPI.addFollow({ id });
         console.log(data);
-        
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
         this.follower = this.follower.map((follower) => {
           if (follower.id !== id) {
             return follower;
@@ -170,9 +190,13 @@ export default {
             };
           }
         });
+        this.$emit("update-popular");
         this.isFollowed = true;
       } catch (error) {
-        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
     },
   },

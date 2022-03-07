@@ -3,11 +3,17 @@
     <div class="users_main">
       <NavBar />
       <div class="users_content">
-        <UserCard />
+        <UserCard
+          :initial-popular="popularUpdate"
+          @update-popular="popularUpdate = !popularUpdate"
+        />
         <TweetTabs />
         <router-view />
       </div>
-      <Popular :initial-popular="popularUpdate" />
+      <Popular
+        :initial-popular="popularUpdate"
+        @update-follows="popularUpdate = !popularUpdate"
+      />
     </div>
     <CreateTweets />
   </section>
